@@ -1,0 +1,5 @@
+<sqlinstruction>
+<event server="#server_bankerstoolboxdb#" database="WNBUtility" timeout="3600">
+<executesql>EXECUTE [BankersToolbox_Change_Views_Back_to_Tables]</executesql> 
+</event>
+</sqlinstruction>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="TRANSFER">
+	<queues total="4" bulksize="1000" errorthreshold="255" />
+	<source location="\\woodforest.net\jobs\temp\lh\Archon\TRANSFER" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="DC1CPDEVSQL01\ACTIVITY" database="BanklineWNB" entity="AUTOMATICTRANSFER"
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<validation check="#import_validation#" />
+	<mappings>
+		<map index="3" column="ACCT" filecolumn="ID ACCT NUM" ignore="0"/>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="2" column="ACCT_TYPE" filecolumn="ID ACCT TYPE" ignore="0" />
+		<map index="1" column="ID_DIRECTION" filecolumn="ID DIRECTION" ignore="0" />
+		<map index="4" column="RECIPIENT_ACCT" filecolumn="RECIPIENT ACCT" ignore="0" expression="([0-9]*)" group="2"  />
+		<map index="4" column="RECIPIENT_ACCT_TYPE" filecolumn="RECIPIENT ACCT" ignore="0" expression="([A-Z]{33)" group="1"  />
+		<map index="5" column="TRANSFER_AMT" filecolumn="TRANSFER AMT" ignore="0" />
+		<map index="6" column="TRANSFER_DAY" filecolumn="TRANSFER DAY" ignore="0" />
+		<map index="7" column="DATE_AUTHORIZED" filecolumn="DATE AUTHORIZED" ignore="0" />
+		<map index="8" column="OPERATOR" filecolumn="OPERATOR" ignore="0" />
+		<map index="9" column="CLN_EXTRA" filecolumn="CLN EXTRA" ignore="0" />
+		<map index="10" column="DATE_NEXT" filecolumn="DATE NEXT" ignore="0" />
+		<map index="11" column="DATE_EXPIRE" filecolumn="DATE EXPIRE" ignore="0" />
+	</mappings>
+</import>
+

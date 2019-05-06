@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  RefundTracking from Staging table to Settlement
+	-->
+	<event server="#server_activitydb#" database="#database_Activity#" timeout="2700">
+		<executesql>EXEC spRTBuildUpload</executesql>
+	</event>
+</sqlinstruction>

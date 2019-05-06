@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures for Creates all GL entries relating to Gift Card sales.
+	-->
+	<event server="#server_tellerplusdb#" database="TellerPlus2" timeout="300">
+		<executesql>EXEC dbo.spInsertGiftCardPurchases</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Teller - Build TellerPlus Transactions by Time Statistics
+	-->
+	<event server="#WNBDB#" database="WNB" timeout="300">
+		<executesql>exec spTellerPlusBuildTranByTime</executesql>
+	</event>
+	
+</sqlinstruction>

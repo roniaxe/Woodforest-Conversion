@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="cscript" args="#directory_scripts#\sqlops_SQLMaint_Integrity_Check.vbs BRCAPTXDB" ignoreout="0" checkexitcode="1" />
+</commands>
+
+

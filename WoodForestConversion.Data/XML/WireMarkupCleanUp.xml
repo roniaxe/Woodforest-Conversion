@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+<move file="#import_download#\WIRE_TRANS.zip" to="#import_archive#\WIRE_TRANS.zip" /> 
+<delete file="#import_extractto#\WIRE_TRANS.xml" /> 
+<delete file="#import_download#\WIRE_TRANS.XXX" /> 
+</fileinstructions>

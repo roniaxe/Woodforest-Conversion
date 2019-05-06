@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="\\Woodforest.net\jobs\Archon2\Scripts\NRHDeleteBackupBankersToolbox2.bat" args="" ignoreout="1" />
+</commands>

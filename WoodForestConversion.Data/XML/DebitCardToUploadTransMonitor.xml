@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Debit Card Fees to UploadTrans - Monitor
+	-->
+- <event server="#server_activitydb#" database="#database_woodforest#" timeout="1000">
+		<executesql>EXEC dbo.util_MonitorDebitCardFees</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_voyagerdb#" database="WNBUtil" timeout="600">
+<executesql>
+
+DECLARE @date DATETIME, @FailureRate DECIMAL(20,6), @Threshold DECIMAL(20,6)
+	SET @date = convert(varchar,getdate(),101)
+	SET @Threshold = .20
+
+
+SELECT DISTINCT 
+      CONVERT(VARCHAR,[DateTime],101) as FormattedDate,
+      SUM(CASE WHEN succeeded = 1 THEN 1 ELSE 0 END) AS TotalSuccesses,
+      SUM(CASE WHEN succeeded = 0 THEN 1 ELSE 0 END) AS TotalFailures
+INTO #Fail
+FROM Auditlog.dbo.CCAuditLogEntryView (nolock)
+
+	WHERE TrxID = 'GetFormattedStatement'
+  AND [DateTime] BETWEEN @date AND DATEADD(dd,1,@date)
+GROUP BY CONVERT(VARCHAR,[DateTime],101)
+ORDER BY CONVERT(VARCHAR,[DateTime],101)
+
+SELECT 
+      @FailureRate = CONVERT(DECIMAL(20,2),TotalFailures)/CONVERT(DECIMAL(20,2),(TotalFailures + TotalSuccesses))
+FROM #Fail
+
+IF @FailureRate > @Threshold
+	BEGIN
+		RAISERROR (N'Estatement failure rate is high.  Follow linked document for Estatement troubleshooting',16,2)
+	END
+
+Drop table #Fail
+
+</executesql>
+</event>
+</sqlinstruction>
+

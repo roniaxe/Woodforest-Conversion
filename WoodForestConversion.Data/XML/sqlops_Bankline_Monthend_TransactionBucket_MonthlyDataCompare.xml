@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Step 3. Pulls a monthly count of data to verify the trend is going up (except for purge month) 
+	-->
+	<event server="DataWarehouseDB" database="TransactionBucket" timeout="28800">
+		<executesql>EXEC dbo.TransactionBucket_MonthlyDataCompare_Email</executesql>
+	</event>
+</sqlinstruction>

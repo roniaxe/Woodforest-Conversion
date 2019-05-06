@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  REX CL005	-->
+	<event server="#server_activityDB#" database="#database_woodforest#" timeout="1800">
+		<executesql>exec HostMerge_UpdateLoanAccount</executesql>
+	</event>
+</sqlinstruction>

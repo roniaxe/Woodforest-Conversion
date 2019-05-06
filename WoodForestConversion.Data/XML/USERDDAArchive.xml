@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+<move file="#import_download#\USERDDA.zip" to="#import_archive#\USERDDA.zip" />
+<move file="#import_download#\USERDDA.xxx" to="#import_archive#\USERDDA.xxx" />
+<delete file="#import_extractto#\USERDDA" />
+</fileinstructions>

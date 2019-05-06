@@ -1,0 +1,5 @@
+<sqlinstruction>
+- <event server="PRISMDB" database="WNBUtility" timeout="1500">
+		<executesql>EXEC DetailPurgeData</executesql>
+	</event>
+</sqlinstruction>

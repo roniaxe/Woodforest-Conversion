@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_wnbutility#" timeout="100000">
+		<executesql>EXEC dbo.AssetVerificationVerifyData</executesql>
+	</event>
+</sqlinstruction>

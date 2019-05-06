@@ -1,0 +1,5 @@
+<sqlinstruction>
+<event server="#server_activitydb#" database="WNBUtility" timeout="900">
+<executesql>EXEC dbo.spUSERATM_Updates</executesql>
+</event>
+</sqlinstruction>

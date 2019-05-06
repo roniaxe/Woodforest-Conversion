@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_Miniondb#" database="Minion" timeout="21600">
+  		<executesql>EXEC Alert.DriveSpace @EmailProfile='SQLMinion',@ServiceLevel='Bronze', @DefaultThreshold=15, @IncludeDefer = 1, @IncludeException = 1, @IncludeChange = 1</executesql>
+  	</event>
+</sqlinstruction>

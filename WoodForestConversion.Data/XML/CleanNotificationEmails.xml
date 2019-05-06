@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures after LQAS DTS jobs have completed
+	-->
+	<event server="#server_ofcdb#" database="#database_ofcdb#" timeout="900">
+		<executesql>EXEC Util_CleanNotificationEmail</executesql>
+	</event>
+</sqlinstruction>

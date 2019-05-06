@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Settlements - XBord Fees
+	-->
+	<event server="#server_activitydb#" database="#database_staging#" timeout="14400">
+		<executesql>exec dbo.Util_RefundForiegnATMFees</executesql>
+	</event>
+</sqlinstruction>

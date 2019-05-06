@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\woodforest.net\jobs\AMBIT\" search="*.csv" to="\\Msivambweb03\Ambit Data\Inputs\" />
+  </fileinstructions>

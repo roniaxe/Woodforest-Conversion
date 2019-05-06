@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+<monitor file="#import_download#\TRANSFER.xxx" />
+<monitor file="#import_download#\TRANSFER.zip" />
+<unzip file="#import_download#\TRANSFER.zip" to="#import_extractto#\" extract="#import_extractbase#/TRANSFER" />
+</fileinstructions>

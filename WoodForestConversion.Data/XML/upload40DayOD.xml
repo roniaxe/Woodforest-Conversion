@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <move file="\\woodforest.net\Jobs\ODLetters\40DayOD.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\#DATE(MMddyyyy)#_40DayOD.txt" />
+</fileinstructions>

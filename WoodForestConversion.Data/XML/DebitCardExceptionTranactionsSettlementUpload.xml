@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command exec="C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\dtexec.exe" args="/F \\woodforest.net\Jobs\Archon2\SSIS\Packages\DebitCardExceptionTranactionsSettlementUpload.dtsx" ignoreout="0" checkexitcode="1" />
+</commands>

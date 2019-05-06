@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="#vego_flagpath#\Available\Daemon_Flag.txt" to="#vego_flagpath#\Executing\Daemon_Flag.txt" />
+</fileinstructions>

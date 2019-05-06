@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<commands>
+  <command exec="#Archon_Apps2012#\BanclinePDFMaker\PDFMaker.BancLine.exe" args="--startDate #YESTERDAY(MM/dd/yyyy)# --emailSummary " checkexitcode="1" />
+</commands>

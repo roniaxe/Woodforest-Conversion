@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<copy file="#olx_apps#\Billpay\FundsVerification\Outgoing" search="WNBEP3286I.#DATE(yyyyMMdd)#*.xml" to="\\sftp.woodforest.net\users\products\fisbp\outgoing" />		
+	<move file="#olx_apps#\Billpay\FundsVerification\Outgoing" search="WNBEP3286I.#DATE(yyyyMMdd)#*.xml" to="#olx_apps#\Billpay\FundsVerification\Outgoing\Archive"/>	
+	<move file="#olx_apps#\Billpay\FundsVerification\Incoming" search="WNBEP3286o.#DATE(yyyyMMdd)#*.xml" to="#olx_apps#\Billpay\FundsVerification\Incoming\Archive"/>
+</fileinstructions>

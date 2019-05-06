@@ -1,0 +1,1060 @@
+<sqlinstruction>
+<event server="#server_bankerstoolboxdb#" database="bsav2_Woodforest" timeout="36000">
+<executesql>
+
+/*
+Starting to track version numbers on BAM+ Sync effective 7/15/2014 starting with 1.0.1
+
+Version 1.0.1	7/15/2014 JM
+*/		
+		
+/************ new addition*****************/
+
+if exists (select 1 from information_schema.tables where table_name = ''AccountsWithDefaultGroupingAttributes'')
+    drop table AccountsWithDefaultGroupingAttributes
+
+select AccountID = e.AccountID, 
+       AccountNumber = a.accid, ApplicationCode = a.acctyp, InstitutionNumber = a.insnum, 
+       ProductGroupCode = b.flexdata2, ProductGroup = convert(varchar(20), null),
+       BSARiskCode = e.BSARiskCode, BSARiskGroup = convert(varchar(20), null)
+  into AccountsWithDefaultGroupingAttributes
+  from bsav2_master_account a
+       left join bsav2_search_list c
+           on c.sealisid = 90     -- product code
+          and a.acctyp = c.flexdata5
+          and a.clacod = c.lasnam
+          and a.insnum = c.insnum
+       left join bsav2_search_list b
+           on b.sealisid = 4005   -- product group
+          and c.flexdata3 = b.flexdata1
+	   left join Accounts_CombinedView e
+	       on a.acctyp = e.ApplicationCode
+		  and a.accid = e.AccountNumber
+		  and a.insnum = e.InstitutionNumber
+ order by e.AccountID
+go
+
+update AccountsWithDefaultGroupingAttributes
+   set ProductGroup = ''Personal''
+ where ProductGroupCode in (''Consumer Checking'', ''Personal'')
+
+update AccountsWithDefaultGroupingAttributes
+   set ProductGroup = ''Business''
+ where ProductGroupCode in (''Business Checking'', ''Business'')
+
+
+
+update AccountsWithDefaultGroupingAttributes
+   set ProductGroup = ''Others''
+ where ProductGroupCode in (''Certificates'', ''Loans'', ''Savings/MM'') or ProductGroupCode is null
+
+update AccountsWithDefaultGroupingAttributes
+   set BSARiskGroup = ''High''
+ where BSARiskCode in (''H'', ''High'')
+
+update AccountsWithDefaultGroupingAttributes
+   set BSARiskGroup = ''Others''
+ where BSARiskCode not in (''H'', ''High'') or BSARiskCode is null
+
+--------
+
+--
+-- Code Migration Destination: Scenario datamart ETL script
+-- ETL process job: create TransactionSummariesByMonth. Any summary scenarios can use it.
+-- 41 minutes
+--
+
+--------
+
+
+if exists (select 1 from information_schema.tables where table_name = ''TransactionSummariesByMonth'')
+    drop table TransactionSummariesByMonth
+
+if exists (select 1 from information_schema.tables where table_name = ''tempTranSummary'')
+    drop table tempTranSummary 
+    
+if exists (select 1 from information_schema.tables where table_name = ''tempAccountyeamon'')
+    drop table tempAccountyeamon
+
+    				select YearMonth = cast(convert(datetime, convert(varchar, month(a.BusinessDate)) + ''/01/'' + 
+								   convert(varchar, year(a.BusinessDate))) as datetime),
+					   a.AccountID, b.TransactionTypeCode,
+					   TransactionAmount = sum(coalesce(a.TransactionAmount,0)), 
+					   CreditAmount = sum(coalesce(a.CreditAmount,0)), 
+					   DebitAmount = sum(coalesce(a.DebitAmount,0)), 
+					   CashInAmount = sum(coalesce(a.CashInAmount,0)), 
+					   CashOutAmount = sum(coalesce(a.CashOutAmount,0)), 
+					   CheckAmount = sum(coalesce(a.CheckAmount,0)), 
+					   TransactionCount = sum(coalesce(a.TransactionCount,0)),  
+					   CreditCount = sum(coalesce(a.CreditCount,0)),  
+					   DebitCount = sum(coalesce(a.DebitCount,0)),  
+					   CashInCount = sum(coalesce(a.CashInCount,0)),  
+					   CashOutCount = sum(coalesce(a.CashOutCount,0)),  
+					   CheckCount = sum(coalesce(a.CheckCount,0))
+					   into tempTranSummary
+				from TransactionSummaries a
+					   inner join TransactionTypes b
+						   on a.TransactionTypeID = b.TransactionTypeID
+						   AND a.BusinessDate > GETDATE()-366
+				 group by convert(datetime, convert(varchar, month(a.BusinessDate)) + ''/01/'' + 
+						  convert(varchar, year(a.BusinessDate))),
+						  a.AccountID, b.TransactionTypeCode;
+						  
+		  
+						  
+SELECT a.ACCOUNTID,
+       a.ACCOUNTNUMBER,
+       e.APPLICATIONCODE,
+       m.InstitutionNumber,
+       am.yeamon
+       into tempAccountyeamon
+FROM   dbo.ACCOUNTS a
+       INNER JOIN dbo.APPLICATIONS e
+         ON a.APPLICATIONID = e.APPLICATIONID
+       INNER JOIN dbo.BRANCHES i
+         ON a.BRANCHID = i.BRANCHID
+       INNER JOIN dbo.INSTITUTIONS m
+         ON i.INSTITUTIONID = m.INSTITUTIONID
+       INNER JOIN bsav2_account_monthly am
+       		on am.accid = a.ACCOUNTNUMBER
+			and am.acctyp = e.APPLICATIONCODE
+			and am.insnum = m.INSTITUTIONNUMBER
+			AND am.yeamon > GETDATE()-366; 
+			  
+	
+CREATE UNIQUE CLUSTERED INDEX [yeamon_AccountID_tempAccountyeamon] on tempAccountyeamon
+([yeamon],[AccountID]);	
+
+CREATE UNIQUE CLUSTERED INDEX [YEARMONTH_AccountID_TypeCode_tempTranSummary] on tempTranSummary
+([YearMonth],[AccountID],[TransactionTypeCode]);	  
+
+select YearMonth = a.yeamon
+       , a.ACCOUNTID, c.TransactionTypeCode,
+       TransactionAmount = sum(coalesce(d.TransactionAmount,0)), 
+       CreditAmount = sum(coalesce(d.CreditAmount,0)), 
+       DebitAmount = sum(coalesce(d.DebitAmount,0)), 
+       CashInAmount = sum(coalesce(d.CashInAmount,0)), 
+       CashOutAmount = sum(coalesce(d.CashOutAmount,0)), 
+       CheckAmount = sum(coalesce(d.CheckAmount,0)), 
+       TransactionCount = sum(coalesce(d.TransactionCount,0)),  
+       CreditCount = sum(coalesce(d.CreditCount,0)),  
+       DebitCount = sum(coalesce(d.DebitCount,0)),  
+       CashInCount = sum(coalesce(d.CashInCount,0)),  
+       CashOutCount = sum(coalesce(d.CashOutCount,0)),  
+       CheckCount = sum(coalesce(d.CheckCount,0))
+into TransactionSummariesByMonth
+from tempAccountyeamon a
+	inner join TransactionTypes c
+		on 1=1
+	left join tempTranSummary d
+		on a.yeamon = d.YearMonth
+			and a.ACCOUNTID = d.AccountID
+			and d.TransactionTypeCode = c.TransactionTypeCode
+where c.TransactionTypeCode is not null 
+group by a.yeamon, a.ACCOUNTID, c.TransactionTypeCode
+go
+          
+--------
+
+--
+-- Code Migration Destination: syncdb, Transactions sync part
+-- Vego ATM with cash writes one cash rec into validated_transaction and one ATM rec into other_transaction.
+-- Merge them back to one record on Transactions side.
+--
+-- look at syncdb Transactions.sql file.
+--
+		  
+--
+-- Code Migration Destination: syncdb
+-- MI sync
+--
+
+--------
+
+declare @OptionValueTransactionPeriodNumberOfDays int;
+set @OptionValueTransactionPeriodNumberOfDays = 120;
+
+INSERT INTO MonetaryInstrumentTypes
+    (MonetaryInstrumentTypeCode,
+    Name,
+    IsCashierCheck,
+    IsMoneyOrder,
+    IsTravelerCheck,
+    IsActive,
+    CreatedDate,
+    CreatedBy )
+select distinct
+    MonetaryInstrumentTypeCode = c.TransactionDescription,
+    Name = coalesce (c.TransactionDescription, ''''),
+    IsCashierCheck = 0,
+    IsMoneyOrder = 0,
+    IsTravelerCheck = 0,
+    1,
+    GetDate(),
+    888
+  from TransactionSummaries a
+       inner join TransactionTypes b
+           on a.TransactionTypeID = b.TransactionTypeID 
+          and b.TransactionTypeCode = ''I''
+       inner loop join Transactions c
+           on a.BusinessDate = c.BusinessDate
+          and a.AccountID = c.AccountID
+          and c.TransactionTypeID = b.TransactionTypeID 
+       left join MonetaryInstrumentTypes d
+           on c.TransactionDescription = d.MonetaryInstrumentTypeCode
+where d.MonetaryInstrumentTypeID is null
+  and a.BusinessDate >= convert(datetime, convert(varchar, getdate() - @OptionValueTransactionPeriodNumberOfDays, 102))
+
+--------
+
+--
+-- Code Migration Destination: Scenario datamart ETL script
+-- One time migration: use v_detail_transaction on c.RawTransactionID = e.id, instead of other_transaction
+-- on going forward, it is guaranteed to be other_transaction since it will be Vego only.
+
+
+
+if OBJECT_ID(''tempdb..#Temp_TransactionMonetaryInstrumentDetails'') IS NOT NULL
+drop table #Temp_TransactionMonetaryInstrumentDetails
+
+
+set @OptionValueTransactionPeriodNumberOfDays = 120;
+
+select c.TransactionID, Purchaser = coalesce(e.purnam, ''''), Payee = coalesce(e.paynam, ''''),
+       CheckNumber = coalesce(e.cheno, ''''), d.MonetaryInstrumentTypeID
+  into #Temp_TransactionMonetaryInstrumentDetails
+  from TransactionSummaries a
+       inner join TransactionTypes b
+           on a.TransactionTypeID = b.TransactionTypeID 
+          and b.TransactionTypeCode = ''I''
+       inner loop join Transactions c
+           on a.BusinessDate = c.BusinessDate
+          and a.AccountID = c.AccountID
+          and c.TransactionTypeID = b.TransactionTypeID 
+       inner join MonetaryInstrumentTypes d
+           on c.TransactionDescription = d.MonetaryInstrumentTypeCode
+       inner loop join bsav2_other_transaction e
+           on substring(c.RawTransactionID, 2, 1000) = e.id
+           AND e.tblsrc = ''I''
+           AND e.tradat >= convert(datetime, convert(varchar, getdate() - @OptionValueTransactionPeriodNumberOfDays, 102))
+where a.BusinessDate >= convert(datetime, convert(varchar, getdate() - @OptionValueTransactionPeriodNumberOfDays, 102))
+and left(c.TransactionDescription,8) <> ''DELETED:''
+go
+
+update a
+set    Purchaser = b.Purchaser,
+       Payee = b.Payee,
+       CheckNumber = b.CheckNumber,
+       MonetaryInstrumentTypeID = b.MonetaryInstrumentTypeID,
+       LastModifiedDate = GetDate(),
+       LastModifiedBy = 888
+from   TransactionMonetaryInstrumentDetails a
+       inner join #Temp_TransactionMonetaryInstrumentDetails b
+         on a.TransactionID = b.TransactionID
+where  
+        a.Purchaser     <>  b.Purchaser
+        OR a.Payee      <>  b.Payee
+        OR a.CheckNumber<>  b.CheckNumber
+        OR a.MonetaryInstrumentTypeID <> b.MonetaryInstrumentTypeID
+
+
+insert into TransactionMonetaryInstrumentDetails(TransactionID, Purchaser, Payee, CheckNumber, MonetaryInstrumentTypeID,
+            CreatedDate, CreatedBy)
+select distinct a.TransactionID, a.Purchaser, a.Payee, a.CheckNumber, a.MonetaryInstrumentTypeID,
+       getdate(), 888
+  from #Temp_TransactionMonetaryInstrumentDetails a
+       left join TransactionMonetaryInstrumentDetails b
+           on a.TransactionID = b.TransactionID
+ where b.TransactionID is null
+  
+go
+ 
+ 
+-- Transaction Details with minimum fields
+if exists (select 1 from information_schema.tables where table_name = ''TransactionsShort'')
+    drop table TransactionsShort
+
+Select t.TransactionID
+     , t.AccountID
+     , t.TellerID
+     , t.BusinessDate
+	 , IntBusinessDate = convert(int, t.BusinessDate)
+     , t.TransactionAmount
+     , CashInAmount = coalesce(t.CashInAmount, 0)
+     , CashOutAmount = coalesce(t.CashOutAmount, 0)
+     , t.TransactionDescription
+     , tt.TransactiontypeCode
+into TransactionsShort
+From Transactions t
+    INNER JOIN TransactionTypes tt ON t.TransactionTypeID = tt.TransactionTypeID
+	AND t.BusinessDate > GETDATE()-366	
+where left(t.TransactionDescription,8) <> ''DELETED:''
+order by t.BusinessDate
+go
+
+CREATE CLUSTERED INDEX [TransactionsShort_IntBusinessDate_c] ON [dbo].[TransactionsShort] 
+(
+	[IntBusinessDate] ASC,
+	[TransactiontypeCode] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+--------
+
+
+--
+-- Code Migration Destination: syncdb
+-- sync NCCT List table (Countries of Concern)
+--
+
+--------
+set identity_insert CountriesOfConcern ON
+--------
+truncate table CountriesOfConcern
+--------
+insert into CountriesOfConcern(CountryID, CountryName, Description, CreatedDate, ModifiedDate)
+select natid, natnam, descri, credat, moddat
+  from bsav2_nation_name
+--------
+set identity_insert CountriesOfConcern OFF
+--------
+
+-- End of 1.0.8 add
+
+--------
+
+/*************Changes for the sync Account classification Setting by Nishant Jadhav*/
+
+/** AccountClassificationSettings **/
+
+
+TRUNCATE TABLE AccountClassificationSettings
+
+INSERT INTO AccountClassificationSettings
+    (   Name
+	   ,TagSelector
+	   ,Tags
+	   ,BusinessTypeCodes
+	   ,TinCodeSelector
+	   ,TinCodes
+	   ,ProductCodeSelector
+	   ,ProductCodes
+	   ,AccountTypeSelector
+	   ,AccountTypes
+	   ,LastModified
+	   ,LastModifiedBy
+	)
+SELECT
+    a.Name
+   ,max(coalesce(a.TagSelector, ''''))
+   ,max(coalesce(a.Tags,''''))
+   ,max(coalesce(a.BusinessTypeCodes,''''))
+   ,max(coalesce(a.TinCodeSelector,''''))
+   ,max(coalesce(a.TinCodes,''''))
+   ,max(coalesce(a.ProductCodeSelector,''''))
+   ,max(coalesce(a.ProductCodes,''''))
+   ,max(coalesce(a.AccountTypeSelector,''''))
+   ,max(coalesce(a.AccountTypes,''''))
+   ,GETDATE()
+   ,888
+FROM
+    bsav2_Account_Classification_Settings a LEFT JOIN AccountClassificationSettings b
+    ON  a.Name = b.Name OR (a.Name is null and  b.Name  is null)
+WHERE b.Name is null
+    Group by a.Name  
+
+--------
+
+/** AccountTags **/
+if not exists ( SELECT * from AccountTags where AccountTagId  = 0 )
+    BEGIN
+        SET IDENTITY_INSERT AccountTags ON
+        INSERT INTO AccountTags
+            ( AccountTagId,
+            AccountTag,
+            Description )
+        Values
+            (0,
+            NUll,
+            '''')
+        SET IDENTITY_INSERT AccountTags OFF
+    END
+
+--------
+
+INSERT INTO AccountTags
+    ( AccountTag,
+      Description )
+SELECT
+    distinct AccountTag = a.lasnam,
+    Description    =   coalesce (a.alIFirnam, '''')    
+FROM
+     dbo.bsav2_search_list a
+     where a.sealisid = 90
+  and a.firnam = ''Account Tags''
+  and a.lasnam not in (SELECT AccountTag from  AccountTags where AccountTag is not null)
+
+
+--------
+
+
+
+UPdate AccountTags 
+     Set AccountTag = 
+        ''(''+ cast(ascii (left(AccountTag, 1)) as varchar(3)) +'')''
+        + case when len(AccountTag) >= 2 then ''('' + cast( ascii (substring(AccountTag,2,1)) as varchar(3)) +'')'' else '''' end
+        + case when len(AccountTag) >= 3 then ''('' + cast( ascii (substring(AccountTag,3,1)) as varchar(3))  +'')''  else '''' end
+from AccountTags 
+where ascii(left(AccountTag,1)) < 32 AND  (AccountTag = '''' OR AccountTag is null)
+
+--------
+
+--------
+
+/***Excluded Accounts***/
+
+
+TRUNCATE TABLE ExcludedAccounts
+
+Insert into ExcludedAccounts  (  AccountID,
+	   AccountNumber,
+	   AccountType,
+	   InstitutionNumber,
+	   CreatedDate,
+	   ModifiedDate,
+	   AutoGenerated,
+	   Comment
+	)
+	select
+  acv.ACCOUNTID,
+  da.accid,
+  da.acctyp,
+  da.insnum,
+  da.credat,
+  da.moddat,
+  da.autgen,
+  da.comtxt
+  from bsav2_dummy_account da inner join  Accounts_CombinedView acv
+  on ISNULL(da.acctyp,'''')= ISNULL(acv.APPLICATIONCODE,'''')
+		  AND ISNULL(da.accid,'''')= ISNULL(acv.ACCOUNTNUMBER,'''')
+		  AND ISNULL(da.insnum,0)= ISNULL(acv.INSTITUTIONNUMBER,0)
+ 
+--------
+--Update the CaseManager database for the subscriber combine table
+IF EXISTS (SELECT * FROM sys.databases WHERE name = ''Bktb4_CaseMgr_Db'')
+BEGIN
+	IF  EXISTS (SELECT * FROM Bktb4_CaseMgr_Db.dbo.sysobjects WHERE name = ''Subscriber_Customers_CombinedTable'') 
+		BEGIN
+			DROP TABLE Bktb4_CaseMgr_Db.dbo.Subscriber_Customers_CombinedTable
+		END	
+
+SELECT a.CustomerID,
+       a.CISNumber,
+       a.LineNumber,
+       a.Name,
+       a.FirstName,
+       LastName = case when coalesce(a.LastName, '''') = '''' then a.Name else a.LastName end,
+       a.MiddleName,
+       a.BirthDate,
+       a.IdentifyingNumber,
+       a.TIN,
+       a.IDType,
+       a.OtherIDTypeName,
+       a.IDNumber,
+       a.IDIssuingAuthority,
+       a.Occupation,
+       a.EmployerName,
+       a.HomePhone,
+       a.BusinessPhone,
+       a.IsNonResident,
+       a.OpenedDate,
+       a.ClosedDate,
+       a.OriginationCountryID,
+       OriginationCountryCode = d.COUNTRYCODE,
+       a.ResidenceCountryID,
+       ResidenceCountryCode = e.COUNTRYCODE,
+       a.CitizenshipCountryID,
+       CitizenshipCountryCode = f.COUNTRYCODE,
+       a.PermanentAddressID,
+       g.Street,
+       g.City,
+       g.StateID,
+       g.ZipCode,
+       h.StateCode,
+       h.CountryID,
+       i.CountryCode,
+       a.GenderID,
+       j.GenderCode,
+       a.TINCodeID,
+       k.TINCodeCode,
+       a.TINStatusID,
+       l.TINStatusCode,
+       a.CustomerTypeID,
+       m.CustomerTypeCode,
+       a.BranchID,
+       b.BranchNumber,
+       b.InstitutionID,
+       c.InstitutionNumber,
+       a.CreatedDate,
+       a.CreatedBy,
+       a.LastModifiedDate,
+       a.LastModifiedBy,
+       IsEntity= Convert(bit,(case when coalesce(a.IsEntity,0)=0 and (coalesce(a.FirstName,'''')='''' and coalesce(a.MiddleName,'''')='''' and (coalesce(a.LastName,'''')<>'''' or coalesce(a.Name,'''')<>'''') and a.BirthDate is null) then 1 else coalesce(a.IsEntity,0) end)),
+		acr.AccountID,
+		acc.AccountNumber,
+		acr.RelationID,
+		rel.RelationCode,
+		acr.IsPrimary
+		INTO [Bktb4_CaseMgr_Db].[dbo].[Subscriber_Customers_CombinedTable]
+FROM   CUSTOMERS a
+       INNER JOIN BRANCHES b
+         ON a.BRANCHID = b.BRANCHID
+       INNER JOIN INSTITUTIONS c
+         ON b.INSTITUTIONID = c.INSTITUTIONID
+       INNER JOIN COUNTRIES d
+         ON a.OriginationCountryID = d.COUNTRYID
+       INNER JOIN COUNTRIES e
+         ON a.RESIDENCECOUNTRYID = e.COUNTRYID
+       INNER JOIN COUNTRIES f
+         ON a.CITIZENSHIPCOUNTRYID = f.COUNTRYID
+       INNER JOIN ADDRESSES g
+         ON a.PERMANENTADDRESSID = g.ADDRESSID
+       INNER JOIN STATES h
+         ON g.STATEID = h.STATEID
+       INNER JOIN COUNTRIES i
+         ON h.COUNTRYID = i.COUNTRYID
+       INNER JOIN GENDERS j
+         ON a.GENDERID = j.GENDERID
+       INNER JOIN TINCODES k
+         ON a.TINCODEID = k.TINCODEID
+       INNER JOIN TINSTATUSES l
+         ON a.TINSTATUSID = l.TINSTATUSID
+       INNER JOIN CUSTOMERTYPES m
+         ON a.CUSTOMERTYPEID = m.CUSTOMERTYPEID
+       INNER JOIN AccountsCustomersRelations acr
+         ON a.CustomerID = acr.CustomerID
+	   INNER JOIN Accounts acc 
+		 ON acc.AccountID = acr.AccountID
+	   INNER JOIN Relations rel 
+		 ON acr.RelationID = rel.RelationID;
+		
+IF  EXISTS (SELECT * FROM Bktb4_CaseMgr_Db.dbo.sysobjects WHERE name = ''Subscriber_Accounts_CombinedTable'') 	
+	BEGIN
+		DROP TABLE [Bktb4_CaseMgr_Db].[dbo].Subscriber_Accounts_CombinedTable
+	END	
+	
+			SELECT [ACCOUNTID]
+			  ,[ACCOUNTNUMBER]
+			  ,[DBA]
+			  ,[ISCTREXEMPTED]
+			  ,[OPENEDDATE]
+			  ,[LASTSAREDDATE]
+			  ,[ISCLOSED]
+			  ,[CLOSEDDATE]
+			  ,[HOMEPHONE]
+			  ,[BUSINESSPHONE]
+			  ,[ACCOUNTSTATUSID]
+			  ,[ACCOUNTSTATUSCODE]
+			  ,[OFFICERID]
+			  ,[OFFICERCODE]
+			  ,[PRODUCTTYPEID]
+			  ,[PRODUCTTYPECODE]
+			  ,[APPLICATIONID]
+			  ,[APPLICATIONCODE]
+			  ,[BSARISKID]
+			  ,[BSARISKCODE]
+			  ,[BSAACTIVITYID]
+			  ,[BSAACTIVITYCODE]
+			  ,[MAILHANDLINGID]
+			  ,[MAILHANDLINGCODE]
+			  ,[BRANCHID]
+			  ,[BRANCHNUMBER]
+			  ,[INSTITUTIONID]
+			  ,[INSTITUTIONNUMBER]
+			  ,[BUSINESSTYPEID]
+			  ,[BUSINESSTYPECODE]
+			  ,[BUSINESSTYPEGROUPID]
+			  ,[BUSINESSTYPEGROUPCODE]
+			  ,[CustomerName]
+			  ,[CustomerCISNumber]
+			  ,[CustomerTIN]
+			  ,[TINCode]
+			  ,[CREATEDDATE]
+			  ,[CREATEDBY]
+			  ,[LASTMODIFIEDDATE]
+			  ,[LASTMODIFIEDBY]
+			  ,[IsEntity]
+			  ,[OwnerTypeCode]
+			  INTO [Bktb4_CaseMgr_Db].[dbo].[Subscriber_Accounts_CombinedTable]
+		  FROM [Accounts_CombinedView];
+
+		
+	
+	IF  EXISTS (SELECT * FROM Bktb4_CaseMgr_Db.dbo.sysobjects WHERE name = ''Subscriber_Transaction_CombinedTable'') 	
+	BEGIN
+		DROP TABLE [Bktb4_CaseMgr_Db].[dbo].Subscriber_Transaction_CombinedTable
+	END	
+
+SELECT a.TransactionID,
+       a.CalendarDateTime,
+       a.BusinessDate,
+       a.TransactionAmount,
+       a.CreditAmount,
+       a.DebitAmount,
+       a.CashInAmount,
+       a.CashOutAmount,
+       a.CheckAmount,
+       a.TransactionDescription,
+       a.ReferenceNumber,
+       a.CheckNumber,
+       a.TransactionKey,
+       a.RawtransactionID,
+       a.TransactionMemo,
+       Memo = A.TransactionMemo,
+       a.TellerID,
+       B.TellerNumber,
+       TellerBranchID = b.BranchID,
+       TellerBranchNumber = i.BranchNumber,
+       BranchNumber = i.BranchNumber,
+       TellerInstitutionID = i.InstitutionID,
+       TellerInstitutionNumber = j.InstitutionNumber,
+       a.DatafeedID,
+       c.DatafeedCode,
+       a.TransactiontypeID,
+       d.TransactiontypeCode,
+       a.ConductorNonCustomerID,
+       e.NonCustomerID,
+       NonCustomerName = E.Name,
+       NonCustomerIdentifyingNumber = E.IdentifyingNumber,
+       a.AccountID,
+       f.AccountNumber,
+       AccountBranchID = F.BranchID,
+       AccountBranchNumber = G.BranchNumber,
+       AccountInstitutionID = G.InstitutionID,
+       InstitutionNumber = H.InstitutionNumber,
+       AccountInstitutionNumber = H.InstitutionNumber,
+       f.ApplicationID,
+       k.ApplicationCode,
+       a.CreatedDate,
+       a.CreatedBy,
+       a.LastModifiedDate,
+       a.LastModifiedBy,
+       a.ConductorCustomerID,
+       a.ConductorTIN,
+       cust.CustomerID,
+       CustomerName = cust.Name,
+       CustomerIdentifyingNumber = cust.IdentifyingNumber,
+       cus.Name,
+       cus.CISNumber,
+       cus.TIN       
+       into [Bktb4_CaseMgr_Db].[dbo].Subscriber_Transaction_CombinedTable
+FROM   TRANSACTIONS a
+       INNER JOIN TELLERS b
+         ON a.TELLERID = b.TELLERID
+         AND a.BusinessDate > GETDATE()-366		 
+       INNER JOIN BRANCHES i
+         ON b.BRANCHID = i.BRANCHID
+       INNER JOIN INSTITUTIONS j
+         ON i.INSTITUTIONID = j.INSTITUTIONID
+       INNER JOIN DATAFEEDS c
+         ON a.DATAFEEDID = c.DATAFEEDID
+       INNER JOIN TRANSACTIONTYPES d
+         ON a.TRANSACTIONTYPEID = d.TRANSACTIONTYPEID
+       INNER JOIN NONCUSTOMERS e
+         ON a.CONDUCTORNONCUSTOMERID = e.NONCUSTOMERID
+       INNER JOIN CUSTOMERS cust
+         ON a.CONDUCTORCUSTOMERID = cust.CUSTOMERID
+       INNER JOIN ACCOUNTS f
+         ON a.ACCOUNTID = f.ACCOUNTID
+       INNER JOIN BRANCHES g
+         ON f.BRANCHID = g.BRANCHID
+       INNER JOIN INSTITUTIONS h
+         ON g.INSTITUTIONID = h.INSTITUTIONID
+       INNER JOIN APPLICATIONS k
+         ON f.APPLICATIONID = k.APPLICATIONID
+       INNER JOIN AccountsCustomersRelations acr
+		 ON a.AccountID = acr.AccountID
+		 AND acr.IsPrimary = 1
+	   INNER JOIN CUSTOMERS cus
+		 ON cus.CustomerID = acr.CustomerID
+	Where a.TransactionDescription not like ''DELETED:%'';
+
+ 
+END
+--------
+
+CREATE CLUSTERED INDEX [S_Transaction_TransactionID_BussDate] 
+ON [Bktb4_CaseMgr_Db].[dbo].[Subscriber_Transaction_CombinedTable] 
+([TransactionID] ASC,[BusinessDate] ASC);
+
+CREATE NONCLUSTERED INDEX [S_Transaction_AccID_AccNum] 
+ON [Bktb4_CaseMgr_Db].[dbo].[Subscriber_Transaction_CombinedTable]
+([AccountID] ASC,[AccountNumber] ASC);
+
+--------
+
+IF  EXISTS (SELECT * FROM Bktb4_CaseMgr_Db.sys.indexes WHERE object_id = OBJECT_ID(N''[dbo].[Subscriber_Transaction_CombinedTable]'') AND name = N''TransactionIndex'')
+BEGIN
+ALTER INDEX [TransactionIndex] ON [Bktb4_CaseMgr_Db].[dbo].[Subscriber_Transaction_CombinedTable]
+REBUILD;
+END
+
+
+INSERT INTO [BankersToolboxSmartRules].[dbo].[RiskPointSetting_BSACode]
+           ([Id]
+           ,[RiskRating]
+           ,[RiskCode]
+           ,[RiskPoints])
+     SELECT NEWID(),BSARiskCode as [RiskRating],BSARiskCode,0 as [RiskPoints] from [dbo].[BSARisks] 
+     where BSARiskID!=0 
+     and IsActive = 1
+     and BSARiskCode not in (select distinct [RiskCode] from [BankersToolboxSmartRules].[dbo].[RiskPointSetting_BSACode])
+
+
+------WireTransactionOptimized----
+declare @OptionValueWireTransactionPeriodNumberOfDays int;
+set @OptionValueWireTransactionPeriodNumberOfDays = 120;
+
+
+if OBJECT_ID(''tempdb..#Temp_TransactionIds'') IS NOT NULL
+drop table #Temp_TransactionIds
+SELECT distinct c.transactionId,c.rawtransactionid INTO #Temp_TransactionIds  from  
+    TransactionSummaries a
+       inner join TransactionTypes b
+           on a.TransactionTypeID = b.TransactionTypeID 
+          and b.TransactionTypeCode = ''W''
+       inner loop join Transactions c
+           on a.BusinessDate = c.BusinessDate
+          and a.AccountID = c.AccountID
+          and c.TransactionTypeID = b.TransactionTypeID 
+where 
+a.BusinessDate >= convert(datetime, convert(varchar, getdate() - @OptionValueWireTransactionPeriodNumberOfDays, 102))  
+and left(c.TransactionDescription,8) <> ''DELETED:''
+go
+
+if OBJECT_ID(''tempdb..#Temp_RawTransactionWireDetails'') IS NOT NULL
+drop table #Temp_RawTransactionWireDetails
+select 
+    e.traid as   RawTransactionId,
+                BeneficiaryAccountNumber= case when (e.casin = 0) then e.wirparacc else null end ,
+                BeneficiaryName= case when (e.casin = 0) then e.wirparnam else null end  ,
+                BeneficiaryAddress= case when (e.casin = 0) then e.wirparaddr else null end  ,
+                BeneficiaryBank= case when (e.casin = 0) then e.wirparban else null end  ,
+                
+                OriginatorAccountNumber= case when (e.casout = 0) then e.wirparacc else null end ,
+                OriginatorName= case when (e.casout = 0) then e.wirparnam else null end  ,
+                OriginatorAddress= case when (e.casout = 0) then e.wirparaddr else null end ,
+                OriginatorBank = case when (e.casout = 0) then e.wirparban else null end 
+into #Temp_RawTransactionWireDetails from dbo.bsav2_v_detail_transaction e  
+where
+e.traid in (select s.RawTransactionId from #Temp_TransactionIds s)
+go
+
+if OBJECT_ID(''tempdb..#Temp_TransactionWireDetails'') IS NOT NULL
+drop table #Temp_TransactionWireDetails
+select 
+a.TransactionId,
+                e.BeneficiaryAccountNumber,
+                e.BeneficiaryName,
+                e.BeneficiaryAddress,
+                e.BeneficiaryBank,
+                
+                e.OriginatorAccountNumber,
+                e.OriginatorName,
+                e.OriginatorAddress,
+                e.OriginatorBank,
+                '''' as IntermediaryBank  
+into #Temp_TransactionWireDetails from 
+#Temp_RawTransactionWireDetails e inner join 
+#Temp_TransactionIds a 
+on
+e.RawTransactionId = a.rawtransactionid 
+go
+    
+update a
+set    
+    BeneficiaryAccountNumber= b.BeneficiaryAccountNumber ,
+                BeneficiaryName= b.BeneficiaryName  ,
+                BeneficiaryAddress= b.BeneficiaryAddress  ,
+                BeneficiaryBank= b.BeneficiaryBank  ,
+                
+                OriginatorAccountNumber= b.OriginatorAccountNumber ,
+                OriginatorName= b.OriginatorName ,
+                OriginatorAddress= b.OriginatorAddress,
+                OriginatorBank = b.OriginatorBank ,
+    
+    IntermediaryBank = b.IntermediaryBank ,  
+       
+    LastModifiedDate = GetDate(),
+    LastModifiedBy = 888
+from   TransactionWireDetails a
+       inner join #Temp_TransactionWireDetails b
+       on a.TransactionID = b.TransactionID
+where  
+       a.BeneficiaryAccountNumber <> b.BeneficiaryAccountNumber 
+                OR a.BeneficiaryName <> b.BeneficiaryName  
+                OR a.BeneficiaryAddress <> b.BeneficiaryAddress  
+                OR a.BeneficiaryBank <> b.BeneficiaryBank  
+                
+                OR a.OriginatorAccountNumber <> b.OriginatorAccountNumber 
+                OR a.OriginatorName <> b.OriginatorName 
+                OR a.OriginatorAddress <> b.OriginatorAddress
+                OR a.OriginatorBank <> b.OriginatorBank 
+                OR a.IntermediaryBank <> b.IntermediaryBank
+        
+        
+        
+insert into TransactionWireDetails(TransactionID, 
+       BeneficiaryAccountNumber
+      ,BeneficiaryName
+      ,BeneficiaryAddress
+      ,BeneficiaryBank
+      ,OriginatorAccountNumber
+      ,OriginatorName
+      ,OriginatorAddress
+      ,OriginatorBank
+      ,IntermediaryBank
+      ,CreatedDate
+      ,CreatedBy
+   )
+select distinct  a.TransactionID, 
+       a.BeneficiaryAccountNumber
+      ,a.BeneficiaryName
+      ,a.BeneficiaryAddress
+      ,a.BeneficiaryBank
+      ,a.OriginatorAccountNumber
+      ,a.OriginatorName
+      ,a.OriginatorAddress
+      ,a.OriginatorBank
+      ,a.IntermediaryBank,
+       getdate(), 888
+  from #Temp_TransactionWireDetails a
+       left join TransactionWireDetails b
+       on a.TransactionID = b.TransactionID
+ where b.TransactionID is null
+ 
+---------------
+
+IF EXISTS (SELECT * FROM Bktb4_CaseMgr_Db.dbo.sysobjects WHERE name = ''Subscriber_TransactionWireDetails'')
+begin
+drop table [Bktb4_CaseMgr_Db].[dbo].[Subscriber_TransactionWireDetails]
+end
+
+SELECT b.[TransactionID]
+      ,b.[BeneficiaryAccountNumber]
+      ,b.[BeneficiaryName]
+      ,b.[BeneficiaryAddress]
+      ,b.[BeneficiaryBank]
+      ,b.[OriginatorAccountNumber]
+      ,b.[OriginatorName]
+      ,b.[OriginatorAddress]
+      ,b.[OriginatorBank]
+      ,b.[IntermediaryBank]
+      ,b.[CreatedDate]
+      ,b.[CreatedBy]
+      ,b.[LastModifiedDate]
+      ,b.[LastModifiedBy]
+      into [Bktb4_CaseMgr_Db].[dbo].[Subscriber_TransactionWireDetails]
+  FROM [dbo].[Bktb3_TransactionWireDetails] b
+  Inner join Transactions_CombinedView t
+  on b.TransactionID = t.TransactionID
+  go
+  ---------------------------------------------------------------------
+  
+  IF EXISTS (SELECT * FROM Bktb4_CaseMgr_Db.dbo.sysobjects WHERE name = ''Subscriber_TransactionMonetaryInstrumentDetails'')
+begin
+drop table [Bktb4_CaseMgr_Db].[dbo].[Subscriber_TransactionMonetaryInstrumentDetails]
+end
+
+SELECT  b.[TransactionID]
+      ,b.[Purchaser]
+      ,b.[Payee]
+      ,b.[CheckNumber]
+      ,b.[MonetaryInstrumentTypeID]
+      ,b.[CreatedDate]
+      ,b.[CreatedBy]
+      ,b.[LastModifiedDate]
+      ,b.[LastModifiedBy]
+      into [Bktb4_CaseMgr_Db].[dbo].[Subscriber_TransactionMonetaryInstrumentDetails]
+  FROM [dbo].[Bktb3_TransactionMonetaryInstrumentDetails] b
+  Inner join Transactions_CombinedView t
+  on b.TransactionID = t.TransactionID
+  go
+  -- sync Keyword Search With Grouping table
+truncate table KeywordSearchWithGrouping
+--------
+insert into KeywordSearchWithGrouping
+select GroupName = taxid,
+       Keyword = refnum,
+       Include = case when firnam = ''1'' then 1 else 0 end,
+       Wire = lasnam,
+       Ach = alIFirnam,
+       Atm = alilasnam,
+       Mi = flexdata1,
+       CustomerNames = flexdata2   
+from dbo.bsav2_search_list
+where sealisid = 25  
+  
+  /*** Holidays ***/
+		  
+TRUNCATE TABLE Holidays
+Insert into Holidays  (  Date,
+	   CreatedDate )
+	select
+  a.holday,
+  a.credat
+  from bsav2_holiday a left join  Holidays b
+  on ISNULL(a.Holday,'''')= ISNULL(b.Date,'''')
+ 
+  -- sync ach details
+	if OBJECT_ID(''AchTransactions_Temp'') IS NOT NULL
+	drop table AchTransactions_Temp
+	GO
+
+	-- to avoid multiple bsav2 table scans, create temp table to hold ach transactions
+	select (a.id + 5000000000000000) as traid, a.SecCod 
+	into AchTransactions_Temp
+	from bsav2_other_transaction a
+	where a.tblsrc = ''A''
+	AND a.tradat > GETDATE()-365
+	
+
+	-- insert new ach details
+	insert into TransactionAchDetails(TransactionID, SecCode, CreatedBy)
+	select b.TransactionID, a.SecCod, 888
+	from AchTransactions_Temp a
+		inner join Transactions b
+			on a.traid = b.RawTransactionID
+			AND b.BusinessDate > GETDATE()-365
+			and left(b.TransactionDescription,8) <> ''DELETED:''
+		left join TransactionAchDetails c
+			on b.TransactionID = c.TransactionID
+	where c.TransactionID is null
+
+	-- update existing ach details
+	update b
+		set SecCode = a.SecCod
+	from AchTransactions_Temp a
+		inner join Transactions c
+			on a.traid = c.RawTransactionID
+			AND c.BusinessDate > GETDATE()-365 and left(c.TransactionDescription,8) <> ''DELETED:''
+		join TransactionAchDetails b
+			on c.TransactionID = b.TransactionID
+	where coalesce(a.SecCod,'''') <> coalesce(b.SecCode,'''')
+-- end sync ach details
+
+-- sync account tag mapping
+
+truncate table AccountTagMap
+
+insert into AccountTagMap(AccountId, AccountTagId)
+select AccountId, AccountTagId
+from Accounts_CombinedView a
+join bsav2_master_account b
+	on a.ACCOUNTNUMBER = b.accid
+		and a.APPLICATIONCODE = b.acctyp
+		and a.INSTITUTIONNUMBER = b.insnum
+cross apply dbo.f_SplitString(b.accttags, ''^'' )	
+join AccountTags c
+	on StringIds = c.AccountTag
+	
+-- end sync account tag mapping
+
+
+--SRunning SyncDB Script Step 2', 
+
+SET IDENTITY_INSERT Bktb4_SecurityMgr_DB.dbo.Institutions ON
+
+	INSERT INTO Bktb4_SecurityMgr_DB.dbo.Institutions
+	(
+		InstitutionID, InstitutionNumber, Name, IsActive
+	)
+	SELECT InstitutionID, InstitutionNumber, Name, IsActive FROM Institutions
+	WHERE InstitutionID NOT IN (SELECT InstitutionID FROM Bktb4_SecurityMgr_DB.dbo.Institutions)
+
+SET IDENTITY_INSERT Bktb4_SecurityMgr_DB.dbo.Institutions OFF
+
+
+---- Update Institutions from Legacy to BAMPlus
+
+UPDATE i
+
+SET Name = coalesce(ins.Name, ''''),
+	IsActive = coalesce(ins.IsActive, 0)
+	
+FROM Bktb4_SecurityMgr_DB.dbo.Institutions i
+	left join Institutions ins
+	on i.InstitutionID = ins.InstitutionID
+
+WHERE 
+i.InstitutionID <> -1
+and
+(
+	coalesce(i.IsActive, 0) <> coalesce(ins.IsActive, 0)
+	or coalesce(i.Name, '''') <> coalesce(ins.Name, '''')
+	)
+	
+
+
+
+
+-- Migrate Branches from Legacy to BAMPlus
+
+SET IDENTITY_INSERT Bktb4_SecurityMgr_Db.dbo.Branches ON	
+
+	INSERT INTO Bktb4_SecurityMgr_DB.dbo.Branches
+	(
+		BranchID, BranchNumber, InstitutionID, Name, IsActive
+	)
+	SELECT a.BranchID, a.BranchNumber, a.InstitutionID, a.Name, a.IsActive FROM Branches a, 
+		   Institutions b
+	WHERE a.InstitutionID = b.InstitutionID
+	AND a.BranchID NOT IN (SELECT BranchID FROM Bktb4_SecurityMgr_DB.dbo.Branches)
+
+SET IDENTITY_INSERT Bktb4_SecurityMgr_DB.dbo.Branches OFF	
+
+
+-- Updates Branches from Legacy to BAMPlus
+
+UPDATE  b
+ SET IsActive = coalesce(br.IsActive, 0)
+   ,Name=coalesce( br.Name,'''')
+ FROM Bktb4_SecurityMgr_DB.dbo.Branches b
+ inner join Institutions i
+       ON b.InstitutionId = i.InstitutionId
+ left join Branches br
+ ON b.BranchID = br.BranchID
+ and b.InstitutionID = br.InstitutionID
+ 
+ WHERE
+   b.BranchID <> -1
+  and (
+  coalesce(b.IsActive, 0) <> coalesce(br.IsActive, 0)
+  or coalesce(b.Name,'''')<>coalesce( br.Name,'''')
+  )
+ 
+ -- end migration and updation of Branches and Institutions
+ 
+ -- Update BSA Risk Codes  as per bsav2----
+ ;WITH activeRiskCodes AS
+(
+       SELECT distinct bsariscod as BSARiskCode
+       FROM dbo.bsav2_master_account 
+      WHERE coalesce(bsariscod,'''') <> '''' AND coalesce(clochk,0) <> 1
+
+)
+UPDATE dbo.BSARisks
+SET IsActive = CASE WHEN activeRiskCodes.BSARiskCode IS NULL THEN 0 ELSE 1 END
+FROM dbo.BSARisks
+              LEFT JOIN activeRiskCodes 
+                     ON dbo.BSARisks.BSARiskCode = activeRiskCodes.BSARiskCode;
+
+
+
+ 
+ -- End update BSA Risk Codes  as per bsav2----
+GO
+
+
+
+</executesql> 
+</event>
+</sqlinstruction>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_postilion#" database="master">
+		<executesql>exec wnbutility.dbo.SP_POSTILION_BACKUP_TO_STAGE</executesql>
+	</event>
+</sqlinstruction>

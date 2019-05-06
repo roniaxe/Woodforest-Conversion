@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CBCAN.zip" to="#import_archive#\CBCAN.zip" />
+	<move file="#import_download#\CBCAN.xxx" to="#import_archive#\CBCAN.xxx" />
+	<delete file="#import_extractto#\CBCAN" />
+</fileinstructions>

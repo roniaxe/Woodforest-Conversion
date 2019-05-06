@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load base new Account data
+	-->
+	<event server="#server_datawarehousedb#" database="WNB" timeout="14400">
+		<executesql>EXEC dbo.spNewAccountActivityBaseLoad</executesql>
+	</event>
+</sqlinstruction>	
+

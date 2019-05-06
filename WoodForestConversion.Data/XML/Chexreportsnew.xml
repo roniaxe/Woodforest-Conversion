@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions> 
+  <move file="\\sftp.woodforest.net\users\collections\chexsystems\incoming\SS_ALERTS_WDFOREST" to="\\woodforest.net\jobs\Chexsystems\SS_ALERTS_WDFOREST_#DATEADD(d, 0, yyyyMMdd)#" />
+</fileinstructions>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CLN_COL_PTRS" to="#import_archive#\CLN_COL_PTRS" />
+	<move file="#import_download#\CLN_COL_PTRS.xxx" to="#import_archive#\CLN_COL_PTRS.xxx" />
+</fileinstructions>

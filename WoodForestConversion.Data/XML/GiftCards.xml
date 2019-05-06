@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="C:\Program Files\InterCept\TellerPlus\GiftCardRetry.exe" args="\config c:\progra~1\InterCept\TellerPlus\GCRConfig.xml" ignoreout="0" />
+</commands>

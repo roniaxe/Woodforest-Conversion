@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- WNBLeadRequest_*.csv -->
+        <!-- to Project Cue outbound -->
+	<copy file="\\woodforest.net\jobs\ProjectCue\LeadRequest\" search="WNBLeadRequest*" to="\\sftp.woodforest.net\users\loanops\projectcue\Request" />
+        <!-- to Jobs Share -->
+	<move file="\\woodforest.net\jobs\ProjectCue\LeadRequest\" search="WNBLeadRequest*" to="\\woodforest.net\jobs\ProjectCue\LeadRequest\Archive\" />	
+</fileinstructions>

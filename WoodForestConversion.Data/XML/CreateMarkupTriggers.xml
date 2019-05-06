@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Drop Triggers on Activity -->
+	<event server="#ActivityDB#" database="Activity" timeout="600">
+		<executesql>CREATE TRIGGER [trgOLDMarkupInsert] ON [dbo].[OldMarkups] FOR INSERT  AS 
+declare  @amt money,@flag smallint,
+	@newamt money,
+	@PostDate	DATETIME,
+	@ActualDate	DATETIME
+/*
+	Trigger trgOLDMarkupInsert - Modified by Richard Ferrara
+	15 September 2006
+	Used to keep replicated Markups from WNBSQL01.DDA.dbo.Markups to 
+	Activity.dbo.OldMarkups - replicated items to update AccountBalance 
+	in the Activity database
+
+
+*/
+BEGIN
+	SELECT @PostDate = TRAN_DATE,
+		@ActualDate = TranDate
+		FROM Inserted
+
+	IF DATEDIFF(DAY, @PostDate, @ActualDate) = 0 
+	    BEGIN	
+		select @flag = AccountBalance.MARKUPS, @amt = AccountBalance.MARKUPAmount
+			from inserted, AccountBalance
+			where AccountBalance.AccountNumber = inserted.ACCT_NUM
+				AND Subsystem = 0
+
+		if @flag = null	/* no markups in bal table already */
+			update AccountBalance set MARKUPS = 1,MARKUPAmount = inserted.AMOUNT
+				from inserted
+				where AccountBalance.AccountNumber = inserted.ACCT_NUM
+					AND Subsystem = 0
+		else /* already had markups need to add the new one to it */
+			BEGIN
+				select @newamt = inserted.AMOUNT from inserted
+				select @newamt = @newamt + @amt
+
+				update AccountBalance set MARKUPS = 1,MARKUPAmount = @newamt
+					from inserted
+					where AccountBalance.AccountNumber = inserted.ACCT_NUM
+						AND Subsystem = 0
+			END
+	    END
+END</executesql>
+	</event>
+</sqlinstruction>

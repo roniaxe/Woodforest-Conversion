@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="ACBSGL">
+  <queues total="4" bulksize="4000" errorthreshold="1000" />
+  <source location="\\CMBApps\ACBS\GL\UG2R1100.txt" isxml="0" delimiter="|" queuefirst="1" rootpath="" />
+  <destination server="#server_datawarehousedb#" database="#database_staging#" entity="ACBSDailyGLDataLoad" 
+    truncate="0" dropindexes="0" user="#import_user#" password="#import_password#" />
+/>
+  <mappings>
+
+	<map index="0" column="Number" filecolumn="" ignore="0" />
+<map index="1" column="Transaction-ID" filecolumn="" ignore="0" />
+<map index="2" column="Transaction-Line" filecolumn="" ignore="0" />
+<map index="3" column="Ledger-Group" filecolumn="" ignore="0" />
+<map index="4" column="Ledger" filecolumn="" ignore="0" />
+<map index="5" column="Accounting-Dt" filecolumn="" ignore="0" />
+<map index="6" column="Appl_Jrnl_ID" filecolumn="" ignore="0" />
+<map index="7" column="Business-Unit-GL" filecolumn="" ignore="0" />
+<map index="8" column="Fiscal-Year" filecolumn="" ignore="0" />
+<map index="9" column="Accounting-Period" filecolumn="" ignore="0" />
+<map index="10" column="Journal-ID" filecolumn="" ignore="0" />
+<map index="11" column="Journal-Date" filecolumn="" ignore="0" />
+<map index="12" column="Journal-Line" filecolumn="" ignore="0" />
+<map index="13" column="Account" filecolumn="" ignore="0" />
+<map index="14" column="AltAcct" filecolumn="" ignore="0" />
+<map index="15" column="DeptID" filecolumn="" ignore="0" />
+<map index="16" column="Operating-Unit" filecolumn="" ignore="0" />
+<map index="17" column="Product" filecolumn="" ignore="0" />
+<map index="18" column="Fund-Code" filecolumn="" ignore="0" />
+<map index="19" column="Class-Fld" filecolumn="" ignore="0" />
+<map index="20" column="Program-Code" filecolumn="" ignore="0" />
+<map index="21" column="Budget-Ref" filecolumn="" ignore="0" />
+<map index="22" column="Affiliate" filecolumn="" ignore="0" />
+<map index="23" column="Affiliate-Intra1" filecolumn="" ignore="0" />
+<map index="24" column="Affiliate-Intra2" filecolumn="" ignore="0" />
+<map index="25" column="ChartField1" filecolumn="" ignore="0" />
+<map index="26" column="ChartField2" filecolumn="" ignore="0" />
+<map index="27" column="ChartField3" filecolumn="" ignore="0" />
+<map index="28" column="Project-ID" filecolumn="" ignore="0" />
+<map index="29" column="Currency-Cd" filecolumn="" ignore="0" />
+<map index="30" column="Statistics-Code" filecolumn="" ignore="0" />
+<map index="31" column="Foreign-Currency" filecolumn="" ignore="0" />
+<map index="32" column="Rt-Type" filecolumn="" ignore="0" />
+<map index="33" column="Rate-Mult" filecolumn="" ignore="0" />
+<map index="34" column="Rate-Div" filecolumn="" ignore="0" />
+<map index="35" column="Monetary-Amt-Sign" filecolumn="" ignore="0" />
+<map index="36" column="Monetary-Amt-Unused" filecolumn="" ignore="0" />
+<map index="37" column="Monetary-Amt" filecolumn="" ignore="0" />
+<map index="38" column="Foreign-Amt-Sign" filecolumn="" ignore="0" />
+<map index="39" column="Foreign-Amt-Unused" filecolumn="" ignore="0" />
+<map index="40" column="Foreign-Amt" filecolumn="" ignore="0" />
+<map index="41" column="Statistic-Amt-Sign" filecolumn="" ignore="0" />
+<map index="42" column="Statistic-Amt" filecolumn="" ignore="0" />
+<map index="43" column="Movement-Flag" filecolumn="" ignore="0" />
+<map index="44" column="Doc-Type" filecolumn="" ignore="0" />
+<map index="45" column="Doc-Seq-Nbr" filecolumn="" ignore="0" />
+<map index="46" column="Doc-Seq-Date" filecolumn="" ignore="0" />
+<map index="47" column="Jrnl-Ln-Ref" filecolumn="" ignore="0" />
+<map index="48" column="ADB-Date" filecolumn="" ignore="0" />
+<map index="49" column="Open-Item-Key" filecolumn="" ignore="0" />
+<map index="50" column="Line-Descr" filecolumn="" ignore="0" />
+<map index="51" column="IU-Sys-Tran-CD" filecolumn="" ignore="0" />
+<map index="52" column="IU-Tran_CD" filecolumn="" ignore="0" />
+<map index="53" column="IU-Anchor-Flg" filecolumn="" ignore="0" />
+<map index="54" column="GL-Distrib-Status" filecolumn="" ignore="0" />
+<map index="55" column="Process-Instance" filecolumn="" ignore="0" />
+<map index="56" column="Not-User" filecolumn="" ignore="0" />
+
+	
+  </mappings>
+</import>

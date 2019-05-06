@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Zero Balance Account Sanity Check
+	-->
+	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="1800">
+		<executesql>exec ZeroBalanceAccountSanityCheck</executesql>
+	</event>
+</sqlinstruction>

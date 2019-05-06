@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--   Clean up GL_EndingBalance table. Keep 7 Days --> 
+	<event server="#server_wnbappsdb#" database="#database_cashbalance#" timeout="2700">
+ 		 <executesql>EXEC dbo.GL_EndingBalance_Clean</executesql> 
+ 	</event>
+</sqlinstruction>

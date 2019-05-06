@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <move file="\\Woodforest.net\Jobs\SCRA_HeroAccount\Notices\#DATE(yyyyMMdd)#_HeroOfferLetters.txt" to="\\dc1ivtwftp01\users\support-analysts\fis\outgoing\#DATE(yyyyMMdd)#_HeroOfferLetters.txt" />
+</fileinstructions>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CREDECOA.zip" to="#import_archive#\CREDECOA.zip" />
+	<move file="#import_download#\CREDECOA.xxx" to="#import_archive#\CREDECOA.xxx" />
+	<delete file="#import_extractto#\CREDECOA" />
+</fileinstructions>

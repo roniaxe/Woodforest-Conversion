@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\SDB" to="#import_archive#\SDB" />
+	<move file="#import_download#\SDB.xxx" to="#import_archive#\SDB.xxx" />
+</fileinstructions>

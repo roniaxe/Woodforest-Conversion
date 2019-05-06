@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates daily balances in the data warehouse
+	-->
+	<event server="#server_warehousedb#" database="WNB" timeout="600">
+		<executesql>EXEC rptAcctsYOYByBranchCalc</executesql>
+	</event>
+</sqlinstruction>

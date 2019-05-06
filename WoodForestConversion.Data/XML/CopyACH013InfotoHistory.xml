@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure Copy ACH013 info to history
+	-->
+	<event server="WNBDB" database="WNB" timeout="300">
+		<executesql>EXEC spACH013ALL</executesql>
+	</event>
+	
+</sqlinstruction>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- <buckets timeout="900" start="#DATEADD(d, -1, MM/dd/yyyy)#" end="#DATEADD(d, -1, MM/dd/yyyy)#" includerange="0"> -->
+<buckets timeout="900" start="#DATEADD(d, -1, MM/dd/yyyy)#" end="#DATEADD(d, -1, MM/dd/yyyy)#" includerange="0">
+  <warehouse server="#server_warehousedb#" database="#database_warehouse#" />
+  <host server="#server_tranhistdb#" database="#database_tranhist#" />
+  <import file="#import_extractto#\TransactionBuckets.tbi" />
+</buckets>

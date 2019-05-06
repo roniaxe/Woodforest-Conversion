@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures wnbutility.dbo.rptBarkleyAccountTotalsEmail
+	-->
+	<event server="#server_Activitydb#" database="#database_wnbutility#" timeout="300">
+		<executesql>EXEC rptBarkleyAccountTotalsEmail @SendTo='gayla@woodforest.com;mdettmann@WOODFOREST.com;jduke@woodforest.com;cmuras@woodforest.com;PerformanceTotals@WOODFOREST.com', @BCCSendTo=''</executesql>
+	</event>
+	
+</sqlinstruction>

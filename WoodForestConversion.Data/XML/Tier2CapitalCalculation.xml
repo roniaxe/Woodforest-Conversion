@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_banklinemonthenddb#" database="WNBUtility" timeout="36000">
+  		<executesql>EXEC dbo.spTier2CapitalCalculation 1</executesql> 
+  	</event>
+	<event server="#server_banklinemonthenddb#" database="WNBUtility" timeout="36000">
+  		<executesql>EXEC dbo.spTier2CapitalCalculation 2</executesql> 
+  	</event>
+
+</sqlinstruction>

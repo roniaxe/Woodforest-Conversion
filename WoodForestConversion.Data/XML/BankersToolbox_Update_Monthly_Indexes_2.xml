@@ -1,0 +1,5 @@
+<sqlinstruction>
+<event server="#server_bankerstoolboxdb#" database="WNBUtility" timeout="57600">
+<executesql>EXECUTE dbo.BKTB_Rebuild_Monthly_Indexes_2</executesql> 
+</event>
+</sqlinstruction>

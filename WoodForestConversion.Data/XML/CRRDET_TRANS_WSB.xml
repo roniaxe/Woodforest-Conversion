@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="CRRDET_TRANS_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="300" />
+	<source location="#import_extractto#\crrdet_trans.xml" isxml="1" rootpath="ROOT/CRRDETAILS" delimiter="|" queuefirst="0" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="CRRDETAILS_TRANSACTIONS" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map xpath="_ID" column="Z_ID" />
+		<map xpath="TRANSACTIONS_MV/DC" column="DC" />
+		<map xpath="TRANSACTIONS_MV/TC" column="TC" />
+		<map xpath="TRANSACTIONS_MV/EFF_DATE" column="EFF_DATE" />
+		<map xpath="TRANSACTIONS_MV/TCDESC" column="TCDESC" />
+		<map xpath="TRANSACTIONS_MV/DOCID" column="DOCID" />
+		<map xpath="TRANSACTIONS_MV/AMT" column="AMT" />
+		<map xpath="TRANSACTIONS_MV/ORIGIN" column="ORIGIN" />
+		<map xpath="TRANSACTIONS_MV/POST_PRIO" column="POST_PRIO" />
+		<map xpath="TRANS.VAL.CTR_MV/Z_ASSOC" column="Z_ASSOC_ROW" />
+	</mappings>
+</import>

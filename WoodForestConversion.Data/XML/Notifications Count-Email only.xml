@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_wnbappsdb#" database="OFC" timeout="600">
+<executesql>
+Declare @Day VARCHAR(20)
+Declare @NSatSuccessful VARCHAR(100)
+Declare @NSatFailed VARCHAR(100)
+Declare @SatSuccessful VARCHAR(100)
+Declare @SatFailed VARCHAR(100)
+Declare @Pending VARCHAR(100)
+Declare @procdate DATETIME
+Declare @datecurrent DATETIME
+DECLARE @Date DATETIME
+DECLARE @Message VARCHAR(350)
+DECLARE @Messageb VARCHAR(350)
+
+SELECT @Day = DATENAME(weekday, getdate())
+SELECT @NSatSuccessful = COUNT(DISTINCT(UID)) FROM NotifyOptions (nolock) WHERE Status IN ('1','255') AND ENABLED = '1' AND WeeklyTranLog != '1'
+SELECT @NSatFailed = COUNT(DISTINCT(UID)) FROM NotifyOptions (nolock) WHERE Status = '2' AND ENABLED = '1' AND WeeklyTranLog != '1'
+SELECT @SatSuccessful = COUNT(DISTINCT(UID)) FROM NotifyOptions (nolock) WHERE Status IN ('1','255') AND ENABLED = '1'
+SELECT @SatFailed = COUNT(DISTINCT(UID)) FROM NotifyOptions (nolock) WHERE Status = '2' AND ENABLED = '1'
+SELECT @Pending = COUNT(DISTINCT(UID)) FROM NotifyOptions (nolock) WHERE Status = '0' AND ENABLED = '1'
+SELECT @datecurrent = convert(datetime,convert(char,getdate(),102))
+SELECT @Procdate = DATEADD(dd, -1, @datecurrent)
+SELECT @Date = convert(datetime,convert(char,getdate(),102))
+SELECT @Message = 'For the Date of ' + convert(varchar,@Date) + ' there are a total of ' + convert(varchar,@NSatSuccessful) + ' notifications that have successfully sent, a total of ' + convert(varchar,@Pending) + ' notifications that are still pending ' + ' and a total of ' + convert(varchar,@NSatFailed) + ' notifications that have failed to send. If this total seems off verify all servers have completed. This email will send every 30mins until 11AM.'
+SELECT @Messageb = 'For the Date of ' + convert(varchar,@Date) + ' there are a total of ' + convert(varchar,@SatSuccessful) + ' notifications that have successfully sent, a total of ' + convert(varchar,@Pending) + ' notifications that are still pending ' + ' and a total of ' + convert(varchar,@SatFailed) + ' notifications that have failed to send. If this total seems off verify all servers have completed. This email will send every 30mins until 11AM.'
+
+
+IF @Day != 'Saturday'
+BEGIN
+ EXEC msdb.dbo.sp_send_dbmail
+	@profile_name='WBCSQL01_Mail',
+	@recipients='TechnologyOperations@woodforest.com',
+	@subject='Notifications Sent and Failed totals',
+	@body=@Message,
+	@body_format='HTML';
+
+END
+
+ELSE
+BEGIN
+ EXEC msdb.dbo.sp_send_dbmail
+	@profile_name='WBCSQL01_Mail',
+	@recipients='TechnologyOperations@woodforest.com',
+	@subject='Notifications Sent and Failed totals',
+	@body=@MessageB,
+	@body_format='HTML';
+END
+</executesql>
+</event>
+</sqlinstruction>
+

@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Runs a stored procedure that will check the total number of waiting tellerplus forwards and email techops if it goes above 200. 
+	-->
+	<event server="#server_tellerplusdb#" database="Tellerplus2" timeout="300">
+		<executesql>EXEC dbo.spCheckTellerplusWaitingForwards</executesql>
+	</event>
+</sqlinstruction>

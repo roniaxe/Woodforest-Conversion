@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Refresh Host Balances -->
+	<event server="#server_tranhistdb#" database="TransactionHistory" timeout="1000">
+		<executesql>EXEC dbo.Voyager_UpdateBPTransactionDescriptions</executesql>
+	</event>
+</sqlinstruction>

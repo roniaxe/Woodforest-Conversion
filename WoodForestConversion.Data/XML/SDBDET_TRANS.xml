@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\SDBDET_TRANS.xml" to="#import_archive#\SDBDET_TRANS.xml" />
+	<move file="#import_download#\SDBDET_TRANS.xsd" to="#import_archive#\SDBDET_TRANS.xsd" />
+</fileinstructions>

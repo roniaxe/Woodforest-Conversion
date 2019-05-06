@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Send Email on Status	-->
+	<event server="#server_Bankerstoolboxdb#" database="#database_WNBUtility#" timeout="300">
+		<executesql>	EXEC msdb.dbo.sp_send_dbmail 
+			@profile_name='SQLDBA', 
+			@recipients='Techops@Woodforest.com',
+			@copy_recipients ='SQLOps@woodforest.com',
+			@subject= 'Bankers Toolbox Rebuild of Monthly Indexes has Completed...',
+			@query='EXECUTE [WNBUtility].[dbo].[BKTBExamineDaemon]',
+			@body = 'Bankers Toolbox Rebuild of Monthly Indexes has Completed.',
+			@body_format= 'text';
+		</executesql>
+	</event>
+</sqlinstruction>

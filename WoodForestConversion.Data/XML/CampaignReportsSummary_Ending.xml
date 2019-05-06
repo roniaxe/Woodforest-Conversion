@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load ending campaign totals for yesterday
+	-->
+	<event server="#server_ActivityDB#" database="WNBUtility" timeout="14400">
+		<executesql>EXEC dbo.spCampaignReportsSummary @TimeOfDay=1</executesql>
+	</event>
+</sqlinstruction>	

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <commands>
+    <command exec="C:\Program Files\BAMPlus\ScenarioManager\ScenarioEngine\ScenarioEngine.exe" args="" ignoreout="0" checkexitcode="1" />
+<!--    <command exec="C:\Program Files\BAMPlus\ScenarioManager\bin\ScenarioEngine.exe" args="" ignoreout="0" checkexitcode="1" /> -->
+  </commands>

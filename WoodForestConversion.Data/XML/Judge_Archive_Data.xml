@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Move realtime decline log data to history table
+	-->
+	<event server="PaymentSystemsDB" database="PaymentSystems" timeout="10800">
+		<executesql>EXEC [Fraud].[TransactionLog_ArchiveData]</executesql>
+	</event>
+</sqlinstruction>

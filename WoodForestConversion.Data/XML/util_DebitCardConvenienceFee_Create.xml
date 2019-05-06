@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Create Convenience Fees
+	-->
+	<event server="#server_activitydb#" database="activity" timeout="2700">
+		<executesql>EXEC dbo.util_DebitCardConvenienceFee_Create</executesql>
+	</event>
+</sqlinstruction>

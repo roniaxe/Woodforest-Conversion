@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures wnbutility.dbo.util_ODProgram_MonitorWaives
+	-->
+	<event server="#server_Activitydb#" database="#database_wnbutility#" timeout="600">
+		<executesql>EXEC util_ODProgram_MonitorWaives @SendTo='techmonitor@woodforest.com;lcotton@woodforest.com;jlevi@woodforest.com;AccountingAndFinance@woodforest.com;cmuras@woodforest.com', @BCCSendTo=''</executesql>
+	</event>
+	
+</sqlinstruction>

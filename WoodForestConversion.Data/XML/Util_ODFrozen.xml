@@ -1,0 +1,5 @@
+<sqlinstruction>
+	<event server="#Server_ActivityDB#" database="#Database_WOODFOREST#" timeout="2500">
+		<executesql>EXEC dbo.Util_ODFrozen</executesql>
+	</event>
+</sqlinstruction>

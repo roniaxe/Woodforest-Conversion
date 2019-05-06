@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+<command exec="#ssis201664bit#" args="/F #directory_ssis#\ACH011Import.dtsx /SET \Package.Variables[User::Database].Properties[Value];#database_bancline# /SET \Package.Variables[User::Datasource].Properties[Value];#server_activitydb# /SET \Package.Variables[User::FilePath].Properties[Value];#import_extractto#\REX_ACH011" ignoreout="0" checkexitcode="1" />
+</commands>

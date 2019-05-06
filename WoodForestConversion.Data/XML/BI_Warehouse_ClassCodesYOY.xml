@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates monthly class code totals by branch in the data warehouse
+	-->
+	<event server="#server_warehousedb#" database="WNB" timeout="600">
+		<executesql>EXEC util_BuildClassCodesYOY</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<!-- Archive the file -->
+	<delete file="\\woodforest.net\jobs\ACBS\DataMartReports\Compressed\ACBSDMReports.zip" />
+		     	
+</fileinstructions>

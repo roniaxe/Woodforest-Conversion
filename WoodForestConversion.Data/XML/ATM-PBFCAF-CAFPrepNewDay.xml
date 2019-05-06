@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  CAF Prep New Day
+	-->
+	<event server="#server_atmdb#" database="#database_atm#" timeout="600">
+		<executesql>EXEC dbo.spCAFPrepNewDay</executesql>
+	</event>
+</sqlinstruction>

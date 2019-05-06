@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\COL_CIFNUM" to="#import_archive#\COL_CIFNUM" />
+	<move file="#import_download#\COL_CIFNUM.xxx" to="#import_archive#\COL_CIFNUM.xxx" />
+</fileinstructions>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CRR" to="#import_archive#\CRR" />
+	<move file="#import_download#\CRR.xxx" to="#import_archive#\CRR.xxx" />
+</fileinstructions>

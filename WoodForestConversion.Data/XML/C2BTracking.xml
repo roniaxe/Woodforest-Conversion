@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="Woodforest" timeout="900">
+		<executesql>EXEC dbo.C2BIncentivesTracking</executesql>
+	</event>
+</sqlinstruction>

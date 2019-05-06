@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Truncate staging tables
+	-->
+	<event server="#server_datawarehousedb#" database="WNB" timeout="14400">
+		<executesql>EXEC dbo.spNewAccountActivityStgTruncate</executesql>
+	</event>
+</sqlinstruction>	
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+<event server="BAMDB" database="Master" timeout="45000">
+	<executesql>
+		RESTORE DATABASE [Staging] FROM  DISK = N'\\BankersToolboxDB\x$\BACKUP\STAGING_Export\Staging_Export.bak' WITH  FILE = 1,  MOVE N'Staging' TO N'D:\Data\Staging.mdf',  MOVE N'Staging_log' TO N'L:\logs\Staging_Log.ldf', NOUNLOAD, REPLACE, STATS = 5
+	</executesql>
+</event>
+</sqlinstruction>

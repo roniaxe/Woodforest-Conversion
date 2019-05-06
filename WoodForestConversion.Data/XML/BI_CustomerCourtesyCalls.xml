@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates the Customer Courtesy Calls data into a table on DatawarehouseDB
+	-->
+	<event server="#server_activitydb#" database="Woodforest" timeout="10800">
+		<executesql>EXEC rptBuildCustomerCourtesyCalls</executesql>
+	</event>
+</sqlinstruction>

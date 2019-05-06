@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures Monitor TellerPlus Errors.
+	-->
+	<event server="#server_tellerplusdb#" database="#database_WNBUtility#" timeout="300">
+		<executesql>EXEC dbo.rptCommErrorsByMinuteBuild</executesql>
+	</event>
+</sqlinstruction>

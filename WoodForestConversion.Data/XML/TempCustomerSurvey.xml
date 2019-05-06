@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Sends out 500 surveys with each run
+	-->
+	<event server="#server_activitydb#" database="#database_woodforest#" timeout="4700">
+		<executesql>EXEC dbo.tmpCustomerSurvey2</executesql>
+	</event>
+</sqlinstruction>

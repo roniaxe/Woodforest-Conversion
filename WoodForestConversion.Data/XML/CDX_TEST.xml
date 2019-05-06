@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="\\wbcjobs01\nfs\tstcore\wnb\extracts\CDX.zip" to="\\wbcjobs01\nfs\tstcore\wnb\extracts\CDX.zipX" />
+	<move file="\\wbcjobs01\nfs\tstcore\wnb\extracts\CDX.xxx" to="\\wbcjobs01\nfs\tstcore\wnb\extracts\CDX.xxxX" />
+	<delete file="\\woodforest.net\Jobs\Archon2\Data\Import\CD" />
+</fileinstructions>

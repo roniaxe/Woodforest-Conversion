@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Executes Stored Procedures for Branch Account Daily Performance
+	-->
+	<event server="#server_activitydb#" database="#database_wnbutility#" timeout="1000">
+		<executesql>EXEC dbo.rptUserCountForCorillian</executesql>
+	</event>
+</sqlinstruction>

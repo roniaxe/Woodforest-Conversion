@@ -1,0 +1,6 @@
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="1000">
+		<executesql>EXEC dbo.CompromisedDebitCard_Cleanup
+	</executesql>
+	</event>
+</sqlinstruction>

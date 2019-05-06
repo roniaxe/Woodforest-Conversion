@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <move file="\\sftp.woodforest.net\users\hr\concur\incoming\" search="extract_CES_SAE_v2_p0002117zxh5_*" to="\\woodforest.net\jobs\ConcurExpense\Payments" />
+</fileinstructions>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- ActionSolicitation.txt -->
+        <!-- to archive -->
+	<move file="\\woodforest.net\jobs\RELI Renewal\ActionSolicitation.txt"  to="\\woodforest.net\jobs\RELI Renewal\Archive\ActionSolicitation#DATE(MMyy)#.txt" />
+</fileinstructions>

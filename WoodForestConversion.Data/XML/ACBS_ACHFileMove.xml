@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<!-- Copy to ACH Plus Server for processing -->
+	<copy file="\\CMBApps\ACBS\ACH\SSAHAB.txt" to="\\mscvach01\d$\star\files\orig\in\files\ACHAutoDebit.txt" />
+	<!-- Archive the file -->
+	<move file="\\CMBApps\ACBS\ACH\SSAHAB.txt" to="\\CMBApps\ACBS\ACH\Archive\#DATEADD(d, 0, yyyyMMdd)#_ACHAutoDebit.txt" />	     	
+</fileinstructions>

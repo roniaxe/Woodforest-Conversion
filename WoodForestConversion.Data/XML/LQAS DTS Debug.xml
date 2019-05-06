@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\LQAS\LQAS_CUSTOMER_DL_NEW.dts" ignoreout="0" />
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\LQAS\LQAS_INDIRECT_DL_NEW.dts" ignoreout="0" />
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\LQAS\LQAS_LOAN_DL_NEW.dts" ignoreout="0" />
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\LQAS\LQAS_GRADES_DL_NEW.dts" ignoreout="0" />
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\LQAS\LQAS_COLLATERAL_DL_NEW.dts" ignoreout="0" />
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\LQAS\LQAS_SIC_CODES_NEW.dts" ignoreout="0" />
+</commands>

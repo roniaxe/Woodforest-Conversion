@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_tranhistdb#" database="#database_tranhist#" timeout="600">
+		<executesql>EXEC dbo.[HostMerge_VerifyTransactionArchive]</executesql>
+	</event>
+	<event server="#server_tranhistdb#" database="#database_tranhist#" timeout="600">
+		<executesql>EXEC dbo.[HostMerge_VerifyTransactionsView]</executesql>
+	</event>
+</sqlinstruction>

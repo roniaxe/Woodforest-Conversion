@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<commands>
+<command exec="#olx_apps#\Billpay\BillPayAccountSync\BillPayAccountSync.exe" args="" ignoreout="1" />
+</commands>

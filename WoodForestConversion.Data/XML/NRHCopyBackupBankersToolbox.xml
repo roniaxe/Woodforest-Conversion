@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYSQL06\c$\mountpoints\Backup\Backup\BankersToolbox\sar_bktb\         \\DC2CVPLYSQL06\c$\Mountpoints\Backup\Backup\BankersToolbox\sar_bktb\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYSQL06\c$\mountpoints\Backup\Backup\BankersToolbox\ots_woodforest\   \\DC2CVPLYSQL06\c$\Mountpoints\Backup\Backup\BankersToolbox\ots_woodforest\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYSQL06\c$\mountpoints\Backup\Backup\BankersToolbox\bktb_woodforest\ 	\\DC2CVPLYSQL06\c$\Mountpoints\Backup\Backup\BankersToolbox\bktb_woodforest\" ignoreout="1" />
+<!--  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYSQL06\c$\mountpoints\Backup\Backup\BankersToolbox\bsav2_woodforest\ \\DC2CVPLYSQL06\c$\Mountpoints\Backup\Backup\BankersToolbox\bsav2_woodforest\" ignoreout="1" /> -->
+</commands>

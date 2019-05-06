@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="\\woodforest.net\Jobs\ODLetters\upload40DayFOS.bat" args="" ignoreout="1" />
+</commands>

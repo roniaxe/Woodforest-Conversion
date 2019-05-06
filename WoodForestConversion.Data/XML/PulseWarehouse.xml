@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="c:\Program Files\WNB\PulseWarehouse\LoadPulseWarehouseFile.exe" ignoreout="0" />
+</commands>

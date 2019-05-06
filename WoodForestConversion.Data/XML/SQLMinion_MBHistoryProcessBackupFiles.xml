@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="C:\MinionByMidnightDBA\Collector\MBHistoryProcessBackupFiles.exe" args="" ignoreout="0" checkexitcode="1" />
+</commands>

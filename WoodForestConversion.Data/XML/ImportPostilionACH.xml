@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  Create TranExport - called ImportPostilionACH.xml
+-->
+<commands>
+	<command exec="dtexec" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\ImportPostilionACH.dtsx" ignoreout="0" />
+</commands>

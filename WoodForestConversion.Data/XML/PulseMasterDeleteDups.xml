@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  This is the process to close DSC CLN Accounts
+	-->
+	<event server="#server_activitydb#" database="ATM" timeout="2700">
+		<executesql>EXEC dbo.FixPulseMasterCardDups @AmountCheck = 1000 </executesql>
+	</event>
+</sqlinstruction>

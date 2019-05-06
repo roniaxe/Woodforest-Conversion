@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_banclinedb#" database="Bankline" timeout="600">
+<executesql>
+Declare @Status VARCHAR(1)
+Declare @Message VARCHAR(390)
+
+SELECT @Status = Processed from dbo.bank_table where subsystem = 'ACH_A' AND CoreID = '1'
+SELECT @Message = 'ACH D File has not been downloaded into SQL01 yet, Warehouse Items Copy from bancline Morning has not been run! Stop Voyager Executive service on WBCVOYTP01 until it is, unless it will be done before 7:00am. If you stop the service you will need to restart it after you have run the "Warehouse Items Copy from Bancline - Morning Job" on SQL01. Then you can run the Billpay jobs manually.'
+
+IF @Status = 'N'
+	BEGIN
+		RAISERROR (@Message,16,2)
+	END
+</executesql>
+</event>
+</sqlinstruction>

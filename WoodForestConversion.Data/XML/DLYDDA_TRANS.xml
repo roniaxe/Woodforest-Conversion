@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\DLYDDA_TRANS" to="#import_archive#\DLYDDA_TRANS" />
+	<move file="#import_download#\DLYDDA_TRANS.xxx" to="#import_archive#\DLYDDA_TRANS.xxx" />
+</fileinstructions>

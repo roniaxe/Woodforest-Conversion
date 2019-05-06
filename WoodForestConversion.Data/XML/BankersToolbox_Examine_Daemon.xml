@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Send Email on Status
+	-->
+	<event server="#server_BankersToolboxdb#" database="#database_WNBUtility#" timeout="300">
+		<executesql>	EXEC msdb.dbo.sp_send_dbmail 
+			@profile_name='SQLDBA', 
+			@recipients='BAMSupport@Woodforest.com;DanMich@Woodforest.com',
+			@copy_recipients ='EdLucy@woodforest.com;KBaker@woodforest.com',
+			@subject= 'Bankers Toolbox Daemon Status...',
+			@query='EXECUTE [WNBUtility].[dbo].[BKTBExamineDaemon]',
+			@body = 'The value for Daemon_Value should be No (if Yes, need to reset it to No).',
+			@body_format= 'text';
+		</executesql>
+	</event>
+</sqlinstruction>

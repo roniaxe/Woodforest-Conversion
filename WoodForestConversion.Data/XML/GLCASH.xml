@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CD_GLCASH.zip" to="#import_archive#\CD_GLCASH.zip" />
+	<move file="#import_download#\CD_GLCASH.xxx" to="#import_archive#\CD_GLCASH.xxx" />
+	<delete file="#import_extractto#\CD_GLCASH" />
+</fileinstructions>

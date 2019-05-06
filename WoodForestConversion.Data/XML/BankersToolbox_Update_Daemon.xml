@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Send Email on Status
+	-->
+	<event server="#server_BankersToolboxdb#" database="#database_WNBUtility#" timeout="300">
+		<executesql>	EXEC msdb.dbo.sp_send_dbmail 
+			@profile_name='WNB Mail', 
+			@recipients='BAM Support@Woodforest.com;DanMich@Woodforest.com',
+			@copy_recipients ='EdLucy@woodforest.com',
+			@subject= 'Bankers Toolbox Updating Daemon to Status of Not Running...',
+			@query='EXECUTE [WNBUtility].[dbo].[BKTBUpdateDaemon]',
+			@body = 'The value for Daemon_Value should be No.',
+			@body_format= 'text';
+		</executesql>
+	</event>
+</sqlinstruction>

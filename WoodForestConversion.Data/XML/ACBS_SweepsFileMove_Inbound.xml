@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<!-- Copy to Bancline for processing -->
+	<copy file="\\CMBApps\ACBS\Sweep\SSSWAV.txt" to="\\wnbcore\transfer\wnb\memos\SSSWAV" />
+	<!-- Archive the file -->
+	<move file="\\CMBApps\ACBS\Sweep\SSSWAV.txt" to="\\CMBApps\ACBS\Sweep\Archive\#DATEADD(d, 0, yyyyMMdd)#_SSSWAV_InboundFile.txt" />	     	
+</fileinstructions>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest.net\jobs\hr_interfaces\hpi\employee\archive\" search="Employee_ #DATE(yyyyMMdd)#.csv" to="\\sftp.woodforest.net\users\branchops\hpidirect\outgoing\" />
+  <copy file="\\woodforest.net\jobs\hr_interfaces\hpi\location\archive\" search="LocationToHPI_ #DATE(yyyyMMdd)#.csv" to="\\sftp.woodforest.net\users\branchops\hpidirect\outgoing\" />
+</fileinstructions>

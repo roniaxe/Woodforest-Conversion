@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="APPL2_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\appl2" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="APPL2" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="ACCT" filecolumn="REC.ID" ignore="0" expression="^(DDA|ATM|CD|CLN|CLC|SDB|CRR)([0-9]*)$" group="2" />
+		<map index="0" column="APPL" filecolumn="REC.ID" ignore="0" expression="^(DDA|ATM|CD|CLN|CLC|SDB|CRR)([0-9]*)$" group="1" />
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="AVAIL_BAL" filecolumn="AVAILABLE BALANCE" ignore="0" />
+		<map index="2" column="AVG_BAL_CURR" filecolumn="AVG BAL CURR MON" ignore="0" />
+		<map index="3" column="BEG_BAL" filecolumn="BEG BAL" ignore="0" />
+		<map index="4" column="BEG_STT_DT" filecolumn="BEG STMT DATE" ignore="0" />
+		<map index="5" column="CD_BAL" filecolumn="BALANCE" ignore="0" />
+		<map index="6" column="CD_MATURITY" filecolumn="MATURITY" ignore="0" />
+		<map index="7" column="CRR_CRED_LIMIT" filecolumn="CREDIT LIMIT" ignore="0" />
+		<map index="8" column="CYCLE" filecolumn="CYCLE" ignore="0" />
+		<map index="9" column="DLY_INT" filecolumn="DAILY INTEREST" ignore="0" />
+		<map index="10" column="ENC_CNT" filecolumn="ENC CNT" ignore="0" />
+		<map index="11" column="ENC_CNT_LSTT" filecolumn="ENC CNT LAST STMT" ignore="0" />
+		<map index="12" column="BEG_BAL_LSTT" filecolumn="END BAL LAST STMT" ignore="0" />
+		<map index="13" column="INT_RATE" filecolumn="INT RATE" ignore="0" />
+		<map index="14" column="LAST_PROC_DATE" filecolumn="LAST PROC DATE" ignore="0" />
+		<map index="15" column="LOAN_BAL" filecolumn="LOAN BAL" ignore="0" />
+		<map index="16" column="LOANED_BAL" filecolumn="CLC LOANED BALANCE" ignore="0" />
+		<map index="17" column="MEMO_BAL" filecolumn="MEMO BAL" ignore="0" />
+		<map index="18" column="NAICS" filecolumn="NAICS" ignore="0" />
+		<map index="19" column="NOTE_INFO" filecolumn="NOTE INFO" ignore="0" />
+		<map index="20" column="NUM_SIGS_REQ" filecolumn="NUM SIGS REQUIRED" ignore="0" />
+		<map index="21" column="OFFICER2" filecolumn="OFFICER 2" ignore="0" />
+		<map index="22" column="ORIG_LOAN_AMT" filecolumn="ORIGINAL LOAN AMT" ignore="0" />
+		<map index="23" column="PAYOFF_DT" filecolumn="PAYOFF DT" ignore="0" />
+		<map index="24" column="RE_PERS_RES" filecolumn="BUY PER RESID" ignore="0" />
+		<map index="25" column="RE_POINTS" filecolumn="POINTS" ignore="0" />
+		<map index="26" column="RE_POINTS_PYR" filecolumn="POINTS PREV YR" ignore="0" />
+		<map index="27" column="RE_SECURED" filecolumn="SECURED BY R/E" ignore="0" />
+		<map index="28" column="TITLE" filecolumn="TITLE" ignore="0" />
+		<map index="29" column="WH_CODE" filecolumn="WITHHOLDING CODE" ignore="0" />
+		<map index="30" column="BEG_BAL_LSTT" filecolumn="BEG BAL LAST STMT" ignore="0" />
+		<map index="31" column="none" filecolumn="BEG STMT PREV DAT" ignore="1" />
+		<map index="32" column="WH_CODE_1231" filecolumn="WITHHOLDING CODE 1231" ignore="0" />
+		<map index="33" column="TIN_CERT_DATE" filecolumn="TIN CERT DATE" ignore="0" />
+		<map index="34" column="TIN_CERT_DATE_PRIOR" filecolumn="TIN CERT DATE PRIOR" ignore="0" />
+		<map index="35" column="TIN_NOTICE_COUNT" filecolumn="TIN NOTICE COUNT" ignore="0" />
+		<map index="36" column="TIN_NOTICE_DATE" filecolumn="TIN NOTICE DATE" ignore="0" />
+	</mappings>
+</import>

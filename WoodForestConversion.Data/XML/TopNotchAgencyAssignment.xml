@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="TopNotchDB" database="#database_wnbutility#" timeout="3600">
+  	<executesql>EXEC dbo.spTopNotchAgencyAssign</executesql> 
+  	</event>
+
+
+</sqlinstruction>

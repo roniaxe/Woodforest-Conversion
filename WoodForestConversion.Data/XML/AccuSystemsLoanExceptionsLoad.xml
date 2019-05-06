@@ -1,0 +1,6 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure to load loan exceptions from AccuSystems -->
+	<event server="HistoricalDB" database="WNBUtility" timeout="8000">
+		<executesql>EXEC dbo.spLoanExceptions</executesql>
+	</event>
+</sqlinstruction>

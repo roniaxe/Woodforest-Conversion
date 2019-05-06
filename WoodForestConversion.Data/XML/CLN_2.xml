@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CLN_2" to="#import_archive#\CLN_2" />
+	<move file="#import_download#\CLN_2.xxx" to="#import_archive#\CLN_2.xxx" />
+</fileinstructions>

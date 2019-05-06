@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!-- 
+	-->
+	<event server="#server_datawarehousedb#" database="#database_WNBUtility#" timeout="7200">
+		<executesql>EXEC [ACBS].[SanityCheckEvening]</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions> 
+  <move file="\\mscvpayutl01\pulsereports\download" search="*PRC529*" to="\\mscvjobs01\pulsereports\#DATE(yyyy)#\#DATE(MM)#\#DATE(dd)#\" />
+  <move file="\\mscvpayutl01\pulsereports\download" search="*PRC530*" to="\\mscvjobs01\pulsereports\#DATE(yyyy)#\#DATE(MM)#\#DATE(dd)#\" />
+  <move file="\\mscvpayutl01\pulsereports\download" search="*DDebitCBT*" to="\\mscvjobs01\pulsereports\#DATE(yyyy)#\#DATE(MM)#\#DATE(dd)#\" />
+  <copy file="\\mscvpayutl01\pulsereports\download" search="*.*" to="\\mscvjobs01\pulsereports\#DATE(yyyy)#\#DATE(MM)#\#DATE(dd)#\" />
+</fileinstructions>

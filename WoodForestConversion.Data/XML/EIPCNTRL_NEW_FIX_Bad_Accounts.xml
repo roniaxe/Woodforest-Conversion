@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--   EIPCNTRL_NEW  to DDA.dbo.OLEIP_REPORTS_1pm
+				Used for Bookeeping reports
+	-->
+	<event server="#server_banclinedb#" database="#database_banklinewnb#" timeout="900">
+		<executesql>DELETE from dbo.EIPCNTRL_NEW
+  					Where TRAN_ORIGIN like '%ESCHEATED TO TEXAS' </executesql>
+	</event>
+</sqlinstruction>

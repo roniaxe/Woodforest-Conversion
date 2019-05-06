@@ -1,0 +1,6 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure to Populate BCI Tables Database -->
+	<event server="woodforesthrdb" database="WoodforestHR" timeout="8000">
+		<executesql>EXEC dbo.U_BCI_Census</executesql>
+	</event>
+</sqlinstruction>

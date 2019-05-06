@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_activitydb#" database="#database_bancline_all#" timeout="3600">
+  		<executesql>EXEC HostMerge_Related_CRR #core_id#</executesql> 
+  	</event>
+</sqlinstruction>

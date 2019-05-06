@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\sftp.woodforest.net\users\branchops\chasegroup" search="WNB ORDERS PROCESSED.*.xlsx" to="\\sftp.woodforest.net\users\branchops\transoft" />
+  <move file="\\sftp.woodforest.net\users\branchops\chasegroup" search="WNB ORDERS PROCESSED.*.xlsx" to="\\woodforest.net\public\Cash Level Detail\Chase FTP Orders and Deposits" />
+</fileinstructions>

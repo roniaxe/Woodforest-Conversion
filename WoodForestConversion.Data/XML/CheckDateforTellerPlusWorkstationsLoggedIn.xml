@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Setup Update Transaction History Views
+	-->
+	<event server="#server_tellerplusdb#" database="#database_WNBUtility#" timeout="600">
+<executesql>
+  		EXEC dbo.rpt_Teller_Business_Date
+</executesql>
+</event>
+</sqlinstruction>

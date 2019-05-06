@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure top update default users web settings	-->
+	<event server="TopnotchDB" database="TopNotch" timeout="28800">
+		<executesql>
+			EXEC dbo.spTopNotch_UpdateDefaultview
+		</executesql>
+	</event>
+</sqlinstruction>

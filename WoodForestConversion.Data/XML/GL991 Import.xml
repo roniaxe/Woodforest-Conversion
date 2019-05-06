@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="GL991_MAP">
+	<queues total="1" bulksize="3000" errorthreshold="500" />
+	<source location="#import_download#\GL991.TXT" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_datawarehousedb#" database="#database_ReportExtracts#" entity="Staging_GL991" 
+		truncate="0" dropindexes="0" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="BusinessDate" filecolumn="DATE" ignore="0" />
+		<map index="1" column="Teller" filecolumn="TELLER" ignore="0" />
+		<map index="2" column="TotalDebits" filecolumn="DEBIT" ignore="0" />
+		<map index="3" column="TotalCredits" filecolumn="CREDIT" ignore="0" />
+	</mappings>
+</import>

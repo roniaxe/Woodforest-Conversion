@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_datawarehousedb#" database="GLHist" timeout="10800">
+		<executesql>exec spGLCONTROL_DW</executesql>
+	</event>
+</sqlinstruction>

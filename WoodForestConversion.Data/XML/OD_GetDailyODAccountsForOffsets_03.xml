@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  03
+	-->
+	<event server="#server_banclinedb#" database="ChargeOffs" timeout="18000">
+		<executesql>exec dbo.Util_PPGetListRelAcctsForOffsets</executesql>
+	</event>
+</sqlinstruction>

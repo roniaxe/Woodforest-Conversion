@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--    
+	-->
+	<event server="#server_CashPlusDB#" database="#database_wnbutility#" timeout="7200">
+		<executesql>EXEC dbo.CashPlusAdminAccountCapture_Monitor_Alert</executesql>
+	</event>
+</sqlinstruction>

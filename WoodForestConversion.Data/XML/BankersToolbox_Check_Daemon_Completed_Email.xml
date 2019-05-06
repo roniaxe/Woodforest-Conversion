@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Send Email on Status
+	-->
+	<event server="#server_bankerstoolboxdb#" database="#database_WNBUtility#" timeout="1000">
+		<executesql>
+		USE master;
+		declare @Message varchar(255), @DateDone DateTime;
+		declare @WeekDay varchar(50),@CurrentDate varchar(50),@Subject varchar(200)
+
+		Select @DateDone = GetDate()
+		Set @Message = 'BANKERSTOOLBOXDB: Archon Job: Bankers Toolbox Run Daemon Completely Finished on:..' + FORMAT(@DateDone, 'F') + '.';
+		Select @Message
+		set @Subject = 'BANKERSTOOLBOXDB: Archon Job: Bankers Toolbox Run Daemon Completely Finished on:..' + FORMAT(@DateDone, 'F') + '.';
+				
+
+		--EXEC msdb.dbo.sp_send_dbmail 
+		--	@profile_name='SQLDBA', 
+		--	@recipients='#bankerstoolbox_statusmail#',
+		--	@copy_recipients ='#bankerstoolbox_statusmailcc#',
+		--	@subject= @Subject,
+		--	@body = @Message,
+		--	@body_format= 'text';
+
+		EXEC xp_logevent 60000, @Message, informational;
+		</executesql>
+	</event>
+</sqlinstruction>

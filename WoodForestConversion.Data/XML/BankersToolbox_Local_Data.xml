@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Refresh Data for Bankers Toolbox
+	-->
+	<event server="#server_bankerstoolboxdb#" database="#database_wnbutility#" timeout="21600">
+		<executesql>EXEC [WNBUtility].[Bancline].[StageDataControl] @ProcessNumber = 1</executesql>
+	</event>
+</sqlinstruction>

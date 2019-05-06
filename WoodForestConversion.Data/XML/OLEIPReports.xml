@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Get OLEIP data for legacy reporting
+	-->
+	<event server="#server_datawarehouseDB#" database="#database_WNBUtility#" timeout="2700">
+		<executesql>exec GetOLEIPData</executesql>
+	</event>
+</sqlinstruction>

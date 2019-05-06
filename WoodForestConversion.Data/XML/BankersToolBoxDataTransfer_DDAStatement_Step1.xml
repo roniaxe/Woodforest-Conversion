@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_BankersToolboxdb#" database="bsav2_woodforest" timeout="300">
+		<executesql>
+			IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DDAStatement]') AND type in (N'U'))
+			BEGIN
+				DROP TABLE [dbo].[DDAStatement]
+			END
+		</executesql>
+	</event>
+	<event server="#server_BankersToolboxdb#" database="bsav2_woodforest" timeout="300">
+		<executesql>
+			IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DDAStatement]') AND type in (N'U'))
+			BEGIN
+				CREATE TABLE [dbo].[DDAStatement](
+					[StatementUID] [bigint] IDENTITY(72057594037927936,1) NOT NULL,
+					[AccountUID] [bigint] NOT NULL CONSTRAINT [DF__DDAStatem__Accou__7720AD13]  DEFAULT ((0)),
+					[AccountNumber] [bigint] NOT NULL,
+					[StartDate] [smalldatetime] NOT NULL,
+					[BeginningBalance] [money] NOT NULL,
+					[CreditCount] [smallint] NOT NULL,
+					[CreditTotal] [money] NOT NULL,
+					[DebitCount] [smallint] NOT NULL,
+					[DebitTotal] [money] NOT NULL,
+					[EndDate] [smalldatetime] NOT NULL,
+					[EndingBalance] [money] NOT NULL,
+					[CoreID] [bigint] NOT NULL CONSTRAINT [DF__DDAStatem__CoreI__7814D14C]  DEFAULT ((1)),
+				 CONSTRAINT [PK_DDAStatements] PRIMARY KEY CLUSTERED 
+				(
+					[StatementUID] ASC
+				)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+				) ON [PRIMARY]
+			END
+		</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  TellerPlus - Builds Metrics Stored In TellerPlus
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_WNBUtility#" timeout="1000">
+		<executesql>EXEC dbo.spUpdLessCash</executesql>
+	</event>
+</sqlinstruction>

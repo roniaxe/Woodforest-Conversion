@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="dtsrun" args="/F \\woodforest.net\jobs\Archon2\DTS\Packages\BT Bankline Table Exports.DTS" ignoreout="0" />
+</commands>

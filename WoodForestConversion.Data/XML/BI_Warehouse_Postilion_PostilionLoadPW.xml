@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Moves transactions from PostilionTransaction table on Postilion_Office to ReportWarehouse
+	-->
+	<event server="PaymentWarehouseDB" database="#database_postilion#" timeout="10800">
+		<executesql>EXEC ETL_PostilionTransaction_Load</executesql>
+	</event>
+</sqlinstruction>

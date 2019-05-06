@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_datawarehouseDB#" database="#database_WNB#" timeout="1200">
+		<executesql>EXEC dbo.util_SSAMDF_StagingBuild</executesql>
+	</event>
+</sqlinstruction>

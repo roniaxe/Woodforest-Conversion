@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Sync transactions between TellerPlus2 and TellerPlus2_WNB_90_Days -->
+
+	<event server="#Server_TellerPlusDB#" database="TellerPlus2_WNB_90_Days" timeout="1000">
+		<executesql>exec spTellerPlus2_Sync_Setup</executesql>
+	</event>
+
+</sqlinstruction>

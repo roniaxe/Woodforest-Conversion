@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Update Bill Pay Description Field for Customer Notifications
+	-->
+	<event server="#server_tranhistdb#" database="#database_tranhist#" timeout="3000">
+		<executesql>EXEC dbo.UpdateBPTransactionDescriptions</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_postcarddb#" database="#database_wnbutility#" timeout="2400">
+		<executesql>EXEC UTIL_StoreAndForwardNotification</executesql>
+	</event>
+	<event server="#server_posntwrkdb#" database="#database_wnbutility#" timeout="2400">
+		<executesql>EXEC UTIL_StoreAndForwardNotification</executesql>
+	</event>
+
+</sqlinstruction>

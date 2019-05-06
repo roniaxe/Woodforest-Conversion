@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- ActionApprove.txt -->
+        <!-- to FOS outbound -->
+	<copy file="\\woodforest.net\jobs\ACTION\ActionApprove.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\ActionApprove#DATE(MMddyy)#.txt" />
+        <!-- to archive -->
+	<move file="\\woodforest.net\jobs\ACTION\ActionApprove.txt"  to="\\woodforest.net\jobs\ACTION\Send_Archive\ActionApprove#DATE(MMddyy)#.txt" />
+</fileinstructions>

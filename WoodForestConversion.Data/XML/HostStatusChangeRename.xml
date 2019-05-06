@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- MortgageUpload -->
+	<move file="\\wnbcore.woodforest.net\transfer\wnb\MEMOS\AcctUpdate.tmp" to="\\wnbcore.woodforest.net\transfer\wnb\MEMOS\AcctUpdate.txt" />
+	<move file="\\wnbcore.woodforest.net\transfer\WSB\MEMOS\AcctUpdate.tmp" to="\\wnbcore.woodforest.net\transfer\WSB\MEMOS\AcctUpdate.txt" />
+
+</fileinstructions>

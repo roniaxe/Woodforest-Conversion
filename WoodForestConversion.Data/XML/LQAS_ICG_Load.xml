@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures after LQAS ICG Load has completed
+	-->
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">
+		<executesql>EXEC dbo.B56_UPDATE_PROPTAXES</executesql>
+	</event>
+</sqlinstruction>

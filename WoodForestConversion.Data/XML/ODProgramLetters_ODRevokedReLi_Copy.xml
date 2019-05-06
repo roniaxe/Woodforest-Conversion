@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+  <fileinstructions>
+  <move file="\\woodforest.net\Jobs\ODLetters\ODProgram\#DATE(yyyyMMdd)#_ODRevokedReLiLetters.txt" to="\\dc1ivtwftp01\users\support-analysts\fis\outgoing\#DATE(MMddyyyy)#_ODRevokedReLiLetters.txt" /> 
+  </fileinstructions>

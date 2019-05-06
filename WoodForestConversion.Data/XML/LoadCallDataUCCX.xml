@@ -1,0 +1,6 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure to load daily call data -->
+	<event server="DataWarehouseDB" database="WNBUtility" timeout="8000">
+		<executesql>EXEC dbo.spLoadCallDataUCCX</executesql>
+	</event>
+</sqlinstruction>

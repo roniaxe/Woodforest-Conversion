@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+
+  	 <!-- www.woodforest.com -->
+	<move file="\\dc1dviis01.wfdmz.net\F$\Logs\LogFiles\W3SVC1\W3SVC2\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.woodforest.com_DC1DVIIS01.log" />
+	<move file="\\dc2dviis01.wfdmz.net\F$\Logs\LogFiles\W3SVC1\W3SVC2\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.woodforest.com_DC2DVIIS01.log" /> 
+    
+    <!-- online.woodforest.com -->
+	<move file="\\dc1dvolx01.wfdmz.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_online.woodforest.com_DC1DVOLX01.log" />
+	<move file="\\dc1dvolx02.wfdmz.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_online.woodforest.com_DC1DVOLX02.log" /> 
+	<move file="\\dc2dvolx01.wfdmz.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_online.woodforest.com_DC2DVOLX01.log" />
+	<move file="\\dc2dvolx02.wfdmz.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_online.woodforest.com_DC2DVOLX02.log" /> 
+	
+	<!-- move file="\\wbcvoyweb01\LogFiles\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_online.woodforest.com_WBCVOYWEB01.log" / --> 
+	<!-- move file="\\wbcvoyweb02\LogFiles\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_online.woodforest.com_WBCVOYWEB02.log" / --> 
+	
+    <!-- webnet.woodforest.com -->
+	<move file="\\dmzftcpw02\C$\WINDOWS\system32\LogFiles\W3SVC1\ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_webnet.woodforest.com.log" />
+	
+    <!-- www.WoodforestCharitableFoundation.org -->
+	<!-- move file="\\dmzweb01\LogFiles\W3SVC1154935518\ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.WoodforestCharitableFoundation.org.log" /-->
+	
+    <!-- mobile.woodforest.com -->
+	<!-- move file="\\dc1dvonline01\LogFiles\W3SVC1\ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_mobile.woodforest.com_DC1DVONLINE01.log" / -->
+	<!-- move file="\\dc1dvonline02\LogFiles\W3SVC1\ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_mobile.woodforest.com_DC1DVONLINE02.log" / -->
+
+	<!-- Apps.woodforest.net -->
+	<move file="\\dc1cvapps01.woodforest.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\dc1cvapps01\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_apps.woodforest.net_dc1cvapps01.log" /> 
+	<move file="\\dc1cvapps02.woodforest.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\dc1cvapps02\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_apps.woodforest.net_dc1cvapps02.log" /> 
+	<move file="\\dc2cvapps01.woodforest.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\dc2cvapps01\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_apps.woodforest.net_dc2cvapps01.log" /> 
+	<move file="\\dc2cvapps02.woodforest.net\F$\iis\W3SVC1\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\dc2cvapps02\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_apps.woodforest.net_dc2cvapps02.log" /> 
+	
+	<!-- www.woodforestcharity.org -->   
+	  <move file="\\dc1dviis01.wfdmz.net\F$\Logs\LogFiles\W3SVC1\W3SVC3\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.woodforestcharity.org_DC1DVIIS01.log" /> 
+	  <move file="\\dc2dviis01.wfdmz.net\F$\Logs\LogFiles\W3SVC1\W3SVC3\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.woodforestcharity.org_DC2DVIIS01.log" /> 
+	  
+	<!-- www.woodforest.com/BankingGPS -->   
+	  <move file="\\dc1dviis01.wfdmz.net\F$\Logs\LogFiles\W3SVC1\W3SVC4\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.woodforest.com_BankingGPS_DC1DVIIS01.log" /> 
+	  <move file="\\dc2dviis01.wfdmz.net\F$\Logs\LogFiles\W3SVC1\W3SVC4\u_ex#DATEADD(d, -1, yyMMdd)#.log" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -1, yyyyMMdd)#\#DATEADD(d, -1, yyyyMMdd)#_www.woodforest.com_BankingGPS_DC2DVIIS01.log" /> 
+  	 
+	<!-- www.woodforest.com CompositeCMS (keep 30 days on server)-->   
+	  <move file="\\dc1dviis01.wfdmz.net\F$\CompositeLogs\#DATEADD(d, -30, yyyyMMdd)#.txt" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -30, yyyyMMdd)#\#DATEADD(d, -30, yyyyMMdd)#_www.woodforest.com_CompositeCMS_DC1DVIIS01.txt" /> 
+	  <move file="\\dc2dviis01.wfdmz.net\F$\CompositeLogs\#DATEADD(d, -30, yyyyMMdd)#.txt" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -30, yyyyMMdd)#\#DATEADD(d, -30, yyyyMMdd)#_www.woodforest.com_CompositeCMS_DC2DVIIS01.txt" />
+
+	<!-- move file="\\dc1dviis01.wfdmz.net\F$\CompositeLogs\#DATEADD(d, -30, yyyyMMdd)#_1.txt" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -30, yyyyMMdd)#\#DATEADD(d, -30, yyyyMMdd)#_www.woodforest.com_CompositeCMS_DC1DVIIS01_1.txt"/--> 
+	<!-- move file="\\dc2dviis01.wfdmz.net\F$\CompositeLogs\#DATEADD(d, -30, yyyyMMdd)#_1.txt" to="\\dc1ivlogfs01\Logs\IIS\#DATEADD(d, -30, yyyyMMdd)#\#DATEADD(d, -30, yyyyMMdd)#_www.woodforest.com_CompositeCMS_DC2DVIIS01_1.txt"/-->
+
+</fileinstructions>

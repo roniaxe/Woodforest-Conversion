@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<import engine="Application Name=Notification Import;Data Source=#server_wnbappsdb#;Initial Catalog=CustomerContact;User Id=CustomerContactWeb;Password=ls6N#frwX?v7t#"
+				profiles="Application Name=Notification Import;Data Source=#server_activitydb#;Initial Catalog=Woodforest;Integrated Security=SSPI;"
+				bulkfile="\\woodforest.net\jobs\Archon2\Configuration\CustomerContact\SMS_Bulk.txt"
+				formatfile="\\woodforest.net\jobs\Archon2\Configuration\CustomerContact\Notification_BulkFormat.txt"
+				recovery="\\woodforest.net\jobs\Archon2\Configuration\CustomerContact\SMS_Recovery"
+				procedure="dbo.Notification_Engine_BuildSmsAlerts"
+				confirmation="dbo.PhoneAlertAttempt"
+				pause="1"
+				capacity="1000"
+				timeout="500"
+	/>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\woodforest.net\jobs\LoanBooking\WNB1\CLNBookingFile.txt" to="\\wnbcore\transfer\wnb\Memos\CLNBookingFile.txt" />
+  <move file="\\woodforest.net\jobs\LoanBooking\WNB2\CLNBookingFile.txt" to="\\wnbcore\transfer\wsb\Memos\CLNBookingFile.txt" />
+</fileinstructions>

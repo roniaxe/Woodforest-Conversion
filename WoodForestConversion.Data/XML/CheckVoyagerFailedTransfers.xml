@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_voyagerdb#" database="WNBUtil" timeout="600">
+<executesql>
+
+DECLARE @date DATETIME, @time DATETIME, @FailureRate DECIMAL(20,6), @Threshold DECIMAL(20,6)
+SET @Threshold = .50
+SET @date = convert(VARCHAR, getdate(), 101)
+SET @time = dateadd(minute,-30,getdate())
+
+  SELECT 
+      SUM(CASE WHEN Status = 'POSTED' THEN 1 ELSE 0 END) AS TotalSuccesses,
+      SUM(CASE WHEN Status =  'REJECTED' THEN 1 ELSE 0 END) AS TotalFailures
+      INTO #FailedTransfers
+  FROM [Voyager].[dbo].[CCXfr]
+  where ProcessDate = @date and DateCreated >= @time
+  
+  SELECT @FailureRate = CONVERT(DECIMAL(20,2),TotalFailures)/CONVERT(DECIMAL(20,2),(TotalFailures + TotalSuccesses)) FROM #FailedTransfers
+  
+  IF @FailureRate > @Threshold
+	BEGIN
+		RAISERROR (N'High Rate of Failed Transfers, Try recycling the web pool for dc1cviis02 dc1cviis03',16,2)
+	END
+
+Drop table #FailedTransfers
+
+</executesql>
+</event>
+</sqlinstruction>
+

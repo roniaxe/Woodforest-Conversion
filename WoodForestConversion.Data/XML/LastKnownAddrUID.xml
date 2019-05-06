@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Get last known address archon job
+	-->
+	<event server="#server_activityDB#" database="#database_wnbutility#" timeout="1800">
+		<executesql>exec spUpdateLastKnownAddressUID</executesql>
+	</event>
+</sqlinstruction>

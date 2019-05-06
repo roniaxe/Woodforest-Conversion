@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Fixes the crash issue with job steps. -->
+	<event server="#server_archondb#" database="#database_archon#">
+		<executesql>EXEC dbo.JobStep_FixBrokenSteps</executesql>
+	</event>
+</sqlinstruction>

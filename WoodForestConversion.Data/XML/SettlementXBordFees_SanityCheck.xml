@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Settlements - XBord Fees
+	-->
+	<event server="#server_activitydb#" database="#database_activity#" timeout="14400">
+		<executesql>exec dbo.CrossBorderFee_SanityCheck</executesql>
+	</event>
+</sqlinstruction>

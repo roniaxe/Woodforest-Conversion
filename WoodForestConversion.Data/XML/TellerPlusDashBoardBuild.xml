@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures to build tables for Tellerplus dashboard
+	-->
+	<event server="#server_tellerplusdb#" database="#database_WNBUtility#" timeout="7600">
+		<executesql>EXEC db_TellerPlusBuildAllTables</executesql>
+	</event>
+</sqlinstruction>

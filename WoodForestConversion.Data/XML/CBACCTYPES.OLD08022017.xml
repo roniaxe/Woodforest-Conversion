@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CBACCTYPES.zip" to="#import_archive#\CBACCTYPES.zip" />
+	<move file="#import_download#\CBACCTYPES.xxx" to="#import_archive#\CBACCTYPES.xxx" />
+	<delete file="#import_extractto#\CBACCTYPES" />
+</fileinstructions>

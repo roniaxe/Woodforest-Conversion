@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command exec="#ssis2016#" args="/F #directory_ssis#\BanklineStatementSummaryFileImport.dtsx /SET \Package.Variables[User::ConnectionString].Properties[Value];\&quot;&quot;Data Source=Activitydb;Initial Catalog=BanklineWNB;Provider=SQLNCLI11.0;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-BanklineStatementXMLSummary;&quot;\&quot; /SET \Package.Variables[User::FilePath].Properties[Value];&quot;\\wnbcore\transfer\WNB\EXTRACTS\\" ignoreout="0" checkexitcode="1" />
+</commands>

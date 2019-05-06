@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="cscript" args="\\WBCMSEXC01\c$\Public\vbsCreateEASLog.vbs" ignoreout="0" />
+</commands>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest.net\jobs\HR_Interfaces\Empyrean\Archive\" search="woodforest_#DATE(yyyyMMdd)#.txt" to="\\sftp.woodforest.net\users\hr\empyrean\outgoing\" />
+</fileinstructions>

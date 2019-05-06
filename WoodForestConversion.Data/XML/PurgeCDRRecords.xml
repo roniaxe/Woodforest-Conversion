@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_datawarehousedb#" database="WNBUtility" timeout="36000">
+  		<executesql>EXEC dbo.spPurgeCDRRecords -13</executesql> 
+    	</event>
+
+</sqlinstruction>

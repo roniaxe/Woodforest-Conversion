@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <delete file="#vego_flagpath#\Executing\Daemon_Flag.txt" />
+  <copy file="#vego_scriptpath#" search="Daemon_Flag.txt" to="#vego_flagpath#\Available" />
+</fileinstructions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest\jobs\HR_Interfaces\UNUM\Archive\Portability\" search="WoodforestPortConvert#DATE(MMddyyyy)#.txt" to="\\sftp.woodforest.net\users\hr\unum\outgoing\" />
+</fileinstructions>

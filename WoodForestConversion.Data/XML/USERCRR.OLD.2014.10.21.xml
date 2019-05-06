@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="USERCRR_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\USERCRR" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="USERCRR" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="INDIVIDUAL_ANNUAL_INCOME" filecolumn="IND ANNUAL INCOME" ignore="0" />
+		<map index="2" column="JOINT_ANNUAL_INCOME" filecolumn="JOINT ANNUAL INCOME" ignore="0" />
+		<map index="3" column="CRA_ZIP" filecolumn="CRA ZIP" ignore="0" />
+		<map index="4" column="LAST_RENEWAL_DATE" filecolumn="LAST RENEWAL DATE" ignore="0" />
+		<map index="5" column="APPRO_ID" filecolumn="APPRO ID" ignore="0" />
+	</mappings>
+</import>

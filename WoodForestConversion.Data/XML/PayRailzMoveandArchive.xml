@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<copy file="\\sftp.woodforest.net\users\ach\payrailz\ToWNB\" search="*.*" to="\\mscvaxway01\inbound\" />
+	<move file="\\sftp.woodforest.net\users\ach\payrailz\ToWNB\" search="*.*" to="\\mscvach01\files\ORIG\in\Files\Archives\" />
+</fileinstructions>

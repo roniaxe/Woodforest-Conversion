@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- Truncate the sent flag table -->
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
+		<executesql>EXEC dbo.Notification_Engine_Reset</executesql>
+	</event>
+	<!-- Truncate the sent flag table -->
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
+		<executesql>EXEC dbo.Notification_Engine_ResetSms</executesql>
+	</event>
+</sqlinstruction>

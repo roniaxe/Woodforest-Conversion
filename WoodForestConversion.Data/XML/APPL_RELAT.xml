@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\APPL_RELAT" to="#import_archive#\APPL_RELAT" />
+	<move file="#import_download#\APPL_RELAT.xxx" to="#import_archive#\APPL_RELAT.xxx" />
+</fileinstructions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe" args="-Noninteractive d:\fichewsb\executefichewsb.ps1" ignoreout="0" />
+</commands>

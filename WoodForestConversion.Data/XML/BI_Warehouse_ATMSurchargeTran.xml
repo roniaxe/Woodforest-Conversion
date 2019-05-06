@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Gets and places atm tran stats onto the datawarehouse server
+	-->
+	<event server="#server_postilionoffice#" database="POUtils" timeout="600">
+		<executesql>EXEC dbo.rptATMSurchargeTotals_CreateData</executesql>
+	</event>
+	
+</sqlinstruction>

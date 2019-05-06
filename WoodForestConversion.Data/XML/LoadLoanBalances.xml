@@ -1,0 +1,6 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure to load monthly loan balance data -->
+	<event server="DatawarehouseDB" database="WNBUtility" timeout="8000">
+		<executesql>EXEC dbo.spLoadLoanBalances</executesql>
+	</event>
+</sqlinstruction>

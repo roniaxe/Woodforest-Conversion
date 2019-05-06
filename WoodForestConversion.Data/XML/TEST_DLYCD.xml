@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\TEST_DLYCD" to="#import_archive#\TEST_DLYCD" />
+	<move file="#import_download#\TEST_DLYCD.xxx" to="#import_archive#\TEST_DLYCD.xxx" />
+</fileinstructions>

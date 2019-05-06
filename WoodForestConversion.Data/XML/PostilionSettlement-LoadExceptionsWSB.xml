@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  PostilionSettlement-LoadExceptions.xml
+	-->
+	<event server="PaymentWarehouseDB" database="Postilion" timeout="300">
+		<executesql>EXEC dbo.GetPostilionExceptionsWSB</executesql>
+	</event>
+</sqlinstruction>

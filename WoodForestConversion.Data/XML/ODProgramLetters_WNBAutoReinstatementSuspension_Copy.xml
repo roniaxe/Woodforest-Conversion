@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+  <fileinstructions>
+  <move file="\\woodforest.net\Jobs\ODLetters\ODProgram\#DATE(yyyyMMdd)#_WNBAutoReinstatementSuspensionNoticeLetters.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\#DATE(MMddyyyy)#_WNBAutoReinstatementSuspensionNoticeLetters.txt" /> 
+  </fileinstructions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <copy file="\\Woodforest.net\jobs\SQLServers_Documentation\" search="*.chm" to="\\Woodforest.Net\Jobs\SQLServers_Documentation\Weekly_Backup\" />
+</fileinstructions>

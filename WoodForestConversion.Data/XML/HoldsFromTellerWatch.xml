@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures for the daily Settlement files
+	-->
+	<event server="ACTIVITYDB" database="activity" timeout="300">
+		<executesql>EXEC dbo.Util_HoldsFromTellerWatch</executesql>
+	</event>
+</sqlinstruction>

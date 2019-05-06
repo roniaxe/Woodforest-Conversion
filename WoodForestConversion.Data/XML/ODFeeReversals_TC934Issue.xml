@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="Staging" timeout="600">
+<executesql>EXEC Staging.dbo.spRefundODFeesFor934TranCodeIssue</executesql>
+</event>
+</sqlinstruction>

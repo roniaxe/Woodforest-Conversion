@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="DTSRUN" args="/F \\woodforest.net\Jobs\Archon2\DTS\Packages\ODLetters35to45.dts" CheckExitCode="1" ignoreout="0" />
+</commands>

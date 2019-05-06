@@ -1,0 +1,6 @@
+<sqlinstruction>
+	<!--  Postcard sanity check -->
+- <event server="#server_postcarddb#" database="#Database_WNBUtility#" timeout="1000">
+		<executesql>EXEC dbo.PostCardImport_SanityCheck</executesql>
+	</event>
+</sqlinstruction>

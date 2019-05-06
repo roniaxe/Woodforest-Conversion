@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_banclinedb#" database="#database_bancline#" timeout="10000">
+		<executesql><![CDATA[exec spUpdateGLHistToWarehouse]]></executesql>
+	</event>
+</sqlinstruction>

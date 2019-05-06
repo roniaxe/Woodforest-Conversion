@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Paper Statement Fees To Settlements
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_WOODFOREST#" timeout="1000">
+		<executesql>EXEC dbo.PaperStatementFee_Create 1</executesql>
+	</event>
+</sqlinstruction>

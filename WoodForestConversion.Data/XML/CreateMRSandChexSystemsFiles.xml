@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="C:\Program Files\Microsoft SQL Server\90\DTS\Binn\dtexec.exe" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\MRSandChexSystemsFileCreation.dtsx" ignoreout="0" checkexitcode="1" />
+</commands>

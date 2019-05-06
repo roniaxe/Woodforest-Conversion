@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_ActivityDB#" database="#database_WNBUtility#" timeout="8000">
+		<executesql>EXEC SCRA_MilitaryAccountsOfferLetter</executesql>
+	</event>
+</sqlinstruction>

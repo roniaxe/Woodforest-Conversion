@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="Woodforest" timeout="4000">
+		<executesql>
+			EXEC  [dbo].[DebitCardChipTypeCardOrder_Update]
+			EXEC  [dbo].[DebitCardChipType_Update]
+		</executesql>
+	</event>
+</sqlinstruction>

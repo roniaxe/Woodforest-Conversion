@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command exec="#ssis2016#" args="/F #directory_ssis#\BanklineStatementImport.dtsx /Decrypt BanklineStatementImport /SET \Package.Variables[User::CoreID].Properties[Value];1 /SET \Package.Variables[User::FileDelimiter].Properties[Value];| /SET \Package.Variables[User::StatementDirectory].Properties[Value];&quot;\\woodforest.net\jobs\STMT\XMLParsed\WNB1\\&quot;" ignoreout="0" checkexitcode="1" />
+</commands>

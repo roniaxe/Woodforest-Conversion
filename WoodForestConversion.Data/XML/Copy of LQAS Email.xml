@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Testing email
+	-->
+	<event server="#BanklineDB#" database="Master" timeout="3000">
+		<executesql>EXEC Master.dbo.xp_smtp_sendmail
+            @FROM           = N'SQLServ@WOODFOREST.com',
+            @TO                 = N'EBunsey@woodforest.com,STaylor@woodforest.com',
+            @subject          = N'LQAS EoD has completed successfully',
+            @message        = N'LQAS EoD has completed successfully',
+            @type               = N'text/plain',
+            @server            = N'WNBMail'
+</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Executes Stored Procedures 
+	-->
+	<event server="#server_postilionoffice#" database="WNBReports" timeout="8000">
+		<executesql>EXEC dbo.WNB_SettlementSanityCheck</executesql>
+	</event>
+	<event server="#server_evergreendb#" database="#database_Evergreen_Ops#" timeout="8000">
+		<executesql>EXEC DebitCard.SettlementPostingJournalHistoryImport</executesql>
+	</event>
+	<event server="#server_evergreendb#" database="#database_Evergreen_Ops#" timeout="8000">	
+		<executesql>EXEC DebitCard.rptSettlmentPostingSanityCheckEmail</executesql>
+	</event>
+	
+</sqlinstruction>

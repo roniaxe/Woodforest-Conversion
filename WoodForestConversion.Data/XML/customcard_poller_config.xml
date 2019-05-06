@@ -1,0 +1,3 @@
+<commands>
+	<command exec="#archon_apps2012#\custom_card\Bank.Online.CustomCard.Poller.exe" args="" ignoreout="0" errorifouput="0" checkexitcode="0" />
+</commands>

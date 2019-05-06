@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  
+	-->
+	<event server="#server_activitydb#" database="#database_tranhist#" timeout="2700">
+		<executesql>EXEC util_Settlement_ExecessWithdrawalFee</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
+		<executesql>INSERT INTO dbo.Person ( CustomerUID, FirstName )
+SELECT CustomerUID, LEFT(Display,60) AS [FirstName]
+FROM Customer
+WHERE CustomerUID NOT IN ( SELECT CustomerUID FROM Person WHERE EntityType = 0 ) AND EntityType = 0</executesql>
+	</event>
+</sqlinstruction>

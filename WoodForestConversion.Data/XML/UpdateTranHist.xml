@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load Transactions to TranHist
+	-->
+	<event server="#DDADB#" database="DDA" timeout="3000">
+		<executesql>EXEC dbo.spUpdateTranHist</executesql>
+	</event>
+</sqlinstruction>

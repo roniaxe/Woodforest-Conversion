@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>    
+  <!-- Archive -->
+  <move file="\\wnbutil14\mastercard\Download\" search="*.*" to="\\wnbintranet01\PDFReports\Archive\" />
+</fileinstructions>

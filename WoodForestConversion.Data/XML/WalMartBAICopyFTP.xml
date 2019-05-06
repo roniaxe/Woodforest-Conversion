@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest.net\jobs\BAI\" search="wdfrst.txt" to="\\sftp.woodforest.net\users\treasury\walmart\outgoing\" /> 
+</fileinstructions>

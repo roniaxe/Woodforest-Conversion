@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Sanity Check for EIPCNTROL_ITEM 
+				Makes sure there are records for the current processing date
+	-->
+	<event server="#BANKLINEDB#" database="BANKLINE" timeout="900">
+		<executesql>EXEC Util_SanityCheck_EIPCNTRL_ITEM</executesql>
+	</event>
+</sqlinstruction>

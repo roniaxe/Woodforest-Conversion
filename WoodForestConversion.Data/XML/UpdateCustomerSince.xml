@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Refresh Host Balances -->
+	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
+		<executesql>EXEC HostMerge_UpdateCustomerSince</executesql>
+	</event>
+</sqlinstruction>

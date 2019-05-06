@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure Check for Processing Status
+	-->
+	<event server="#Server_ActivityDB#" database="Bankline" timeout="300">
+		<executesql>EXEC util_checkProcessingStatus</executesql>
+	</event>
+</sqlinstruction>

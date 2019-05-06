@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Drop Triggers on Activity -->
+	<event server="#ActivityDB#" database="Activity" timeout="600">
+		<executesql>SELECT TOP 1 * FROM AccountBalance</executesql>
+	</event>
+</sqlinstruction>

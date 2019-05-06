@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql05\c$\mountpoints\Backup\Backup2\Teller\ChequeScribe2\  			\\dc2cvplysql05\c$\Mountpoints\Backup\Backup2\Teller\ChequeScribe2\" ignoreout="1" />
+  <!-- <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql05\c$\mountpoints\Backup\Backup2\Teller\TellerPlus2\    			\\dc2cvplysql05\c$\Mountpoints\Backup\Backup2\Teller\TellerPlus2\" ignoreout="1" /> -->
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql05\c$\mountpoints\Backup\Backup2\Teller\TellerPlus2_FSB\		  \\dc2cvplysql05\c$\Mountpoints\Backup\Backup2\Teller\TellerPlus2_FSB\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql05\c$\mountpoints\Backup\Backup2\Teller\TellerWNBUtils\ 			\\dc2cvplysql05\c$\Mountpoints\Backup\Backup2\Teller\TellerWNBUtils\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql05\c$\mountpoints\Backup\Backup2\Teller\WNB\            			\\dc2cvplysql05\c$\Mountpoints\Backup\Backup2\Teller\WNB\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql05\c$\mountpoints\Backup\Backup2\Teller\WNBTP\          	  	\\dc2cvplysql05\c$\Mountpoints\Backup\Backup2\Teller\WNBTP\" ignoreout="1" />
+</commands>

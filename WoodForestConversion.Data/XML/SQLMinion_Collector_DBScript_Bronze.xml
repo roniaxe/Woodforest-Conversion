@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="C:\MinionByMidnightDBA\Collector\DBScript.exe" args="Bronze 1 1" ignoreout="0" checkexitcode="1" />
+</commands>

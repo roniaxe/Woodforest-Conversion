@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure AET - Cleanup CL&CO Accounts
+	-->
+	<event server="#server_wnbappsdb#" database="AccountException" timeout="300">
+		<executesql>EXEC dbo.AET_Cleanup</executesql>
+	</event>
+	
+</sqlinstruction>

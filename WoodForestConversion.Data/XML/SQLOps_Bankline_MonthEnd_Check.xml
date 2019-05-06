@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Step 5. - Query results and send via email so that dba staff knows that Bankline monthend was created. Also, checks to see if any mismatches and puts that in the email as well. (DC1CBSQLDW01).
+	-->
+	<event server="#server_datawarehousedb2#" database="WNBUtility" timeout="28800">
+		<executesql>dbo.util_Bankline_MonthEnd_Check</executesql>
+	</event>
+</sqlinstruction>

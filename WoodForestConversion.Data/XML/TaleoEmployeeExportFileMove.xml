@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\woodforest.net\jobs\HR_Interfaces\Taleo\Exports\" search="edge_emp_imp_*" to="\\sftp.woodforest.net\users\hr\taleo\outgoing\" />
+</fileinstructions>

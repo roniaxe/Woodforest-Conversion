@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates backdated entries into GLHist_Current and updates the GLControl totals
+	-->
+	<event server="TopNotchDB" database="WNBUtility" timeout="2100">
+		<executesql>EXEC util_TN_AccountsToFix</executesql>
+	</event>
+</sqlinstruction>

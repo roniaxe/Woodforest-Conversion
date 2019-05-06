@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  UpdateCardMaintenanceData
+	-->
+	<event server="#server_atmdb#" database="#database_atm#" timeout="1200">
+		<executesql>EXEC dbo.Prepare_CAF_Reject</executesql>
+	</event>
+</sqlinstruction>
+

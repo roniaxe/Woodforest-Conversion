@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<monitor file="#import_download#\BENOWN_NAME_INFO.xxx" />
+	<monitor file="#import_download#\BENOWN_NAME_INFO" />
+	<copy file="#import_download#\BENOWN_NAME_INFO" to="#import_extractto#\BENOWN_NAME_INFO" />
+</fileinstructions>

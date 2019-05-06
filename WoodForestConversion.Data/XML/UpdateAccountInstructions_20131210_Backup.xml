@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="600">
+		<executesql>EXEC dbo.HostMerge_UpdateAccountInstructions_FSB</executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="600">
+		<executesql>EXEC dbo.HostMerge_UpdateHoldAmount_FSB</executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_woodforest#" timeout="600">
+		<executesql>EXEC dbo.util_LoanAccountInstruction_Create @CoreID=#core_id#</executesql>
+	</event>
+</sqlinstruction>

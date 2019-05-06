@@ -1,0 +1,28 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures after LQAS DTS jobs have completed
+	-->
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">
+		<executesql>EXEC dbo.BID0056_SIC_CODE_DL</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">
+		<executesql>EXEC dbo.BID0056_CUSTOMER_DL</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">	
+		<executesql>EXEC dbo.BID0056_LOAN_DL</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">
+		<executesql>EXEC dbo.BID0056_INDIRECT_DL</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">	
+		<executesql>EXEC dbo.BID0056_COLLATERAL_DL</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">		
+		<executesql>EXEC dbo.BID0056_GRADES_DL</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">		
+		<executesql>EXEC B56_$_CHANGE</executesql>
+	</event>
+	<event server="#server_lqasdb#" database="#database_lqasdb#" timeout="8000">		
+		<executesql>EXEC B56_DISBURSEMENT_LOAD</executesql>
+	</event>
+</sqlinstruction>

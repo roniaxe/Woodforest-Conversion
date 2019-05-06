@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sqlinstruction>
+  <event server="#server_cashplusdb#" database="#database_cashplus#" timeout="28800000">
+    <executesql>EXEC dbo.sp_purge_bk_rpt_by_status_ss</executesql>
+  </event>
+</sqlinstruction>

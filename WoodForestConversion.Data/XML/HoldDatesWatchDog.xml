@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Hold Dates WatchDog
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_WNBUtility#" timeout="1000">
+		<executesql>EXEC dbo.Util_HoldDatesWatchDog</executesql>
+	</event>
+</sqlinstruction>

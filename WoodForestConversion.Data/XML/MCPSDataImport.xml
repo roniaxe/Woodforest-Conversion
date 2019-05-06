@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+<command exec="c:\program files (x86)\Microsoft SQL Server\100\DTS\Binn\DTExec.exe" args="/F #directory_ssis#\MCPSDataImport.dtsx /SET \Package.Variables[User::ArchiveDirectory].Properties[Value];\\woodforest.net\jobs\treasury_mgmt\MCPS\Archive\\ /SET \Package.Variables[User::DBServer].Properties[Value];#server_ActivityDB# /SET \Package.Variables[User::SourceDirectory].Properties[Value];\\sftp.woodforest.net\users\treasury\mcpspayments\\" ignoreout="0" checkexitcode="1" />
+</commands>

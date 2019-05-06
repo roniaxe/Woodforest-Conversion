@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  update expire date for pending transactions with wrong bus recon dates
+	-->
+	<event server="#server_activitydb#" database="#database_activity#" timeout="2700">
+		<executesql>EXEC dbo.Util_UpdatePendingPulseDateIssue</executesql>
+	</event>
+</sqlinstruction>

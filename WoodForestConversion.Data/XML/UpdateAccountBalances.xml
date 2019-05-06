@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="600">
+		<executesql>EXEC dbo.FIX_AccountUID_Zero</executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="600">
+		<executesql>EXEC dbo.HostMerge_UpdateBalances_FSB</executesql>
+	</event>
+	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
+		<executesql>EXEC dbo.HostMerge_UpdateLedgerBalances 2</executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="600">
+		<executesql>EXEC dbo.HostMerge_UpdateLedgerBalances</executesql>
+	</event>
+	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
+		<executesql>EXEC dbo.HostMerge_UpdateAverages_FSB</executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="600">
+		<executesql>EXEC util_ATMPendingTransactionsToCore 2</executesql>
+	</event>
+</sqlinstruction>

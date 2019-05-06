@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="powershell.exe" args="-Noninteractive \\woodforest.net\jobs\Archon2\Configuration\Scripts\achbackup.ps1 A1FILE.ACH" ignoreout="0" />
+</commands>

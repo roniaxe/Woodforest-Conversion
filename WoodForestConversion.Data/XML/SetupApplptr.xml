@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Setup Applptr View
+	-->
+	<event server="#BanklineDB#" database="Bankline" timeout="300">
+		<executesql>ALTER VIEW dbo.APPLPTR
+AS
+SELECT     dbo.APPL1.Z_ID, dbo.APPL1.STATUS, dbo.APPL1.CLASS, dbo.APPL1.FED_CATEGORY, dbo.APPL1.OWNER, dbo.APPL1.BEG_BAL_LSTT, 
+           dbo.APPL1.CTD_DB_AMT_LSTT, dbo.APPL1.CTD_CR_AMT_LSTT, dbo.APPL1.LEDGER_BAL, dbo.APPL1.BEG_STT_DT_LSTT, dbo.APPL1.APPL, 
+           dbo.APPL1.ACCT, dbo.APPL1.AVG_COL_CURR, dbo.APPL1.CIF_SEQ, dbo.APPL2.CYCLE, dbo.APPL2.TITLE, dbo.APPL2.NUM_SIGS_REQ, 
+           dbo.APPL2.WH_CODE, dbo.APPL2.AVAIL_BAL, dbo.APPL2.RE_SECURED, dbo.APPL2.RE_PERS_RES, dbo.APPL2.RE_POINTS, 
+           dbo.APPL2.RE_POINTS_PYR, dbo.APPL2.ORIG_LOAN_AMT, dbo.APPL2.BEG_BAL, 
+	   dbo.APPL2.CD_BAL,
+	   dbo.APPL2.MEMO_BAL, 
+	   dbo.APPL2.DLY_INT, dbo.APPL2.ENC_CNT, dbo.APPL2.ENC_CNT_LSTT, dbo.APPL2.BEG_STT_DT, 
+           dbo.APPL2.LAST_PROC_DATE, dbo.APPL1.END_STT_DT_LSTT, dbo.APPL2.LOAN_BAL, dbo.APPL2.LOANED_BAL, dbo.APPL2.CRR_CRED_LIMIT, 
+           dbo.APPL2.AVG_BAL_CURR, dbo.APPL2.CD_MATURITY, dbo.APPL2.PAYOFF_DT, dbo.APPL1.NOTE, dbo.APPL2.NOTE_INFO, dbo.APPL2.INT_RATE, 
+           dbo.APPL2.OFFICER2, dbo.APPL2.NAICS, dbo.APPL3.CLASS_DESC, dbo.APPL3.STATUS_DESC, dbo.APPL3.CTD_DB_AMT, dbo.APPL3.CTD_CR_AMT, 
+           dbo.APPL3.PAYOFF, dbo.APPL3.CLC_AUTH_AMT, dbo.APPL3.AVG_BAL_PREV, dbo.APPL3.AVG_BAL_PREV2, dbo.APPL3.AVG_BAL_PREV3, 
+           dbo.APPL3.AVG_BAL_PREV4, dbo.APPL3.AVG_BAL_PREV5, dbo.APPL3.AVG_BAL_PREV6, dbo.APPL3.AVG_BAL_PREV7, dbo.APPL3.AVG_BAL_PREV8, 
+           dbo.APPL3.AVG_BAL_PREV9, dbo.APPL3.AVG_BAL_PREV10, dbo.APPL3.AVG_BAL_PREV11, dbo.APPL3.AVG_BAL_PREV12, dbo.APPL3.AVG_BAL_LAST, 
+           dbo.APPL3.FED_CAT_DESC, dbo.APPL3.WH_DESC, dbo.APPL3.AVG_COL_PREV, dbo.APPL3.AVG_COL_PREV2, dbo.APPL3.AVG_COL_PREV3, 
+           dbo.APPL3.AVG_COL_PREV4, dbo.APPL3.AVG_COL_PREV5, dbo.APPL3.AVG_COL_PREV6, dbo.APPL3.AVG_COL_PREV7, dbo.APPL3.AVG_COL_PREV8, 
+           dbo.APPL3.AVG_COL_PREV9, dbo.APPL3.AVG_COL_PREV10, dbo.APPL3.AVG_COL_PREV11, dbo.APPL3.AVG_COL_PREV12, 
+           dbo.APPL3.AVG_COL_LAST
+FROM     dbo.APPL1 
+	INNER JOIN dbo.APPL2 ON dbo.APPL1.Z_ID = dbo.APPL2.Z_ID 
+	INNER JOIN dbo.APPL3 ON dbo.APPL1.Z_ID = dbo.APPL3.Z_ID</executesql>
+	</event>
+	<!-- <event server="#BanklineDB#" database="Bankline" timeout="300">
+		<executesql>DROP INDEX [APPLPTR].[pkvAPPLPTR]</executesql>
+	</event> -->
+</sqlinstruction>

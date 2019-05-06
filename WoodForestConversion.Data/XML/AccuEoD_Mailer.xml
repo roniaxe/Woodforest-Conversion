@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+<event server="#server_ActivityDB#" database="#database_wnbutility#" timeout="2700">
+<executesql>
+	Declare @Date DATETIME
+	Declare @Message as varchar(5000)
+	SELECT @Date = convert(varchar, getdate())
+	SELECT @Message = 'AccuSystem nightly processing completed at ' + convert(varchar,@Date) + '. Please contact Anna Ramani or Charlie Muras in case of issues.'
+
+	BEGIN
+		EXEC MSDB.dbo.sp_send_dbmail 
+		@profile_name = 'WBCSQL01 Mail',
+		@recipients = 'cmbloanoperations@wooforest.com',
+		@copy_recipients = 'charliem@woodforest.com; aramani@woodforest.com',
+		@subject = 'AccuSystem Nightly Processing Has Completed',
+		@body =@Message,
+		@body_format = 'TEXT'
+	END
+</executesql>
+</event>
+</sqlinstruction>

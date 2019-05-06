@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_DatawarehouseDB#" database="#database_WNB#" timeout="8000">
+		<executesql>EXEC Util_SCRA_MilitaryAccountsOfferLetterMailer</executesql>
+	</event>
+</sqlinstruction>

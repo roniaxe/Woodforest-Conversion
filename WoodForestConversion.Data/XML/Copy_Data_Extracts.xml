@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <delete file="#vego_dataextract#\Vego_Monthly_Transaction_Totals_Unload_Account_Data_sp.DataExtract" />
+  <copy file="#vego_dataextract#" search="Vego_*.DataExtract" to="#vego_copypath#" />
+  <copy file="#vego_dataextract#" search="*.rch" to="#vego_copypath#" />
+</fileinstructions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\dmzutil02\ceridian\" search="EFT_*" to="\\woodforest.net\Public\ACH\Ceridian\" />
+</fileinstructions>

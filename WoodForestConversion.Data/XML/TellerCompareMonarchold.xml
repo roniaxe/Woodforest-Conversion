@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="command.exe" args="c:\progra~1\monarc~1\pumpcmd.exe -q -s "Branch Capture Match"" ignoreout="1" />
+</commands>

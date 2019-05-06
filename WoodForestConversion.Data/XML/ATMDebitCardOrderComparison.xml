@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure ATM - Debit Card Order Comparison
+	-->
+	<event server="ATMDB" database="ATM" timeout="300">
+		<executesql>EXEC spDebitCardOrderCompare</executesql>
+	</event>
+	
+</sqlinstruction>

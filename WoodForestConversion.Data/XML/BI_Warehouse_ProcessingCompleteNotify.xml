@@ -1,0 +1,5 @@
+<sqlinstruction>
+	<event server="#server_datawarehousedb#" database="#database_wnbutility#" timeout="8000">
+		<executesql>EXEC spWarehouseProcessingNotify</executesql>
+	</event>
+</sqlinstruction>

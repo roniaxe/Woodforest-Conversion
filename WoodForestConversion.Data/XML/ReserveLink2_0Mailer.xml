@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  
+	-->
+	<event server="#server_activitydb#" database="#database_bancline#" timeout="2700">
+		<executesql>EXEC MSDB.dbo.sp_send_dbmail @profile_name = 'WBCSQL01 Mail'
+,@recipients = 'reservelink@woodforest.com'
+,@copy_recipients = ''
+,@subject = 'ReserveLink Processing - Reports'
+,@body = 'Daily ReserveLink 2.0 Job Complete.  Please find the daily reports here: \\Msivrsvlink01\rptarchive'
+,@body_format = 'TEXT'
+</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1500">
+		<executesql>EXEC Notify.MergedAccountAlert_RemoveData</executesql>
+	</event>
+</sqlinstruction>

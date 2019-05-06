@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- Monitor ActivityDB AG-->
+	<event server="#server_activitydb#" database="#database_master#" timeout="600">
+		<executesql>Exec sp_AGMonitoring</executesql>
+	</event>
+</sqlinstruction>

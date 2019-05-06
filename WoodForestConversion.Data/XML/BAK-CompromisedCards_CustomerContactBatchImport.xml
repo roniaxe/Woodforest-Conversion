@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<customer_contact engine_connection="Application Name=C3 Batch Import;Data Source=wnbappsdb.woodforest.net;Initial Catalog=CustomerContact2;Integrated Security=SSPI;"
+    import_connection="Application Name=C3 Batch Import;Data Source=SQLStagingDB.woodforest.net;Initial Catalog=Batch;Integrated Security=SSPI;"
+    import_procedure="dbo.usp_CompromisedCards_BatchFields"
+    recovery_directory="#c3_import_recovery#"
+    receipt_table="dbo.CompromisedCardsLogging"
+    receipt_column="TrackingNumber"
+    receipt_column_type="Int32"
+    timeout="1500"
+    debug_mode="none"
+/>

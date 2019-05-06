@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load Transactions to TranHist on SQL06
+	-->
+	<event server="WNBSQL06" database="wnbutils" timeout="900">
+		<executesql>EXEC dbo.spLoadDailyTrans</executesql>
+	</event>
+</sqlinstruction>

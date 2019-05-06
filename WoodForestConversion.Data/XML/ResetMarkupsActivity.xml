@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- Reset Markup Amounts in the Activity DB only
+	--> 
+	
+	<event server="#SERVER_ACTIVITYDB#" database="#database_Activity#" timeout="3600">
+  		<executesql>exec Util_ResetMarkups</executesql> 
+  	</event>
+</sqlinstruction>
+
+

@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Gets and places Teller Operational and Suspense totals onto the datawarehouse server
+	-->
+	<event server="#server_warehousedb#" database="WNB" timeout="300">
+		<executesql>EXEC dbo.util_BuildTellerDDA</executesql>
+	</event>
+	
+</sqlinstruction>

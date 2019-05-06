@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures for Creates all GL entries relating to Gift Card sales.
+	-->
+	<event server="#server_activitydb#" database="Activity" timeout="300">
+		<executesql>EXEC dbo.util_GetGiftCardGLSettlement</executesql>
+	</event>
+</sqlinstruction>

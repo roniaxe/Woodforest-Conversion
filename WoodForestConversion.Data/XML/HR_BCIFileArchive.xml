@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\sftp.woodforest.net\users\hr\benefitcommunications\Incoming\" search="ultipro*" to="\\woodforest.net\jobs\HR_Interfaces\BCI\Archive(Incoming)\" />
+</fileinstructions>

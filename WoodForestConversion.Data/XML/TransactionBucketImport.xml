@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="TransactionBucketImport_MAP">
+  <queues total="8" bulksize="8000" errorthreshold="1000" />
+  <source location="#import_extractto#\TransactionBuckets.tbi" isxml="0" delimiter="|" queuefirst="1" rootpath="" />
+  <destination server="#server_warehousedb#" database="#database_warehouse#" entity="TranBucketSummaryStaging" 
+    truncate="0" dropindexes="0" />
+	<validation check="" />
+  <mappings>
+    <map index="0" column="AccountUID" filecolumn="" ignore="0" />
+    <map index="1" column="AccountNumber" filecolumn="" ignore="0" />
+    <map index="2" column="FullDate" filecolumn="" ignore="0" />
+    <map index="3" column="Branch" filecolumn="" ignore="0" />
+    <map index="4" column="Class" filecolumn="" ignore="0" />
+    <map index="5" column="TotalRejects" filecolumn="" ignore="0" />
+    <map index="6" column="DebitCount" filecolumn="" ignore="0" />
+    <map index="7" column="DebitAmount" filecolumn="" ignore="0" />
+    <map index="8" column="CreditCount" filecolumn="" ignore="0" />
+    <map index="9" column="CreditAmount" filecolumn="" ignore="0" />
+    <map index="10" column="FeeCount" filecolumn="" ignore="0" />
+    <map index="11" column="FeeAmount" filecolumn="" ignore="0" />
+    <map index="12" column="CheckCount" filecolumn="" ignore="0" />
+    <map index="13" column="CheckAmount" filecolumn="" ignore="0" />
+    <map index="14" column="WithdrawalFeeCount" filecolumn="" ignore="0" />
+    <map index="15" column="WithdrawalFeeAmount" filecolumn="" ignore="0" />
+    <map index="16" column="OTCDepositCount" filecolumn="" ignore="0" />
+    <map index="17" column="OTCDepositAmount" filecolumn="" ignore="0" />
+    <map index="18" column="ATMWithdrawalCount" filecolumn="" ignore="0" />
+    <map index="19" column="ATMWithdrawalAmount" filecolumn="" ignore="0" />
+    <map index="20" column="ATMInquiryCount" filecolumn="" ignore="0" />
+    <map index="21" column="ATMInquiryAmount" filecolumn="" ignore="0" />
+    <map index="22" column="ATMWithdrawalFeeCount" filecolumn="" ignore="0" />
+    <map index="23" column="ATMWithdrawalFeeAmount" filecolumn="" ignore="0" />
+    <map index="24" column="POSDebitCount" filecolumn="" ignore="0" />
+    <map index="25" column="POSDebitAmount" filecolumn="" ignore="0" />
+    <map index="26" column="POSCreditCount" filecolumn="" ignore="0" />
+    <map index="27" column="POSCreditAmount" filecolumn="" ignore="0" />
+    <map index="28" column="AnnualCardFeeCount" filecolumn="" ignore="0" />
+    <map index="29" column="AnnualCardFeeAmount" filecolumn="" ignore="0" />
+    <map index="30" column="ACHDebitCount" filecolumn="" ignore="0" />
+    <map index="31" column="ACHDebitAmount" filecolumn="" ignore="0" />
+    <map index="32" column="ACHCreditCount" filecolumn="" ignore="0" />
+    <map index="33" column="ACHCreditAmount" filecolumn="" ignore="0" />
+    <map index="34" column="ACHPayrollCount" filecolumn="" ignore="0" />
+    <map index="35" column="ACHPayrollAmount" filecolumn="" ignore="0" />
+    <map index="36" column="ReturnItemCount" filecolumn="" ignore="0" />
+    <map index="37" column="ReturnItemAmount" filecolumn="" ignore="0" />
+    <map index="38" column="OTCCheckCount" filecolumn="" ignore="0" />
+    <map index="39" column="OTCCheckAmount" filecolumn="" ignore="0" />
+    <map index="40" column="ODTotalsCount" filecolumn="" ignore="0" />
+    <map index="41" column="ODTotalsAmount" filecolumn="" ignore="0" />
+    <map index="42" column="CheckPayItemCount" filecolumn="" ignore="0" />
+    <map index="43" column="CheckPayItemAmount" filecolumn="" ignore="0" />
+    <map index="44" column="OLEIPItemsCount" filecolumn="" ignore="0" />
+    <map index="45" column="OLEIPItemsAmount" filecolumn="" ignore="0" />
+    <map index="46" column="NSF_ODFeesCount" filecolumn="" ignore="0" />
+    <map index="47" column="NSF_ODFeesAmount" filecolumn="" ignore="0" />
+    <map index="48" column="CheckPayFeesCount" filecolumn="" ignore="0" />
+    <map index="49" column="CheckPayFeesAmount" filecolumn="" ignore="0" />
+    <map index="50" column="NSFCount" filecolumn="" ignore="0" />
+    <map index="51" column="NSFAmount" filecolumn="" ignore="0" />
+    <map index="52" column="ODFeeCount" filecolumn="" ignore="0" />
+    <map index="53" column="ODFeeAmount" filecolumn="" ignore="0" />
+    <map index="54" column="BillPayCount" filecolumn="" ignore="0" />
+    <map index="55" column="BillPayAmount" filecolumn="" ignore="0" />
+    <map index="56" column="TransferDebitCount" filecolumn="" ignore="0" />
+    <map index="57" column="TransferDebitAmount" filecolumn="" ignore="0" />
+    <map index="58" column="TransferCreditCount" filecolumn="" ignore="0" />
+    <map index="59" column="TransferCreditAmount" filecolumn="" ignore="0" />
+    <map index="60" column="TransferFeeCount" filecolumn="" ignore="0" />
+    <map index="61" column="TransferFeeAmount" filecolumn="" ignore="0" />
+    <map index="62" column="ChargebackCount" filecolumn="" ignore="0" />
+    <map index="63" column="ChargebackAmount" filecolumn="" ignore="0" />
+    <map index="64" column="ChargebackFeeCount" filecolumn="" ignore="0" />
+    <map index="65" column="ChargebackFeeAmount" filecolumn="" ignore="0" />
+    <map index="66" column="NSFODRefundCount" filecolumn="" ignore="0" />
+    <map index="67" column="NSFODRefundAmount" filecolumn="" ignore="0" />
+    <map index="68" column="RefundCount" filecolumn="" ignore="0" />
+    <map index="69" column="RefundAmount" filecolumn="" ignore="0" />
+    <map index="70" column="MonthlyServiceChargeCount" filecolumn="" ignore="0" />
+    <map index="71" column="MonthlyServiceChargeAmount" filecolumn="" ignore="0" />
+    <map index="72" column="WireDebitCount" filecolumn="" ignore="0" />
+    <map index="73" column="WireDebitAmount" filecolumn="" ignore="0" />
+    <map index="74" column="WireCreditCount" filecolumn="" ignore="0" />
+    <map index="75" column="WireCreditAmount" filecolumn="" ignore="0" />
+    <map index="76" column="ChargeOffCount" filecolumn="" ignore="0" />
+    <map index="77" column="ChargeOffAmount" filecolumn="" ignore="0" />
+    <map index="78" column="InclearingItemCount" filecolumn="" ignore="0" />
+    <map index="79" column="InclearingItemAmount" filecolumn="" ignore="0" />
+    <map index="80" column="PhoneFeeCount" filecolumn="" ignore="0" />
+    <map index="81" column="PhoneFeeAmount" filecolumn="" ignore="0" />
+    <map index="82" column="WireFeeCount" filecolumn="" ignore="0" />
+    <map index="83" column="WireFeeAmount" filecolumn="" ignore="0" />
+    <map index="84" column="ContinuousODFeesCount" filecolumn="" ignore="0" />
+    <map index="85" column="ContinuousODFeesAmount" filecolumn="" ignore="0" />
+    <map index="86" column="ContinuousODRefundCount" filecolumn="" ignore="0" />
+    <map index="87" column="ContinuousODRefundAmount" filecolumn="" ignore="0" />
+    <map index="88" column="InterestEarnedCount" filecolumn="" ignore="0" />
+    <map index="89" column="InterestEarnedAmount" filecolumn="" ignore="0" />
+
+  </mappings>
+</import>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="#ssis201664bit#" args="/F #directory_ssis#\BI_LoanDatawarehouseLoad.dtsx" ignoreout="0"/>
+</commands>

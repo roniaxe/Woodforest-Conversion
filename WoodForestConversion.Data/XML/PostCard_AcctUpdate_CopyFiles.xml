@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <copy file="\\woodforest.net\jobs\BCP\OutPut\PostCard\FullLoad\WNB\" search="ACCOUNTBALANCES.txt" to="\\DC1CVPOSPC01\S$\Program Files\realtime\postcard\data\WoodforestNationalBank\FullLoad_Standard2\" />
+  
+  <copy file="\\woodforest.net\jobs\BCP\OutPut\PostCard\FullLoad\WSB\" search="ACCOUNTBALANCES.txt" to="\\DC1CVPOSPC01\S$\Program Files\realtime\postcard\data\WoodforestSavingsBank\FullLoad_Standard2\" />
+</fileinstructions>

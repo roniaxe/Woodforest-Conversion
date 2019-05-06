@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customer_contact engine_connection="Application Name=C3 Batch Import;Data Source=wnbappsdb.woodforest.net;Initial Catalog=CustomerContact2;Integrated Security=SSPI;"
+				import_connection="Application Name=C3 Batch Import;Data Source=activitydb.woodforest.net;Initial Catalog=Woodforest;Integrated Security=SSPI;"
+        import_procedure="Notify.ContactRequest_Send"
+				recovery_directory="#c3_standard_recovery#"
+				receipt_table="Notify.ContactRequestReceipt"
+        receipt_column="TrackingNumber"
+        receipt_column_type="Int64"
+        timeout="1500"
+        debug_mode="none"
+	/>

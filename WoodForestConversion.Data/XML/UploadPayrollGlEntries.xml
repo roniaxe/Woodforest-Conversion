@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  UltiPro Payroll GL Entries
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_ACTIVITY#" timeout="1000">
+		<executesql>EXEC dbo.util_GetPayrollGlEntries</executesql>
+	</event>
+</sqlinstruction>

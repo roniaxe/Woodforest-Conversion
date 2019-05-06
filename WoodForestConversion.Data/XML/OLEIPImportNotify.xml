@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Notify Dep Ops the 12pm EIPCNTRL_NEW data has been imported.
+	-->
+	<event server="#server_banclinedb#" database="#database_bancline#" timeout="300">
+		<executesql>EXEC dbo.spOLEIPImportNotify</executesql>
+	</event>
+</sqlinstruction>

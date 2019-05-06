@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  TellerPlus - Builds Daily Tran Stats
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_WNBUtility#" timeout="1000">
+		<executesql>EXEC dbo.spTellerPlusBuildTranByTime</executesql>
+	</event>
+</sqlinstruction>

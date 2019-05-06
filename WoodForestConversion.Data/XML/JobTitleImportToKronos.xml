@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="#ssis2016#" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\JobTitleImportToKronos.dtsx" ignoreout="0" checkexitcode="1" />
+</commands>

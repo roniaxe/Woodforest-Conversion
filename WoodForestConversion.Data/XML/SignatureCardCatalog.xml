@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="e:\Jobs\Archon2\Apps\SigCardCatalog\SignatureCardCatalog.exe" args="" ignoreout="0" />
+</commands>

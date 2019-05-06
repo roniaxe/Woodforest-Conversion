@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  
+	-->
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="300">
+		<executesql>EXEC dbo.spReadyTCLTCC_ChargeOffsWNB</executesql>
+	</event>
+
+	<event server="#server_banclinedb#" database="Reports" timeout="300">
+		<executesql>EXEC dbo.spReadyTCLTCC_ChargeOffsWNB2</executesql>
+	</event>
+
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="300">
+		<executesql>EXEC dbo.spLoadTCL_ChargeOffsWNB</executesql>
+	</event>
+
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="300">
+		<executesql>EXEC dbo.spMonitorTCLTCCChargeOffsWNB</executesql>
+	</event>
+
+	
+</sqlinstruction>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+ 	<delete file="\\woodforest.net\jobs\Settlements\Postilion\PostilionACH.xxx" />
+ 	<delete file="\\woodforest.net\jobs\Settlements\Postilion\PostilionACH.txt" />
+</fileinstructions>

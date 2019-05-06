@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+                <!--  Check store and forward - File name PostilionSettlement-CheckStoreForward.xml, formally ATMTran-CheckStoreForward.xml
+                -->
+                <event server="postilionnetworkdb" database="WNBUtility" timeout="300">
+                                <executesql>EXEC dbo.UTIL_StoreAndForwardNotification</executesql>
+                </event>
+</sqlinstruction>

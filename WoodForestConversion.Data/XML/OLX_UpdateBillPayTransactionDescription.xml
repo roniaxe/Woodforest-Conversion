@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Refresh Transaction History Description for Bill Pay Checks -->
+	<event server="#server_tranhistdb#" database="#database_tranhist#" timeout="1000">
+		<executesql>EXEC dbo.OLX_UpdateBPTransactionDescriptions</executesql>
+	</event>
+</sqlinstruction>

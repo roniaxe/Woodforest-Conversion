@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_activitydb#" database="WNBUtility" timeout="3600">
+  		<executesql>EXEC dbo.spExcessiveOD3000YTD</executesql> 
+  	</event>
+
+</sqlinstruction>

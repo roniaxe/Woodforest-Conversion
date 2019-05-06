@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Gathers nightly rollup of errors
+	-->
+- <event server="#Server_TellerPlusDB#" database="TellerWNBUtils" timeout="1000">
+		<executesql>exec spBranchErrorsSummaryNightlyRollup</executesql>
+	</event>
+</sqlinstruction>

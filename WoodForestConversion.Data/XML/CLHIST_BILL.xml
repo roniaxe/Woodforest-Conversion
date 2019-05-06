@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CLHIST_BILL" to="#import_archive#\CLHIST_BILL" />
+	<move file="#import_download#\CLHIST_BILL.xxx" to="#import_archive#\CLHIST_BILL.xxx" />
+</fileinstructions>

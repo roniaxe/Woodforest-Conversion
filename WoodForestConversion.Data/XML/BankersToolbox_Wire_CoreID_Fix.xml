@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Fix CoreIDs mismatched from PayPlusArchive system due to routing number from wrong bank
+	-->
+	<event server="#server_bankerstoolboxdb#" database="#database_wnbutility#" timeout="600">
+		<executesql>EXEC [WNBUtility].[dbo].[BKTBFix_Wire_CoreIDs]</executesql>
+	</event>
+</sqlinstruction>

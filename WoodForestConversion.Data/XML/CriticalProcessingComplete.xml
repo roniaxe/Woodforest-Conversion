@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Set Process Flags to Complete/Sanity Check
+	-->
+	<event server="#DDADB#" database="DDA" timeout="300">
+		<executesql>EXEC dbo.spProcessDone</executesql>
+	</event>
+</sqlinstruction>

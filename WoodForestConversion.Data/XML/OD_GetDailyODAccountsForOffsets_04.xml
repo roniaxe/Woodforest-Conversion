@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  04
+	-->
+	<event server="#server_banclinedb#" database="ChargeOffs" timeout="18000">
+		<executesql>EXEC ActivityDB.Activity.dbo.Util_CopyOffsetsForAccounts</executesql>
+	</event>
+</sqlinstruction>

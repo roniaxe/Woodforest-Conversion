@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+<command exec="DTExec.exe" args="/F #directory_ssis#\WesternUnionTransactionsImport.dtsx /SET \Package.Variables[User::DatabaseServer].Properties[Value];#Server_ActivityDB# /SET \Package.Variables[User::FileDirectory].Properties[Value];\\Woodforest.net\jobs\WesternUnion\ /SET \Package.Variables[User::ArchiveDirectory].Properties[Value];\\Woodforest.net\jobs\WesternUnion\Archive\" ignoreout="0" checkexitcode="1" />
+</commands>

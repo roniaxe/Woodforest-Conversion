@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="900">
+		<executesql>
+			Insert into [Activity].[dbo].[Settlement] ([Source],[Status],[Account],[Description],[TranCode],[Amount],[SubSys],[Positive],[EntryTime],[CoreID],[AccountUID]) SELECT 'CLM' as [Source], 'U' as [Status],convert(bigint,[Acct]) as [Account],[Description],ltrim(rtrim([TranCode])) as [TranCode],convert(money,[Amount]) as [Amount],ltrim(rtrim([SubSystem])) as [SubSys],1 as [Positive],getdate() as [EntryTime],[CoreID],0 as [AccountUID]FROM [WNBUtility].[dbo].[CLM_History]
+			Insert into [Activity].[dbo].[PendingTransaction] ([AccountUID],[OccurredAtUtc],[Amount],[Source],[Sequence],[Branch],[HostUpdated],[Description],[ReplicationUID],[CoreID])  Select a.accountuid,getutcdate(),convert(money,case when t.IsCredit = 0 then c.[Amount] * convert(money,-1.00) else c.[Amount] end ) as [Amount],  25 as [Source],0,0,1, c.[Description],newID(),c.[CoreID]  FROM [WNBUtility].[dbo].[CLM_History] c inner join woodforest.dbo.account  a on a.accountnumber = c.acct  Inner join TransactionHistory.dbo.TransactionCode t on t.TranCode = c.TranCode where a.subsystem = 0 and t.Subsystem = 0
+		</executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="900">
+		<executesql>
+			EXEC Activity.dbo.Util_ResetMarkupsCLM
+		</executesql>
+
+	</event>
+</sqlinstruction>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CODES_CD_CLS" to="#import_archive#\CODES_CD_CLS" />
+	<move file="#import_download#\CODES_CD_CLS.xxx" to="#import_archive#\CODES_CD_CLS.xxx" />
+</fileinstructions>

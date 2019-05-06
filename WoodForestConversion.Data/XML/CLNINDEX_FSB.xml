@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="CLNINDEX_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\clnindex" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="CLNINDEX" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="" filecolumn="" ignore="1" />
+	</mappings>
+</import>

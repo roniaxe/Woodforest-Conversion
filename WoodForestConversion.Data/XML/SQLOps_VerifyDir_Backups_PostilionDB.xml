@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="cscript" args="#directory_scripts#\SQLOps_util_Backup_Database_Dir_Create.vbs \\DC1CBATMRT01\e$\Backup DC1CBATMRT01" ignoreout="1" />
+	<command exec="cscript" args="#directory_scripts#\SQLOps_util_Backup_Database_Delete.vbs \\DC1CBATMRT01\e$\Backup 1" ignoreout="1" />
+</commands>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="CLNCOLLAT_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="400" />
+	<source location="#import_extractto#\appl_collat" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="CLNCOLLAT" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="COLCONTROL_ID" filecolumn="COLCONTROL ID" ignore="0" />
+		<map index="2" column="CLASS" filecolumn="CLASS" ignore="0" />
+		<map index="3" column="TYPE" filecolumn="TYPE" ignore="0" />
+		<map index="4" column="DESCRIPTION" filecolumn="DESC" ignore="0" />
+		<map index="5" column="ON_FILE" filecolumn="ON FILE" ignore="0" />
+		<map index="6" column="LOCATION" filecolumn="LOCATION" ignore="0" />
+		<map index="7" column="TICKLER_DATE" filecolumn="TICKLER DATE" ignore="0" />
+		<map index="8" column="CENSUS_TRACT" filecolumn="CENSUS TRACT" ignore="0" />
+		<map index="9" column="CENSUS_SUBCODE" filecolumn="CENSUS SUBCODE" ignore="0" />
+		<map index="10" column="LIEN_DATE" filecolumn="LIEN DATE" ignore="0" />
+		<map index="11" column="APPRAISAL_DT_LAST" filecolumn="APPRAISAL DATE LAST" ignore="0" />
+		<map index="12" column="APPRAISAL_DT_NEXT" filecolumn="APPRAISAL DATE NEXT" ignore="0" />
+		<map index="13" column="APPRAISAL_AMT" filecolumn="APPRAISAL AMT" ignore="0" />
+		<map index="14" column="MARGIN" filecolumn="MARGIN" ignore="0" />
+		<map index="15" column="CUSIP" filecolumn="CUSIP" ignore="0" />
+		<map index="16" column="UNIT_COUNT" filecolumn="UNIT COUNT" ignore="0" />
+		<map index="17" column="UNIT_VALUE" filecolumn="UNIT VALUE" ignore="0" />
+		<map index="18" column="UNIT_VALUE_PREV" filecolumn="UNIT VALUE PREV" ignore="0" />
+		<map index="19" column="INS_REQ" filecolumn="INS REQ" ignore="0" />
+		<map index="20" column="INS_COMPANY_CD" filecolumn="INSURANCE COMPANY CODE" ignore="0" />
+		<map index="21" column="INS_COMPANY_NAME" filecolumn="INSURANCE COMPANY" ignore="0" />
+		<map index="22" column="INS_EXPIRE_DT" filecolumn="INS EXPIRE DT" ignore="0" />
+		<map index="23" column="ZIP_CODE" filecolumn="ZIP CODE" ignore="0" />
+		<map index="24" column="EXPIRE_DT" filecolumn="EXPIRE DATE" ignore="0" />
+		<map index="25" column="PROP_VALUE_CURR" filecolumn="PROP VALUE CURR" ignore="0" />
+		<map index="26" column="LENDER_CIF" filecolumn="LENDER CIF" ignore="0" />
+		<map index="27" column="MATURITY_DT" filecolumn="MATURITY DATE" ignore="0" />
+		<map index="28" column="LIEN_NOTE" filecolumn="LIEN NOTE" ignore="0" />
+		<map index="29" column="CIF" filecolumn="CIF" ignore="0" />
+		<map index="30" column="NOTE_NUMBERS" filecolumn="NOTE NUMBERS" ignore="0" />
+		<map index="31" column="Z_ASSOC" filecolumn="Z_ASSOC" ignore="0" />
+	</mappings>
+</import>

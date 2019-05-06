@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_Historicaldb#" database="WNBUtility" timeout="3600">
+  		<executesql>EXEC dbo.util_Action_MonthEnd_Restore</executesql> 
+  	</event>
+
+</sqlinstruction>

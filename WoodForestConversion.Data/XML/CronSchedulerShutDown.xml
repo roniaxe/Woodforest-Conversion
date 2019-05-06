@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="#config_commandevent#\CronSchedulerShutDown.cmd" args="NOWAIT" ignoreout="0" />
+  </commands>

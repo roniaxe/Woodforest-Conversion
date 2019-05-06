@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<monitor file="D:\Jobs\0307wide.zip" />
+	<monitor file="D:\Jobs\APPL1.zip" />
+	<move file="D:\Jobs\0307wide.zip" to="D:\Jobs\Archon\Configuration\0307wide.zip" />
+	<unzip file="D:\Jobs\appl1.zip" 
+		to="D:\Jobs\Archon\Import\" 
+		extract="bl1/WNB/BANK.EXTR000/appl1" />
+</fileinstructions>

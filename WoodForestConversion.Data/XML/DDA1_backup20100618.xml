@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="DDA1_MAP">
+	<queues total="4" bulksize="4000" errorthreshold="255" />
+	<source location="#import_extractto#\dda1" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="DDACONTROL1" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<validation check="#import_validation#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="ACCT" filecolumn="ACCT #" ignore="0" />
+		<map index="2" column="ACCT_ANLYS" filecolumn="ACCT ANLYS" ignore="0" />
+		<map index="3" column="BRCH" filecolumn="BRCH" ignore="0" />
+		<map index="4" column="CHKS_NSF_LIFE" filecolumn="CHKS NSF   LIFE" ignore="0" />
+		<map index="5" column="CK_PAY_OD_AMT" filecolumn="OD AMT" ignore="0" />
+		<map index="6" column="CK_PAY_STAT" filecolumn="PAY STATUS" ignore="0" />
+		<map index="7" column="COLL_BAL" filecolumn="COLLECT BALANCE" ignore="0" />
+		<map index="8" column="CRR_LOAN_BAL" filecolumn="CRR LOAN BALANCE" ignore="0" />
+		<map index="9" column="DATE_OPN" filecolumn="DATE OPEN" ignore="0" />
+		<map index="10" column="ITMS_NSF_YTD" filecolumn="ITMS NSF    YTD" ignore="0" />
+		<map index="11" column="NUM_UNPOST" filecolumn="NUM UNPOST  TRANS" ignore="0" />
+		<map index="12" column="OFFICER" filecolumn="OFFICER" ignore="0" />
+		<map index="13" column="SHORT_NAME" filecolumn="SHORT NAME" ignore="0" />
+		<map index="14" column="SOC_SEC" filecolumn="TAX ID" ignore="0" />
+		<map index="15" column="REASON_TO_WATCH" filecolumn="WATCH REASON" ignore="0" />
+		<map index="16" column="CRR_LIMIT" filecolumn="CRR LIMIT" ignore="0" />
+		<map index="17" column="CHGBCK_LTD" filecolumn="CHG BACK LTD" ignore="0" />
+		<map index="18" column="DebitCardOptIn" filecolumn="DebitCardODOptIn" ignore="0" />
+		<map index="19" column="LST_DEP_DT" filecolumn="LST DEP  DATE" ignore="0" />
+		<map index="20" column="LST_DEP_AMT" filecolumn="LST DEP AMOUNT" ignore="0" />
+		<map index="21" column="OD_LIMIT" filecolumn="OD LIMIT" ignore="0" />
+		<map index="22" column="YTD_INT_PD" filecolumn="YTD INT  PAID" ignore="0" />
+		<map index="23" column="PYR_INT_PD" filecolumn="PYR INT  PAID" ignore="0" />
+		<map index="24" column="DYS_OD_SINCE_POS" filecolumn="DAYS OD SINCE POS" ignore="0" />
+		<map index="25" column="CHGBCK_YTD" filecolumn="CHG BACK YTD" ignore="0" />
+		<map index="26" column="CHGBCK_MTD" filecolumn="CHG BACK MTD" ignore="0" />
+		<map index="27" column="PrivPayODOptIn" filecolumn="PrivPayODOptIn" ignore="0" />
+	</mappings>
+</import>

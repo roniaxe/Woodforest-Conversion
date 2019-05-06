@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Update markup amount-->
+	<event server="#server_activitydb#" database="#database_activity#" timeout="2700">
+		<executesql>EXEC Util_ResetMarkupsChargeBack</executesql>
+	</event>
+</sqlinstruction>

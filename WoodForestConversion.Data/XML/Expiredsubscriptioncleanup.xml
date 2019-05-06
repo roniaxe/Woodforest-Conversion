@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure Expired subscription clean up
+	-->
+	<event server="DDADB" database="DDA" timeout="300">
+		<executesql>EXEC dbo.sp_expired_subscription_cleanup</executesql>
+	</event>
+	
+</sqlinstruction>

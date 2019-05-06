@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_postilionoffice#" database="POUtils" timeout="3600">
+  		<executesql>EXEC dbo.Util_CreatePostilionACHFile</executesql> 
+  	</event>
+	<event server="#server_postilionoffice#" database="POUtils" timeout="3600">
+  		<executesql>EXEC dbo.Util_CreatePostilionACHFileWSB</executesql> 
+  	</event>
+</sqlinstruction>

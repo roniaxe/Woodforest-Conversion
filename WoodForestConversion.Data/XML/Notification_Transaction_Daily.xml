@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- Rebuild the balance xml for the notifications. -->
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
+		<executesql>
+			DECLARE @Date datetime
+			SET @Date = CONVERT(varchar, DATEADD(d, -1, getdate()), 101)
+
+			EXEC dbo.Notification_Engine_BuildDailyTransactionXml @Date
+		</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  
+	-->
+	<event server="#server_activitydb#" database="#database_atm#" timeout="2700">
+		<executesql>EXEC dbo.usp_Remove_DebitCardOrder_over_30_Days</executesql>
+	</event>
+</sqlinstruction>

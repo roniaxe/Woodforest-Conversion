@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load Transactions from Staging Table to Settlements and PendingTransaction  FixMarkupAmountValue.xml
+	-->
+	<event server="#server_activitydb#" database="#database_Activity#" timeout="2700">
+		<executesql>EXEC dbo.FixMarkupAmountValue</executesql>
+	</event>
+</sqlinstruction>

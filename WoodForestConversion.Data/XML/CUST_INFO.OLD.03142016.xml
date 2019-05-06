@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="CUST_INFO_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\cust_info" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="CUSTOMER_CUST_INFO"
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<validation check="#import_validation#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="ID_TYPE" filecolumn="ID TYPE" ignore="0" />
+		<map index="2" column="ID_ISSUER" filecolumn="ISSUER" ignore="0" />
+		<map index="3" column="ID_NUMBER" filecolumn="ID NUMBER" ignore="0" />
+		<map index="4" column="DATE_ID_ISSUED" filecolumn="DATE ID ISS" ignore="0" />
+		<map index="5" column="DATE_ID_EXPIRES" filecolumn="DT ID EXP" ignore="0" />
+		<map index="6" column="ID_VERIFIED_BY_WHEN" filecolumn="VER BY" ignore="0" />
+		<map index="7" column="PER_TAX_RET" filecolumn="PERSONAL TAX RETN" ignore="0" />
+		<map index="8" column="CORP_TAX_RET" filecolumn="CORPORATE TAX RETN" ignore="0" />
+		<map index="9" column="MOTHR_MAIDEN" filecolumn="MOTHER'S MAIDEN NAME" ignore="0" />
+		<map index="10" column="ID_VER_ISSUE" filecolumn="ID VER ISSUE" ignore="0" />
+		<map index="11" column="ID_VER_RESOLV" filecolumn="ID VER RESOLV" ignore="0" />
+		<map index="12" column="LN_REL_REV_DATE" filecolumn="LN REL REV DATE" ignore="0" />
+		<map index="13" column="LN_REL_REV_ID" filecolumn="LN REL REV ID" ignore="0" />
+		<map index="14" column="BLOCK_SHARING_DATA" filecolumn="BLOCK SHARING DATA" ignore="0" />
+		<map index="15" column="BLOCK_SHARING_DATE" filecolumn="BLOCK SHARING DATE" ignore="0" />
+		<map index="16" column="Z_ASSOC_ROW" filecolumn="Z_ASSOC" ignore="0" />
+	</mappings>
+</import>

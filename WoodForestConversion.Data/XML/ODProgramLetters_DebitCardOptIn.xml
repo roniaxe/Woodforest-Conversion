@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command exec="#ssis201664bit#" args="/F \\woodforest.net\Jobs\Archon2\SSIS\Packages\ODProgramLetters.dtsx /SET \Package.Variables[User::FileType].Properties[Value];DebitCardOptIn" ignoreout="0" checkexitcode="1" />
+</commands>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions> 
+<move file="\\sftp.woodforest.net\users\support-analysts\Accuity\incoming\rtbaset.txt" to="\\vsuyear\vision\spool\rtbaset.txt" /> 
+
+</fileinstructions>
+

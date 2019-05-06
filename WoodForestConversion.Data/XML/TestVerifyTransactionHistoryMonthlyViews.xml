@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Setup Update Transaction History Views
+	-->
+	<event server="WBCSQL01" database="Evergreen" timeout="300">
+<executesql>
+  		EXEC dbo.VerifyTransactionHistoryMonthlyViews
+</executesql>
+</event>
+</sqlinstruction>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  	-->
+	<event server="#server_activitydb#" database="#database_woodforest#" timeout="2700">
+		<executesql>EXEC dbo.HostMerge_DeleteDuplicatedCD_IRARecords</executesql>
+	</event>
+</sqlinstruction>

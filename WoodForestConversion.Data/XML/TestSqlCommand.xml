@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Add Notification Accounts from Corillian -->
+	<event server="#ArchonDB#" database="Archon" timeout="700">
+		<executesql><![CDATA[ EXEC TestingSqlCommands ]]></executesql>
+	</event>
+</sqlinstruction>

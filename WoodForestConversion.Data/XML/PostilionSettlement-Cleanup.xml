@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  called PostilionSettlement-Cleanup.xml
+	-->
+	<event server="DC1CBATMPO01" database="POUtils" timeout="3600">
+		<executesql>EXEC dbo.Util_CleanUpPostilionACHTables</executesql>
+	</event>
+</sqlinstruction>

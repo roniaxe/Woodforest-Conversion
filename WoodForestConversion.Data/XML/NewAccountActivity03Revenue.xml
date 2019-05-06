@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load new account interest and non-interest revenue
+	-->
+	<event server="#server_ActivityDB#" database="WNBUtility" timeout="14400">
+		<executesql>EXEC dbo.spNewAccountRevenue</executesql>
+	</event>
+</sqlinstruction>	
+

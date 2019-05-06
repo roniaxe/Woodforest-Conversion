@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\DEFINEX" to="#import_archive#\DEFINEX" />
+	<move file="#import_download#\DEFINEX.xxx" to="#import_archive#\DEFINEX.xxx" />
+</fileinstructions>

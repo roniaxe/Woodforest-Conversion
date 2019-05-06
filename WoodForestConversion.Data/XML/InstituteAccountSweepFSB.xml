@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Creates transactions for institute account sweep
+	-->
+	<event server="#server_banclinedb#" database="#database_banklineFSB#" timeout="300">
+		<executesql>EXEC dbo.IAS_InstituteAccountSweep</executesql>
+	</event>
+</sqlinstruction>

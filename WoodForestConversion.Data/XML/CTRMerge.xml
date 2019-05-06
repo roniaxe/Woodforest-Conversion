@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Create ACH Warehouse Entries
+	-->
+	<event server="#server_tellerdb#" database="CTR" timeout="4700">
+		<executesql>EXEC dbo.CTR_Merge</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_bancline#" timeout="3600">
+		<executesql>EXEC dbo.ODProgram_Status_Change @MonthlyResetOverride='N'</executesql>
+	</event>
+</sqlinstruction>

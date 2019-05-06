@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- ACHDisputeLetters.xlsx -->
+        <!-- to FOS outbound -->
+	<copy file="\\woodforest.net\jobs\ACHDisputeLetters\ACHDisputeLetters.xlsx" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\ACHDisputeLetters_#DATEADD(d, 0, yyyyMMdd)#.xlsx" />
+        <!-- to archive -->
+	<move file="\\woodforest.net\jobs\ACHDisputeLetters\ACHDisputeLetters.xlsx" to="\\woodforest.net\jobs\ACHDisputeLetters\Archive\ACHDisputeLetters_#DATEADD(d, 0, yyyyMMdd)#.xlsx" />	
+        <!-- to blank file -->
+	<copy file="\\woodforest.net\jobs\ACHDisputeLetters\ACHDisputeLetters_Template.xlsx" to="\\woodforest.net\jobs\ACHDisputeLetters\ACHDisputeLetters.xlsx" />		
+</fileinstructions>

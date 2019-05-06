@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- to OBS outbound -->
+	<move file="\\mscvach01\files\FED\in\Files\processed\Completed\" search="*.str" to="\\sftp.woodforest.net\users\ach\obsach\outgoing\" />
+</fileinstructions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <commands>
+    <command exec="E:\BKTB\bsa\daemon\AppUpdate.exe" args="" ignoreout="0" checkexitcode="1" />
+  </commands>

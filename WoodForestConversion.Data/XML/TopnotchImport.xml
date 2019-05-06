@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\sftp.woodforest.net\users\collections\powerdialer\Inbound\Jamaica01_Export.txt" to="E:\Program files\GPG\Woodforest Topnotch Download\PowerDialer\Import\Jamaica01_Export.txt" /> 
+  <move file="\\sftp.woodforest.net\users\collections\powerdialer\Inbound\Jamaica01_Export.txt" to="E:\Program files\GPG\Woodforest Topnotch Download\PowerDialer\Import\Archive\#DATE(yyyyMMdd)#_Jamaica01_Export.txt" />
+
+  <copy file="\\sftp.woodforest.net\users\collections\powerdialer\Inbound\Jamaica02_Export.txt" to="E:\Program files\GPG\Woodforest Topnotch Download\PowerDialer\Import\Jamaica02_Export.txt" /> 
+  <move file="\\sftp.woodforest.net\users\collections\powerdialer\Inbound\Jamaica02_Export.txt" to="E:\Program files\GPG\Woodforest Topnotch Download\PowerDialer\Import\Archive\#DATE(yyyyMMdd)#_Jamaica02_Export.txt" />
+
+  <copy file="\\sftp.woodforest.net\users\collections\powerdialer\Inbound\Jamaica03_Export.txt" to="E:\Program files\GPG\Woodforest Topnotch Download\PowerDialer\Import\Jamaica03_Export.txt" />
+  <move file="\\sftp.woodforest.net\users\collections\powerdialer\Inbound\Jamaica03_Export.txt" to="E:\Program files\GPG\Woodforest Topnotch Download\PowerDialer\Import\Archive\#DATE(yyyyMMdd)#_Jamaica03_Export.txt" />
+</fileinstructions>

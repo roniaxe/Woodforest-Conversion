@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Update and Load New Consumer CLNs and CRRs to final table
+	-->
+- <event server="#server_datawarehousedb#" database="#database_WNBUtility#" timeout="1000">
+		<executesql>exec dbo.spCRAUnsecuredCLNandCRRLoad</executesql>
+	</event>
+</sqlinstruction>

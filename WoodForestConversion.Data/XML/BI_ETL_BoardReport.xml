@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates month end information to BoardReports_SOP for PP status and Opt in/out info
+	-->
+	<event server="#server_warehousedb#" database="WNB" timeout="10800">
+		<executesql>EXEC ETL_LoadBoardReports</executesql>
+	</event>
+</sqlinstruction>

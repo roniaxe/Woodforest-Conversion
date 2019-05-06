@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Step 2. - Restore BanklineWNB and BanklineFSB databases on HistoricalDB (MSIVDWHSQL01).
+	-->
+	<event server="#server_Historicaldb#" database="WNBUtility" timeout="28800">
+		<executesql>EXEC dbo.util_Bankline_MonthEnd_Restore</executesql>
+	</event>
+</sqlinstruction>

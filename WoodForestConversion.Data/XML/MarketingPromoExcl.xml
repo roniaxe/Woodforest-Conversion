@@ -1,0 +1,5 @@
+<sqlinstruction>
+        <event server="#Server_ActivityDB#" database="#Database_WNBUtility#" timeout="1000">
+		<executesql>EXEC MarketingExclusionBuild</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="cscript" args="\\woodforest.net\jobs\archon2\scripts\CopyCoreExtractstoLab2.vbs" />
+</commands>

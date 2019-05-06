@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure ACH Repost Markups
+	-->
+	<event server="#server_DDADB#" database="DDA" timeout="300">
+		<executesql>EXEC dbo.spMarkupACHRepost</executesql>
+	</event>
+	
+</sqlinstruction>

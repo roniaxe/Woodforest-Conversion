@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Online Banking - Resets Bad Enrollment Attempts count
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_woodforest#" timeout="1000">
+		<executesql>EXEC dbo.Util_ResetBadEnrollAttempts</executesql>
+	</event>
+</sqlinstruction>

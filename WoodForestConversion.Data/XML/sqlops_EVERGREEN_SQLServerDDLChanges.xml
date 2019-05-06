@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <commands>
+    <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\sqlops\Powershell\SQLServerDDLChanges.ps1" ignoreout="0" checkexitcode="1" />
+  </commands>

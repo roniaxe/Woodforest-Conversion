@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Moves Create new partition for PostilionTransaction on the first of each month
+	-->
+	<event server="#server_reportwarehouse#" database="#database_postilion#" timeout="10800">
+		<executesql>EXEC PostilionTransactionPartitionMaintenance</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#Server_ActivityDB#" database="Woodforest" timeout="1000">
+		<executesql>EXEC dbo.DebitCardFee_UploadTrans</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Rebuild DDA Special Processing Instructions
+	-->
+	<event server="#server_wnbappsdb#" database="#database_largeitemreview#" timeout="800">
+		<executesql>exec spLIRPopulateTable</executesql>
+	</event>
+</sqlinstruction>

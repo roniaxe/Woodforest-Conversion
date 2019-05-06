@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Resets Upload Control Data 
+	-->
+- <event server="#Server_ActivityDB#" database="#database_activity#" timeout="1000">
+		<executesql>EXEC dbo.Util_ResetUploadControl</executesql>
+	</event>
+</sqlinstruction>

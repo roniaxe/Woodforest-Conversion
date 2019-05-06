@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="DC1IVVRNTOPC01\SQLEXPRESS" database="Master" timeout="2400">
+		<executesql>
+			BACKUP DATABASE 
+				[Op-Center] 
+			TO 
+				[Op-Center-Backup] 
+			WITH INIT
+		</executesql>
+	</event>
+</sqlinstruction>

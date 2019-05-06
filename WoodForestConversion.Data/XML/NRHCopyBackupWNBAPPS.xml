@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\AccountException\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\AccountException\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\AccountNotify\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\AccountNotify\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\Archon\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\Archon\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\BranchCapture\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\BranchCapture\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\CashBalance\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\CashBalance\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\CustomerService\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\CustomerService\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\Discussion\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\Discussion\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\EnterpriseApps\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\EnterpriseApps\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\IVR\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\IVR\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\LargeItemReview\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\LargeItemReview\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\Notifications\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\Notifications\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\ODOffset\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\ODOffset\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\OD2CO\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\OD2CO\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\OFC\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\OFC\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\PostBridge\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\PostBridge\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\RefundTracking\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\RefundTracking\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\Telebanker\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\Telebanker\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\WNBTP\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\WNBTP\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\WNBUtils\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\WNBUtils\" ignoreout="1" />
+</commands>                                                                                                                                                                                                               

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Load new account bill pay counts
+	-->
+	<event server="#server_ActivityDB#" database="WNBUtility" timeout="14400">
+		<executesql>EXEC dbo.spNewAccountActivityBillPay</executesql>
+	</event>
+</sqlinstruction>	
+

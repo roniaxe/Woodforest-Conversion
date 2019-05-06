@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Move Contact Letters Data
+	-->
+	<event server="wbcplysql07\thirdparty2005,40007" database="ThirdPartyUtils" timeout="5000">
+		<executesql>exec dbo.spContactLetters_moveData</executesql>
+	</event>
+</sqlinstruction>

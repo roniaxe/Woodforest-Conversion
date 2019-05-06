@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CLNSBACTL.zip" to="#import_archive#\CLNSBACTL.zip" />
+	<move file="#import_download#\CLNSBACTL.xxx" to="#import_archive#\CLNSBACTL.xxx" />
+	<delete file="#import_extractto#\CLNSBACTL" />
+</fileinstructions>

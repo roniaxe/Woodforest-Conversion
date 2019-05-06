@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Refresh Host Balances -->
+	<event server="#server_datawarehouse02#" database="#database_OCCRestitution#" timeout="1000">
+		<executesql>EXEC dbo.RebatePaymentStatus_Update</executesql>
+	</event>
+</sqlinstruction>

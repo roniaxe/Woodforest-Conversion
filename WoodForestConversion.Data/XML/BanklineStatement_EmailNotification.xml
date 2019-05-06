@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  	-->
+	<event server="#server_activitydb#" database="#database_bancline_all#" timeout="2700">
+		<executesql>EXEC dbo.util_Statement_Notification @CoreID = '#core_id#', @EmailRecipients = '0102TXTechnologyOperations@WOODFOREST.com;AAndrade@WOODFOREST.com;Maria.Baptista@fisglobal.com;Roberto.Grelle@fisglobal.com;JODonovan@WOODFOREST.com;nancy.contreras@fisglobal.com;fosoperations@fisglobal.com' </executesql>
+	</event>
+</sqlinstruction>

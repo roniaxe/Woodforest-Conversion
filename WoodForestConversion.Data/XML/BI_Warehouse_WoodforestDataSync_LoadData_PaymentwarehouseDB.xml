@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--    
+	-->
+	<event server="PaymentWarehouseDB" database="#database_WNBUtility#" timeout="7200">
+		<executesql>EXEC dbo.WoodforestDataSync</executesql>
+	</event>
+</sqlinstruction>

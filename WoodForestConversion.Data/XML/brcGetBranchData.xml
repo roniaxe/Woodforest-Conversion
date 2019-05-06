@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedures for the daily Settlement files
+	-->
+	<event server="DC1CBAFSSQL1" database="BranchCaptureReports" timeout="3600">
+		<executesql>EXEC dbo.brc_GetAllBranchData</executesql>
+	</event>
+</sqlinstruction>

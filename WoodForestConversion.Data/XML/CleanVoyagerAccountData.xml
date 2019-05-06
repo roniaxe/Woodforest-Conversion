@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+ <event server="#server_voyagerdb#" database="#database_wnbutil#" timeout="2700">
+  <executesql>EXEC dbo.util_CleanVoyagerAccoutData</executesql> 
+  </event>
+  </sqlinstruction>

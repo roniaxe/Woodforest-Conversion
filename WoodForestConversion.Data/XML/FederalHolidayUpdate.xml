@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- 
+	--> 
+	<event server="#server_banclinedb#" database="WNBUtility" timeout="600">
+  		<executesql>EXEC dbo.FederalHolidayUpdate</executesql> 
+  	</event>
+
+	
+</sqlinstruction>

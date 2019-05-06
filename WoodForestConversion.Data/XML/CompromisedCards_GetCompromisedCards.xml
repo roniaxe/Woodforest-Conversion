@@ -1,0 +1,5 @@
+<sqlinstruction>
+	<event server="#server_sqlstagingdb#" database="#database_staging#" timeout="1000">
+		<executesql>EXEC dbo.usp_Get_CompromisedCards_linked</executesql>
+	</event>
+</sqlinstruction>

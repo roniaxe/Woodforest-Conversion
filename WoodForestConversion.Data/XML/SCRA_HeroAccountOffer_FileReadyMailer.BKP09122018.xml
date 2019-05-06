@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_DatawarehouseDB#" database="#database_WNB#" timeout="8000">
+		<executesql><![CDATA[
+		EXEC msdb.dbo.sp_send_dbmail
+		@profile_name = 'WNBMail'
+		,@recipients = 'SQLReportGroup@WOODFOREST.com'
+		,@Subject = 'New SCRA Hero Account Offering Files are Ready to Process'
+		,@Body_format = 'HTML'
+		,@importance= 'High'
+		,@body = 'New SCRA Hero Account offering files are avilable for processing. <br><br>Procedures found here:  http://portal.woodforest.net/sites/Architecture/Team/BI/Procedures/SCRA_HeroAccountQualificationProcedures.docx
+		<br> Files to send are available here:  \\Woodforest.net\Jobs\SCRA_HeroAccount\SendFiles <br><br>Please reply to all if you are going to take ownership.']]></executesql>
+	</event>
+</sqlinstruction>

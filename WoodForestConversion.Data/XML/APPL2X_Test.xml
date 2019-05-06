@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="\\wbcjobs01\nfs\tstcore\wnb\extracts\APPL2x.zip" to="#import_archive#\APPL2x.zip" />
+	<move file="\\wbcjobs01\nfs\tstcore\wnb\extracts\APPL2x.xxx" to="#import_archive#\APPL2x.xxx" />
+	<delete file="\\woodforest.net\Jobs\Archon2\Data\Import\APPL2x" />
+</fileinstructions>

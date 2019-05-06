@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\STK" to="#import_archive#\STK" />
+	<move file="#import_download#\STK.xxx" to="#import_archive#\STK.xxx" />
+</fileinstructions>

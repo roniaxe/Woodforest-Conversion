@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\CBACTSTATUS.zip" to="#import_archive#\CBACTSTATUS.zip" />
+	<move file="#import_download#\CBACTSTATUS.xxx" to="#import_archive#\CBACTSTATUS.xxx" />
+	<delete file="#import_extractto#\CBACTSTATUS" />
+</fileinstructions>

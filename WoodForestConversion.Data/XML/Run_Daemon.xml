@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <commands>
+<!--    <command exec="E:\BKTB\bsa\daemon\appupdate_Babi.bat" args="" ignoreout="0" checkexitcode="1" /> -->
+  <command exec="E:\BKTB\bsa\daemon\BSAAdmin.exe" args="/admin" ignoreout="0" checkexitcode="1" />
+  </commands>

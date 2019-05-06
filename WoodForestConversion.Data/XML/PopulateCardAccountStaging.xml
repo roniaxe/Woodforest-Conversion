@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates and cleans Card Account data before loading to Card Management
+	-->
+	<event server="PaymentServicesDB" database="Staging" timeout="2100">
+		<executesql>EXEC spPopulate_CardAccountStaging</executesql>
+	</event>
+</sqlinstruction>

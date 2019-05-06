@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Cleans up SQL Sentry so that it performs better. This eliminates and cleans up data to make it run faster. This script comes from SQL Sentry product group
+	-->
+	<event server="SQLSentryDB" database="WNBUtility" timeout="28800">
+		<executesql>EXEC dbo.SQLSentry_Change_Interval</executesql>
+	</event>
+</sqlinstruction>

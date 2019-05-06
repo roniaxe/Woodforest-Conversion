@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\STOPS" to="#import_archive#\STOPS" />
+	<move file="#import_download#\STOPS.xxx" to="#import_archive#\STOPS.xxx" />
+</fileinstructions>

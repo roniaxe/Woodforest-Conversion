@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+        <!-- ActionDecline.txt -->
+        <!-- to FOS outbound -->
+	<copy file="\\sftp.woodforest.net\users\loanops\criflending\" search="ActionDecline*.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\" />
+        <!-- to archive -->
+	<move file="\\sftp.woodforest.net\users\loanops\criflending\" search="ActionDecline*.txt" to="\\woodforest.net\jobs\ACTION\Send_Archive\#DATE(yyyyMMdd)#ActionDecline.txt\" />
+</fileinstructions>

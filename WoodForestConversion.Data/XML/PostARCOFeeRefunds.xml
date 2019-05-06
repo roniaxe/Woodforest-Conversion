@@ -1,0 +1,5 @@
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_staging#" timeout="1000">
+		<executesql>EXEC dbo.PostARCOFeeRefunds</executesql>
+	</event>
+</sqlinstruction>

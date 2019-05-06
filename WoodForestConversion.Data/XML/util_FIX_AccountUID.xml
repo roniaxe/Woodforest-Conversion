@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+<event server="#server_activitydb#" database="#database_tranhist#" timeout="600">
+  <executesql>EXEC util_FIX_AccountUID</executesql> 
+  </event>
+  </sqlinstruction>

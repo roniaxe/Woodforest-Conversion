@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="ODSTATUSDELTA">
+	<queues total="4" bulksize="4000" errorthreshold="255" />
+	<source location="#import_extractto#\ODSTATUSDELTA" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="ODSTATUSDELTA" 
+		truncate="1" dropindexes="0" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="ACCT" filecolumn="REC.ID" ignore="0"  expression="^(DDA|ATM|CD|CLN|CLC|SDB|CRR)([0-9]*)$" group="2" />
+		<map index="0" column="Acct_TYPE" filecolumn="REC.ID" ignore="0"  expression="^(DDA|ATM|CD|CLN|CLC|SDB|CRR)([0-9]*)$" group="1" />
+		<map index="0" column="REC_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="PAYSTATUS" filecolumn="PAY STATUS" ignore="0" />
+	</mappings>
+</import>

@@ -1,0 +1,3 @@
+<scripts>
+	<script file="#directory_scripts#\CreateAFSCashReports.csx" ignoreout="0" errorifouput="0"/>
+</scripts>

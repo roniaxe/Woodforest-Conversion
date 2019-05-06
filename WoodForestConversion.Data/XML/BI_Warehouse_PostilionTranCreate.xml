@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Consolidates post_tran and post_tran_cust trans to the PostilionTransaction table on Postilion_Office
+	-->
+	<event server="#server_postilionoffice#" database="poutils" timeout="3600">
+		<executesql>EXEC util_GetPostilionTransactions</executesql>
+	</event>
+</sqlinstruction>

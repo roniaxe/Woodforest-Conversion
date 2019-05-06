@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\vsuyear\Vision\Bank\RETURNS\PARMS\DATE.CTL" to="\\vsuyear\F$\Vision\Bank\RETURNS\PARMS\DATE.CTL" /> 
+</fileinstructions>

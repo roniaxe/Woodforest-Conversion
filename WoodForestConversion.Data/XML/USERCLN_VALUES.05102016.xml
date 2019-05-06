@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="USERCLN_VALUES_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\usercln" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="USERCLN_VALUES" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="LTV" filecolumn="LTV" ignore="0" />
+		<map index="2" column="SPV_LTV_RE" filecolumn="SPV_LTV_RE" ignore="0" />
+		<map index="3" column="REAL_ESTATE_CODES" filecolumn="REAL ESTATE CODES" ignore="0" />
+		<map index="4" column="COUNTY_CODE" filecolumn="COUNTY CODE" ignore="0" />
+		<map index="5" column="STATE_CODE" filecolumn="STATE_CODE" ignore="0" />
+		<map index="6" column="MSA_CODE" filecolumn="MSA CODE" ignore="0" />
+		<map index="7" column="CONCENTRATION_CODE" filecolumn="CONCENTRATION CODE" ignore="0" />
+		<map index="8" column="OWNER_OCCUP" filecolumn="OWNER OCCUP" ignore="0" />
+		<map index="9" column="LIEN_STATUS" filecolumn="LIEN STATUS" ignore="0" />
+		<map index="10" column="VALUE_SOURCE" filecolumn="VALUE SOURCE" ignore="0" />
+		<map index="11" column="LOAN_REVIEW_DATA" filecolumn="LOAN_REVIEW_DATA" ignore="0" />
+		<map index="12" column="LAST_REVIEW_DATE" filecolumn="LAST REVIEW DATE" ignore="0" />
+		<map index="13" column="PRODUCT_CODE" filecolumn="PRODUCT_CODE" ignore="0" />
+		<map index="14" column="SBA_AUTHORIZE_DATE" filecolumn="SBA AUTHORIZE DATE" ignore="0" />
+		<map index="15" column="HMDA_CRA_NOTES" filecolumn="HMDA CRA NOTES" ignore="0" />
+		<map index="16" column="SERVICED_BY" filecolumn="SERVICED BY" ignore="0" />
+		<map index="17" column="APPRO_ID" filecolumn="APPRO ID" ignore="0" />
+		<map index="18" column="TDR" filecolumn="TDR" ignore="0" />
+		<map index="19" column="AMORTIZATION_TERM" filecolumn="AMORTIZATION TERM" ignore="0" />
+		<map index="20" column="OVERRIDE_EXCEPTION" filecolumn="OVERRIDE EXCEPTION" ignore="0" />
+		<map index="21" column="HPML" filecolumn="HPML" ignore="0" />
+		<map index="22" column="IMPAIRED" filecolumn="IMPAIRED" ignore="0" />
+		<map index="23" column="CONSTRUCTION_TARGET_DT" filecolumn="CONSTRUCTION TARGET DT" ignore="0" />
+		<map index="24" column="HELOC_MAT_DT" filecolumn="HELOC MATURITY DT" ignore="0" />		
+		<map index="25" column="COMMUNITY_DEV" filecolumn="COMMUNITY DEV" ignore="0" />	
+		<map index="26" column="HVCRE" filecolumn="HVCRE" ignore="0" />	
+	</mappings>
+</import>

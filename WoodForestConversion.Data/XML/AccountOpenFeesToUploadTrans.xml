@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Account Open Fees (SCC and TCC) to UploadTrans
+	-->
+- <event server="#Server_ActivityDB#" database="#Database_WOODFOREST#" timeout="1000">
+		<executesql>EXEC dbo.util_AccountOpenFeesToUploadTrans</executesql>
+	</event>
+</sqlinstruction>

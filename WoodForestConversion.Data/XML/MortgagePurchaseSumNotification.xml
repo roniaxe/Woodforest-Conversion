@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  03
+	-->
+	<event server="#server_WNBAPPSDB#" database="WNBUtils" timeout="18000">
+		<executesql>exec dbo.MortgagePurchaseSumNotification</executesql>
+	</event>
+</sqlinstruction>

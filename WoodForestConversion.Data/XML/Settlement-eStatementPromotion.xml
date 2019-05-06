@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Create eStatement Credits for Marketing Promotion
+	-->
+- <event server="#server_activitydb#" database="#database_woodforest#" timeout="10000">
+		<executesql>EXEC dbo.util_eStatementCredit_Create</executesql>
+	</event>
+</sqlinstruction>

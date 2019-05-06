@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- Upload WSB Charge Offs
+	--> 
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="3600">
+  		<executesql>exec dbo.PrepareODUploadWSB</executesql> 
+  	</event>
+  <event server="#server_wnbappsdb#" database="OD2CO" timeout="3600">
+    <executesql>exec dbo.spCOMonitorWSB</executesql>
+  </event>
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="3600">
+  		<executesql>exec dbo.spMoveToInDebtNetWSB</executesql> 
+  	</event>
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="3600">
+  		<executesql>exec dbo.spUpdateNewCOUnder32toBNK_WSB</executesql> 
+  	</event>
+  <event server="#server_wnbappsdb#" database="OD2CO" timeout="3600">
+    <executesql>exec dbo.MonitorODChargeOffsWSB</executesql>
+  </event>
+</sqlinstruction>

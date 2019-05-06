@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command exec="#ssis2016#" args="/F #directory_ssis#\BanklineStatementOutput.dtsx /SET \Package.Variables[User::ConnectionString].Properties[Value];\&quot;&quot;Data Source=Activitydb;Initial Catalog=BanklineWNB;Provider=SQLNCLI11.0;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-BanklineStatementOutput;&quot;\&quot; /SET \Package.Variables[User::FileName].Properties[Value];XMLStatementOutput_WNB1 /SET \Package.Variables[User::FilePath].Properties[Value];&quot;\\woodforest.net\jobs\STMT\XMLOutput\WNB1\\&quot;" ignoreout="0" checkexitcode="1" />
+</commands>

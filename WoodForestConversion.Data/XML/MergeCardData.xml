@@ -1,0 +1,5 @@
+<sqlinstruction>
+	<event server="#server_wnbappsdb#" database="PaymentSystems" timeout="2000">
+		<executesql>EXEC Card.Job_DebitCardDetailMerge_Save</executesql>
+	</event>
+</sqlinstruction>

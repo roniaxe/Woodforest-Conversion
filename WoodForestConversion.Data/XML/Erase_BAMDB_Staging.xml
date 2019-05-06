@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+<event server="BAMDB" database="Master" timeout="300">
+	<executesql>
+		EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'Staging'	
+	</executesql>
+	<executesql>
+		DROP DATABASE [Staging]	
+	</executesql>
+</event>
+</sqlinstruction>

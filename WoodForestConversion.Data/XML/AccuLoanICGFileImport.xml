@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\sftp.woodforest.net\users\loanops\icgtax\" search="WFB_STA_*.txt" to="\\DC1CVLOANAP01\accusystems$\Acculoan\ICG\ImportFiles\Archive\" />
+  <move file="\\sftp.woodforest.net\users\loanops\icgtax\WFB_STA_#DATE(yyyyMMdd)#.txt"  to="\\DC1CVLOANAP01\accusystems$\Acculoan\ICG\ImportFiles\icgImport.txt" /> 
+
+  </fileinstructions>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<!-- Copy to PayPlus Server for processing -->
+	<copy file="\\CMBApps\ACBS\FedWire\" search="FEDWIRE*.*" to="\\MSCVPPA01\d$\PAYplusUSA\Import\MAX\" />
+	<!-- Archive the file -->
+	<move file="\\CMBApps\ACBS\FedWire\" search="FEDWIRE*.*" to="\\CMBApps\ACBS\FedWire\Archive\" />	     	
+</fileinstructions>

@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates daily balances in the data warehouse
+	-->
+	<event server="#server_historicaldb#" database="WNBUtility" timeout="600">
+		<executesql>EXEC rptTeamPerformanceNewCIFs</executesql>
+	</event>
+</sqlinstruction>

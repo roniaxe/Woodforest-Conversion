@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="#directory_scripts#\CLM_Archive.cmd" args="" ignoreout="1" />
+</commands>

@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure AET - Cleanup CL&CO Accounts
+	-->
+	<event server="WNBDB" database="WNB" timeout="300">
+		<executesql>EXEC spAETCleanup</executesql>
+	</event>
+	
+</sqlinstruction>

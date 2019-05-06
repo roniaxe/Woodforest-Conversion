@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="#archon_apps2012#\StatementParserWNB2\StatementParser.exe"  args="2" ignoreout="1" />
+</commands>

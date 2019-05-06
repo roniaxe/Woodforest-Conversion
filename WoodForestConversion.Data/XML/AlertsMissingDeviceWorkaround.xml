@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- Archive the notifications previously sent. -->
+	<event server="#server_voyagerdb#" database="Alerts" timeout="1200">
+		<executesql>EXEC dbo.AddMissingDeviceExtendedProperties</executesql>
+	</event>
+</sqlinstruction>

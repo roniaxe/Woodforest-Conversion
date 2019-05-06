@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure Move to ATMTranHist
+	-->
+	<event server="ATMDB" database="ATM" timeout="18000">
+		<executesql>EXEC MoveToATMTranHist_V2</executesql>
+	</event>
+	
+</sqlinstruction>

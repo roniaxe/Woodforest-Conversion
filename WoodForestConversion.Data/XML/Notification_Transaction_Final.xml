@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- Populate the NSF items for each transaction XML block -->
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
+		<executesql>
+			DECLARE @Date datetime
+			SET @Date = CONVERT(varchar, DATEADD(d, -1, getdate()), 101)
+
+			EXEC dbo.Notification_Engine_BuildNsfXml @Date
+		</executesql>
+	</event>
+	<!-- Populate the returned items for each transaction XML block -->
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
+		<executesql>
+			DECLARE @Date datetime
+			SET @Date = CONVERT(varchar, DATEADD(d, -1, getdate()), 101)
+
+			EXEC dbo.Notification_Engine_BuildReturnsXml @Date
+		</executesql>
+	</event>
+	<!-- Populate the beginning balance for each transaction block -->
+	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
+		<executesql>
+			EXEC dbo.Notification_Engine_UpdatePreviousDayBalance
+		</executesql>
+	</event>
+</sqlinstruction>

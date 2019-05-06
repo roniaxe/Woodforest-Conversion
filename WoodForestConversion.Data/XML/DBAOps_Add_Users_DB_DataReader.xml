@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"> -->
+<!-- <xsl:template match="/"> -->
+<sqlinstruction>
+	<!--  Add new Woodforest\SQLServer Data Readers to any db where it's not currently
+	-->
+<event server="WBCSQL01" database="Master" timeout="300">
+<!-- executesql: <xsl:value-of select="DBAOps_Add_Users_DB_DataReader_SQLCode\executesql" /> -->
+<!-- <include file="#config_sqlevent#\DBAOps_Add_Users_DB_DataReader_SQLCode.xml"/> -->
+<include xlink:href="#config_sqlevent#\DBAOps_Add_Users_DB_DataReader_SQLCode.xml">
+</event>
+</sqlinstruction>
+<!-- </xsl:template> -->

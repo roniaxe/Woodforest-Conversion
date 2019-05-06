@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Populates daily balances in the data warehouse
+	-->
+	<event server="#server_activitydb#" database="activity" timeout="1200">
+		<executesql>EXEC FIXOrphanATMTranRecords</executesql>
+	</event>
+</sqlinstruction>

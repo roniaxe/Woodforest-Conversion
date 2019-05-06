@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\ATM" to="#import_archive#\ATM" />
+	<move file="#import_download#\ATM.xxx" to="#import_archive#\ATM.xxx" />
+</fileinstructions>

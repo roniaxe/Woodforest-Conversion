@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  Create TranExport - called BuildPostilionACHFile.xml
+-->
+<commands>
+	<command exec="#ssis#" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\BuildPostilionACHFile.dtsx" ignoreout="0" />
+</commands>

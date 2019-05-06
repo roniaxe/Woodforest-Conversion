@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\sftp.woodforest.net\users\products\fisbp\incoming\" search="fis-6060*" to="\\woodforest.net\Jobs\BillPayImport" />
+</fileinstructions>

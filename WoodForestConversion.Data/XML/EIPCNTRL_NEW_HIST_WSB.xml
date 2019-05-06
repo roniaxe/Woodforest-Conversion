@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="EIPCNTRL_NEW_PC_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\EIPCNTRL_PC" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="EIPCNTRL_NEW_HIST" 
+		truncate="0" dropindexes="0" user="#import_user#" password="#import_password#" />
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="ACCOUNT" filecolumn="ACCT NUM" ignore="0" />
+		<map index="2" column="AMOUNT" filecolumn="AMOUNT" ignore="0" />
+		<map index="3" column="DESCRIPTION" filecolumn="DESCRIPTION" ignore="0" />
+		<map index="4" column="STATUS" filecolumn="STATUS" ignore="0" />
+		<map index="5" column="REVIEWER_CODE" filecolumn="REVIEWER CD" ignore="0" />
+		<map index="6" column="TRANCODE" filecolumn="TRAN" ignore="0" />
+		<map index="7" column="REPORTID" filecolumn="REPORT ID" ignore="0" />
+		<map index="8" column="UPDATE_FLAG" filecolumn="UPDATE FLAG" ignore="0" />
+		<map index="9" column="TRAN_ORIGIN" filecolumn="TRAN ORIGIN" ignore="0" />
+		<map index="10" column="CHECK_ACH" filecolumn="CHECK ACH" ignore="0" />
+		<map index="11" column="POST_DATE" filecolumn="POST DATE" ignore="0" />
+		<map index="12" column="EIP_POCKET" filecolumn="EIP POCKET" ignore="0" />
+		<map index="13" column="OPERATOR" filecolumn="OPERATOR" ignore="0" />
+		<map index="14" column="NSF_FEE" filecolumn="NSF FEE" ignore="0" />
+		<map index="15" column="OD_FEE" filecolumn="OD FEE" ignore="0" />
+		<map index="16" column="POSTING_STATUS" filecolumn="POSTING STATUS" ignore="0" />
+		<map index="17" column="FED_CODE" filecolumn="FED CODE" ignore="0" />
+		<map index="18" column="NIGHT_PROC" filecolumn="NIGHT PROC" ignore="0" />
+		<map index="19" column="NOTICE_FLAG" filecolumn="NOTICE FLAG" ignore="0" />
+		<map index="20" column="PAY_ORIG_TRAN_CD" filecolumn="PAY ORIG TRAN CD" ignore="0" />
+		<map index="21" column="OLEIP_AGAIN" filecolumn="OLEIP AGAIN" ignore="0" />
+		<map index="22" column="PRINT_OLEIP" filecolumn="PRINT_OLEIP" ignore="1" />
+	</mappings>
+</import>

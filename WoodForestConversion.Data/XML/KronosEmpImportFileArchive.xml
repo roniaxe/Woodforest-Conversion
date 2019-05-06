@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest\jobs\HR_Interfaces\Kronos\Archive\EmployeeImport_#DATE(yyyyMMdd)#.txt" to="\\sftp\users\payroll\kronos\outgoing\EMPLOYEEIMPORT.TXT" />
+</fileinstructions>

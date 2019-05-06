@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- truncate and rebuild wnb_Build_Daily_Tran
+	-->
+	<event server="#server_postilionoffice#" database="#database_poutils#" timeout="36000">
+		<executesql>EXEC dbo.wnb_Build_Daily_Tran</executesql>
+	</event>
+</sqlinstruction>

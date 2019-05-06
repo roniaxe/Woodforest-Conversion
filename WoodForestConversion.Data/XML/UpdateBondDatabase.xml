@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlinstruction>
+	<!-- Executes stored procedure usp_BondMaintenance --> 
+	<event server="#server_wnbappsdb#" database="BondRedemptionMaintenance" timeout="6000">
+		<executesql>DECLARE	@StartDate DATETIME, @EndDate DATETIME SELECT @EndDate = Convert(datetime,convert(varchar(10),getdate(),121)) SELECT @StartDate = DateAdd(d,-7,@EndDate) EXEC usp_BondMaintenance @StartDate, @EndDate</executesql> 
+	</event>
+</sqlinstruction>

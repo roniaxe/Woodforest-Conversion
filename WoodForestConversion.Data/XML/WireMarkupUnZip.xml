@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+<unzip file="#import_download#\WIRE_TRANS.zip" to="#import_extractto#\" extract="#import_extractbase#/WIRE_TRANS.xml" /> 
+</fileinstructions>

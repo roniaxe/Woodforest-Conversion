@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--    
+	-->
+	<event server="#server_datawarehousedb#" database="#database_WNB#" timeout="7200">
+		<executesql>EXEC dbo.Util_ODProgramLettersMailer 'ODRevokedReLi'</executesql>
+	</event>
+</sqlinstruction>

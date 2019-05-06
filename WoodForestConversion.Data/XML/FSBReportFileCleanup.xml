@@ -1,0 +1,9 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure to update the ReportFile_Status-->
+	<event server="#server_banclinedb#" database="#database_banklinefsb#" timeout="300">
+		<executesql>EXEC dbo.HoldFileCleanup</executesql>
+	</event>
+	<event server="#server_banclinedb#" database="#database_banklinefsb#" timeout="300">
+		<executesql>EXEC dbo.spHoldFileCleanup</executesql>
+	</event>
+</sqlinstruction>

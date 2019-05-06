@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Moves a refreshed view of EIPCNTRL_NEW  to DDA.dbo.OLEIP_REPORTS_1pm
+				Used for Bookeeping reports
+	-->
+	<event server="#server_banclinedb#" database="#database_dda#" timeout="900">
+		<executesql>EXEC spCopyOLEIPInfo_1PM</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\COMMENT" to="#import_archive#\COMMENT" />
+	<move file="#import_download#\COMMENT.xxx" to="#import_archive#\COMMENT.xxx" />
+</fileinstructions>

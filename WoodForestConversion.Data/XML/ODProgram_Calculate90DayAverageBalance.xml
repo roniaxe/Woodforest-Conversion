@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="DatawarehouseDB" database="AccountBalance" timeout="3600">
+		<executesql>EXEC dbo.ODProgram_CalculatePrevious3MonthAverageBalance</executesql>
+	</event>
+</sqlinstruction>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+  <move file="\\woodforest.net\jobs\MasterCard\CDFTransmission\" search="MCI.AR.R575.C*" to="\\mscvpayutl01\mastercard\Upload\" />
+</fileinstructions>

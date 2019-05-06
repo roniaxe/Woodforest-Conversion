@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+<move file="#import_download#\TRANSFER.zip" to="#import_archive#\TRANSFER.zip" />
+<move file="#import_download#\TRANSFER.xxx" to="#import_archive#\TRANSFER.xxx" />
+<delete file="#import_extractto#\TRANSFER" />
+</fileinstructions>

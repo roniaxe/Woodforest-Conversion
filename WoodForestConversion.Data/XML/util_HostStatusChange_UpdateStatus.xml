@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<event server="#server_activitydb#" database="#database_activity#" timeout="3600">
+		<executesql>EXEC dbo.util_HostStatusChange_UpdateStatus @OldStatus='W', @NewStatus='U'</executesql>
+	</event>
+</sqlinstruction>

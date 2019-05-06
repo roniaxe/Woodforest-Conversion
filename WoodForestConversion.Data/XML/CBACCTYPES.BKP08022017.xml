@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<monitor file="#import_download#\CBACCTYPES.xxx" />
+	<monitor file="#import_download#\CBACCTYPES.zip" />
+	<unzip file="#import_download#\CBACCTYPES.zip" to="#import_extractto#\" 
+		extract="#import_extractbase#/CBACCTYPES" />
+</fileinstructions>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest.net\Jobs\CheckPay\PaidInFull\#DATE(MMddyyyy)#.txt" to="\\sftp.woodforest.net\users\collections\chexsystems\outgoing\woodfrs.pfsf.txt" />
+</fileinstructions>

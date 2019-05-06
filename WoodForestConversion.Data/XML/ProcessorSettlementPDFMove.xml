@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+ <copy file="\\wnbintranet01\PDFReports\#DATE(yyyy)#\#DATE(MM)#\#DATE(dd)#\ATM\PROCESSOR_SETTLEMENT_REPORT.PDF" to="\\woodforest.net\jobs\Reports\PROCESSOR_SETTLEMENT_REPORT.PDF" /> 
+</fileinstructions>

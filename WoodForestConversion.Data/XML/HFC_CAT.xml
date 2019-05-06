@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\HFC_CAT.xxx" to="#import_archive#\HFC_CAT.xxx"/>
+	<move file="#import_download#\HFC_CAT" to="#import_archive#\HFC_CAT" />
+</fileinstructions>

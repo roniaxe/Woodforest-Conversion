@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Send Email on Status
+	-->
+	<event server="#server_bankerstoolboxdb#" database="#database_WNBUtility#" timeout="1000">
+		<executesql>
+		declare @WeekDay varchar(50),@CurrentDate varchar(50),@Subject varchar(200)
+		
+		set @WeekDay = datename(dw,GETDATE())
+		set @CurrentDate = convert(varchar(50),getdate(),101)
+		set @Subject = 'Archon job: BankersToolbox Daemon was unable to run on ' + @WeekDay + ' ' + @CurrentDate
+				
+		EXEC msdb.dbo.sp_send_dbmail 
+			@profile_name='SQLDBA', 
+			@recipients='#bankerstoolbox_statusmail#',
+			@copy_recipients ='#bankerstoolbox_statusmailcc#',
+			@subject= @Subject,
+			@body = 'Unable to start Bankerstoolbox Daemon process since daemon is already running.',
+			@body_format= 'text';
+		</executesql>
+	</event>
+</sqlinstruction>

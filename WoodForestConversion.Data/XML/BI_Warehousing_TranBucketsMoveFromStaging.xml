@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Moves tranbucket data
+	-->
+	<event server="#server_warehousedb#" database="#database_warehouse#" timeout="15000">
+		<executesql>EXEC dbo.TransactionBucket_MoveFromStaging</executesql>
+	</event>
+</sqlinstruction>

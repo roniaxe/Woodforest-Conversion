@@ -1,0 +1,5 @@
+<sqlinstruction>
+	<event server="#server_activitydb#" database="Staging" timeout="3000">
+		<executesql>EXEC dbo.JudgeStageDebitCardDetailData</executesql>
+	</event>
+</sqlinstruction>

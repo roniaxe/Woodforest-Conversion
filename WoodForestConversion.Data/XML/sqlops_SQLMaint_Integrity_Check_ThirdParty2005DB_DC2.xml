@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+	<command exec="cscript" args="#directory_scripts#\sqlops_SQLMaint_Integrity_Check.vbs DC2CVPLYSQL07\ThirdParty2005,40007 include VM_VC_VDI,VM_VIEW_VDI,VM_OPSMGR_VDI,VM_vCenter_VIEW,WM_VIEW_VDI2,IDGVPNData,WNBUtility" ignoreout="0" checkexitcode="1" />
+</commands>
+
+

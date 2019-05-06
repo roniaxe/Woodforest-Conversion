@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Find New Consumer CLNs and CRRs
+	-->
+- <event server="#server_activitydb#" database="#database_WNBUtility#" timeout="1000">
+		<executesql>exec dbo.spCRAUnsecuredCLNandCRR</executesql>
+	</event>
+</sqlinstruction>

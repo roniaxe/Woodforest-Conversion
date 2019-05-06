@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>
+	<move file="#import_download#\EIPCNTRL_ITEM" to="#import_archive#\EIPCNTRL_ITEM" />
+	<move file="#import_download#\EIPCNTRL_ITEM.xxx" to="#import_archive#\EIPCNTRL_ITEM.xxx" />
+</fileinstructions>

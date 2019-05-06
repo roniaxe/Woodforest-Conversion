@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  called PostilionSettlement-NotifyTechOps.xml
+	-->
+	<event server="#server_atmdb#" database="#database_atm#" timeout="300">
+		<executesql>EXEC dbo.Util_PostilionSettlementsNotify</executesql>
+	</event>
+</sqlinstruction>

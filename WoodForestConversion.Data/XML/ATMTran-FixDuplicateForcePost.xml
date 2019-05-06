@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Fix Duplicate Force Post
+	-->
+	<event server="#server_atmdb#" database="#database_atm#" timeout="300">
+		<executesql>EXEC dbo.FixAllDupForcePost</executesql>
+	</event>
+</sqlinstruction>

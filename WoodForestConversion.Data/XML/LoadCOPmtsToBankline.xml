@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <copy file="\\woodforest.net\jobs\TopNotch\ChargeOffBalanceToBankline\CB_RecoveryWNB#DATE(yyyyMMdd)#.txt" to="\\wnbcore.woodforest.net\Transfer\WNB\Memos\CB_Recovery.txt" /> 
+  <copy file="\\woodforest.net\jobs\TopNotch\ChargeOffBalanceToBankline\CB_RecoveryWSB#DATE(yyyyMMdd)#.txt" to="\\wnbcore.woodforest.net\Transfer\WSB\Memos\CB_Recovery.txt" /> 
+</fileinstructions>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  
+	-->
+
+	<event server="#server_wnbappsdb#" database="OD2CO" timeout="300">
+		<executesql>EXEC dbo.spMonitorTCLandTCPChargeOffs</executesql>
+	</event>
+
+	
+</sqlinstruction>

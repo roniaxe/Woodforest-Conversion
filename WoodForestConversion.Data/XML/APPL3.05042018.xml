@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<import name="APPL3_MAP">
+	<queues total="5" bulksize="3000" errorthreshold="255" />
+	<source location="#import_extractto#\appl3" isxml="0" delimiter="|" queuefirst="0" rootpath="" />
+	<destination server="#server_banclinedb#" database="#database_bancline#" entity="APPL3" 
+		truncate="1" dropindexes="1" user="#import_user#" password="#import_password#" />
+<validation check="#import_validation#" />	
+	<mappings>
+		<map index="0" column="Z_ID" filecolumn="REC.ID" ignore="0" />
+		<map index="1" column="AVG_BAL_LAST" filecolumn="AVG BAL LAST YEAR" ignore="0" />
+		<map index="2" column="AVG_BAL_PREV" filecolumn="AVG BAL PREV MON" ignore="0" />
+		<map index="3" column="AVG_BAL_PREV10" filecolumn="AVG BAL PREV MON10" ignore="0" />
+		<map index="4" column="AVG_BAL_PREV11" filecolumn="AVG BAL PREV MON11" ignore="0" />
+		<map index="5" column="AVG_BAL_PREV12" filecolumn="AVG BAL PREV MON12" ignore="0" />
+		<map index="6" column="AVG_BAL_PREV2" filecolumn="AVG BAL PREV MON2" ignore="0" />
+		<map index="7" column="AVG_BAL_PREV3" filecolumn="AVG BAL PREV MON3" ignore="0" />
+		<map index="8" column="AVG_BAL_PREV4" filecolumn="AVG BAL PREV MON4" ignore="0" />
+		<map index="9" column="AVG_BAL_PREV5" filecolumn="AVG BAL PREV MON5" ignore="0" />
+		<map index="10" column="AVG_BAL_PREV6" filecolumn="AVG BAL PREV MON6" ignore="0" />
+		<map index="11" column="AVG_BAL_PREV7" filecolumn="AVG BAL PREV MON7" ignore="0" />
+		<map index="12" column="AVG_BAL_PREV8" filecolumn="AVG BAL PREV MON8" ignore="0" />
+		<map index="13" column="AVG_BAL_PREV9" filecolumn="AVG BAL PREV MON9" ignore="0" />
+		<map index="14" column="AVG_COL_LAST" filecolumn="AVG COL LAST YEAR" ignore="0" />
+		<map index="15" column="AVG_COL_PREV" filecolumn="AVG COL PREV MON" ignore="0" />
+		<map index="16" column="AVG_COL_PREV10" filecolumn="AVG COL PREV MON10" ignore="0" />
+		<map index="17" column="AVG_COL_PREV11" filecolumn="AVG COL PREV MON11" ignore="0" />
+		<map index="18" column="AVG_COL_PREV12" filecolumn="AVG COL PREV MON12" ignore="0" />
+		<map index="19" column="AVG_COL_PREV2" filecolumn="AVG COL PREV MON2" ignore="0" />
+		<map index="20" column="AVG_COL_PREV3" filecolumn="AVG COL PREV MON3" ignore="0" />
+		<map index="21" column="AVG_COL_PREV4" filecolumn="AVG COL PREV MON4" ignore="0" />
+		<map index="22" column="AVG_COL_PREV5" filecolumn="AVG COL PREV MON5" ignore="0" />
+		<map index="23" column="AVG_COL_PREV6" filecolumn="AVG COL PREV MON6" ignore="0" />
+		<map index="24" column="AVG_COL_PREV7" filecolumn="AVG COL PREV MON7" ignore="0" />
+		<map index="25" column="AVG_COL_PREV8" filecolumn="AVG COL PREV MON8" ignore="0" />
+		<map index="26" column="AVG_COL_PREV9" filecolumn="AVG COL PREV MON9" ignore="0" />
+		<map index="27" column="CLASS_DESC" filecolumn="CLASS DESC" ignore="0" />
+		<map index="28" column="CLC_AUTH_AMT" filecolumn="AUTHORIZED AMOUNT" ignore="0" />
+		<map index="29" column="CTD_CR_AMT" filecolumn="CTD CREDIT AMOUNT" ignore="0" />
+		<map index="30" column="CTD_DB_AMT" filecolumn="CTD DEBIT AMOUNT" ignore="0" />
+		<map index="31" column="FED_CAT_DESC" filecolumn="FEDCT DESC" ignore="0" />
+		<map index="32" column="PAYOFF" filecolumn="PAYOFF" ignore="0" />
+		<map index="33" column="STATUS_DESC" filecolumn="STATUS DESC" ignore="0" />
+		<map index="34" column="WH_DESC" filecolumn="WH DESC" ignore="0" />
+		<map index="35" column="STMT_LANGUAGE" filecolumn="STMT LANGUAGE" ignore="0" />
+		<map index="36" column="AVG_BAL_PREV13" filecolumn="AVG BAL PREV MON13" ignore="0" />
+		<map index="37" column="AVG_BAL_PREV14" filecolumn="AVG BAL PREV MON14" ignore="0" />
+		<map index="38" column="AVG_BAL_PREV15" filecolumn="AVG BAL PREV MON15" ignore="0" />
+		<map index="39" column="AVG_BAL_PREV16" filecolumn="AVG BAL PREV MON16" ignore="0" />
+		<map index="40" column="AVG_BAL_PREV17" filecolumn="AVG BAL PREV MON17" ignore="0" />
+		<map index="41" column="AVG_BAL_PREV18" filecolumn="AVG BAL PREV MON18" ignore="0" />
+		<map index="42" column="AVG_BAL_PREV19" filecolumn="AVG BAL PREV MON19" ignore="0" />
+		<map index="43" column="AVG_BAL_PREV20" filecolumn="AVG BAL PREV MON20" ignore="0" />
+		<map index="44" column="AVG_BAL_PREV21" filecolumn="AVG BAL PREV MON21" ignore="0" />
+		<map index="45" column="AVG_BAL_PREV22" filecolumn="AVG BAL PREV MON22" ignore="0" />
+		<map index="46" column="AVG_BAL_PREV23" filecolumn="AVG BAL PREV MON23" ignore="0" />
+		<map index="47" column="AVG_BAL_PREV24" filecolumn="AVG BAL PREV MON24" ignore="0" />
+		<map index="48" column="AVG_COL_PREV13" filecolumn="AVG COL PREV MON13" ignore="0" />
+		<map index="49" column="AVG_COL_PREV14" filecolumn="AVG COL PREV MON14" ignore="0" />
+		<map index="50" column="AVG_COL_PREV15" filecolumn="AVG COL PREV MON15" ignore="0" />
+		<map index="51" column="AVG_COL_PREV16" filecolumn="AVG COL PREV MON16" ignore="0" />
+		<map index="52" column="AVG_COL_PREV17" filecolumn="AVG COL PREV MON17" ignore="0" />
+		<map index="53" column="AVG_COL_PREV18" filecolumn="AVG COL PREV MON18" ignore="0" />
+		<map index="54" column="AVG_COL_PREV19" filecolumn="AVG COL PREV MON19" ignore="0" />
+		<map index="55" column="AVG_COL_PREV20" filecolumn="AVG COL PREV MON20" ignore="0" />
+		<map index="56" column="AVG_COL_PREV21" filecolumn="AVG COL PREV MON21" ignore="0" />
+		<map index="57" column="AVG_COL_PREV22" filecolumn="AVG COL PREV MON22" ignore="0" />
+		<map index="58" column="AVG_COL_PREV23" filecolumn="AVG COL PREV MON23" ignore="0" />
+		<map index="59" column="AVG_COL_PREV24" filecolumn="AVG COL PREV MON24" ignore="0" />
+		<map index="60" column="OLD_ACCT_ID" filecolumn="OLD ACCT ID" ignore="0" />
+	</mappings>
+</import>

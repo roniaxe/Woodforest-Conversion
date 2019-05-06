@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYOPSSQL01\c$\mountpoints\Backup\Backup\Ops\Citrix\         \\DC2CVPLYSQL09\c$\Mountpoints\Backup\Backup\Ops\Citrix\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYOPSSQL01\c$\mountpoints\Backup\Backup\Ops\CitrixResource\ \\DC2CVPLYSQL09\c$\Mountpoints\Backup\Backup\Ops\CitrixResource\" ignoreout="1" />
+  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\WBCPLYOPSSQL01\c$\mountpoints\Backup\Backup\Ops\EventsManager\ 	\\DC2CVPLYSQL09\c$\Mountpoints\Backup\Backup\Ops\EventsManager\" ignoreout="1" />
+</commands>

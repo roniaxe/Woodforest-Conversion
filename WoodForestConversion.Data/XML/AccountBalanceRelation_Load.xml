@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!-- Apply AIM Sweep Markups -->
+	<event server="#server_activitydb#" database="#database_woodforest#" timeout="600">
+		<executesql>Exec AccountBalanceRelation_Load</executesql>
+	</event>
+</sqlinstruction>

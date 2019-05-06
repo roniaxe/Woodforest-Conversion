@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fileinstructions>    
+  <copy file="\\woodforest.net\Jobs\Letters_TCPOverdue\Backup\#DATE(yyyyMMdd)#_TCPOverdueMerge.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\#DATE(yyyyMMdd)#_TCPOverdueMerge.txt" />
+</fileinstructions>

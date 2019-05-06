@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>	
+	<command exec="N:\AccuSystems\Acculoan\AccuLoanProcessingForArchon.cmd" args="" />
+</commands>	

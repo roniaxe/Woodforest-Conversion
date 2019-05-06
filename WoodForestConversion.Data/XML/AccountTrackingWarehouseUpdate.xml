@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlinstruction>
+	<!--  Account Tracking Warehouse Update
+	-->
+	<event server="#WNBDB#" database="WNB" timeout="1800">
+		<executesql>exec spAccountTrackingUpdate</executesql>
+	</event>
+</sqlinstruction>

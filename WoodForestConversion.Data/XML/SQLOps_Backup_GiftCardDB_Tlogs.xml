@@ -1,0 +1,8 @@
+<sqlinstruction>
+	<!--  Executes Stored Procedure util_Backup_Databases_full	-->
+	<event server="DC1CBATMSVC01" database="WNBUtil" timeout="3600">
+		<executesql>
+			EXEC dbo.util_Backup_Databases_log null
+		</executesql>
+	</event>
+</sqlinstruction>

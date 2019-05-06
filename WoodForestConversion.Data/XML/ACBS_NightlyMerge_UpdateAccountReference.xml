@@ -1,0 +1,19 @@
+<sqlinstruction>
+	<!-- Update Account.Reference table
+	-->
+	<event server="#server_activitydb#" database="#database_activity#" timeout="7200">
+		<executesql>EXEC Activity.Account.Balance_Merge 4 </executesql>
+	</event>
+	<event server="#server_activitydb#" database="#database_woodforest#" timeout="7200">
+		<executesql>
+delete from woodforest.account.relatedparty where id in 
+(
+select acr.id from woodforest.dbo.account a
+inner join woodforest.account.RelatedParty acr on a.accountuid = acr.accountid
+inner join woodforest.dbo.customer c on acr.partyid = c.customeruid
+and a.coreid = 4
+and abs(c.taxid) not in (select abs(taxid) from staging.acbs.HostMerge_CustomerAlias_Get)
+)
+</executesql>
+	</event>
+</sqlinstruction>

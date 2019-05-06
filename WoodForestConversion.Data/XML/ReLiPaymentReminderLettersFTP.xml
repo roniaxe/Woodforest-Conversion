@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<fileinstructions>
+  <move file="\\woodforest.net\jobs\Letters_ReLiPaymentReminder\#DATE(yyyyMMdd)#_ReLiPaymentReminderLetters.txt" to="\\sftp\users\support-analysts\fis\outgoing\#DATE(yyyyMMdd)#_ReLiPaymentReminderLetters.txt" />
+</fileinstructions>

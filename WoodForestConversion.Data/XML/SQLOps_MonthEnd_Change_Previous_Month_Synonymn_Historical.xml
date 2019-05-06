@@ -1,0 +1,7 @@
+<sqlinstruction>
+	<!--  Step 4b. - Set Previous MonthEnd Synonymns to point to Current MonthEnd Database (HistoricalDB).
+	-->
+	<event server="#server_historicaldb#" database="WNBUtility" timeout="28800">
+		<executesql>dbo.util_Bankline_MonthEnd_Change_Previous_Month_Synonymn</executesql>
+	</event>
+</sqlinstruction>
