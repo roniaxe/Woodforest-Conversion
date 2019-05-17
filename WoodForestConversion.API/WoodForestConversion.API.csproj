@@ -36,15 +36,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArchonTasksShr">
+      <HintPath>..\..\..\..\..\..\..\Desktop\Woodforest\Archon Task\Client\ArchonTasksShr.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="JAMSSequenceShr">
+      <HintPath>..\..\..\..\JAMS\Dev\CommonBin\Debug\JAMSSequenceShr.dll</HintPath>
+    </Reference>
     <Reference Include="JAMSShr, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7da961def3057cf2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\JAMS\Dev\CommonBin\Debug\JAMSShr.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,14 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversion\Agents\AgentConversion.cs" />
-    <Compile Include="Conversion\Base\IAgentConverter.cs" />
     <Compile Include="Conversion\Base\IConverter.cs" />
-    <Compile Include="Conversion\Base\IJobConverter.cs" />
+    <Compile Include="Conversion\ConditionsTree\TreeNode.cs" />
+    <Compile Include="Conversion\DTOs\ArchonStepDto.cs" />
     <Compile Include="Conversion\DTOs\SetFreqDto.cs" />
     <Compile Include="Conversion\Enums\ConditionType.cs" />
     <Compile Include="Conversion\DTOs\JobFreqDto.cs" />
     <Compile Include="Conversion\Jobs\JobConversion.cs" />
-    <Compile Include="Conversion\ConvertMain.cs" />
+    <Compile Include="Conversion\Jobs\JobConversionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +82,9 @@
       <Project>{1b4069af-2e77-4421-b608-b23d5885640c}</Project>
       <Name>WoodForestConversion.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,7 @@
-﻿namespace WoodForestConversion.API.Conversion.Enums
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace WoodForestConversion.API.Conversion.Enums
 {
     public enum ConditionType
     {
@@ -10,14 +13,16 @@
 
     public enum DateInterval
     {
-        OnDay = 0,
-        DayOfWeek = 1,
-        DayOfMonth = 2,
-        Month = 3,
-        MonthAndDay = 5,
-        EndOfDayMonthDay = 6,
-        StartOfMonthDay = 7
+        Daily = 0,
+        OnWeekday = 1,
+        DayDuringMonth = 2,
+        DuringMonth = 3,
+        WeekDuringMonth = 4,
+        OnDate = 5,
+        BeforeOrOnDate = 6,
+        AfterOrOnDate = 7
     }
+
 
     public enum DayOfTheWeek
     {
@@ -46,11 +51,18 @@
         December = 12
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ExecutionFrequency
     {
         Once = 0,
         ContinueUntil = 1,
         AlwaysExecuting = 2,
         ExecuteWithDependencies = 3,
+    }
+
+    public enum ConditionMatch
+    {
+        All,
+        Any,
     }
 }

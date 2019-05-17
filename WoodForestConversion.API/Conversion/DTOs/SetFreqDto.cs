@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using MVPSI.JAMS;
 using WoodForestConversion.API.Conversion.Enums;
 using Condition = WoodForestConversion.Data.Condition;
 
@@ -9,82 +7,106 @@ namespace WoodForestConversion.API.Conversion.DTOs
 {
     public class SetFreqDto
     {
-        public SetFreqDto(){}
+        public SetFreqDto(Condition condition)
+        {
+            ProcessCondition(condition);
+        }
+
+        #region Properties
+        public HashSet<string> StringDates { get; set; } = new HashSet<string>();
+        public HashSet<string> ExceptDates { get; set; } = new HashSet<string>();
+        public DateTime? AfterTimeUtc { get; set; }
+        public DateTime? BeforeTimeUtc { get; set; }
+        private string _runOnSpecific;
+        #endregion
+
         public void ProcessCondition(Condition condition)
         {
-            IsNegative = condition.IsNegative;
-            ConditionType = (ConditionType)condition.ConditionType;
-            switch (ConditionType)
+            switch ((ConditionType)condition.ConditionType)
             {
-                case Enums.ConditionType.JobDependency:
-                    JobDependencies.Add(condition.ReferenceUID);
-                    break;
-                case Enums.ConditionType.FileDependency:
-                    FileDependencies.Add($@"{condition.Directory.TrimEnd('\\')}\{condition.FileExists}");
-                    break;
-                case Enums.ConditionType.RunOn:
+                case ConditionType.RunOn:
                     SetLiteralDate(condition);
                     break;
-                case Enums.ConditionType.RunOnTimeWindow:
-                    AfterTimeUTC = condition.AfterTimeUtc;
-                    BeforeTimeUTC = condition.BeforeTimeUtc;
+                case ConditionType.RunOnTimeWindow:
+                    AfterTimeUtc = condition.IsNegative ? condition.BeforeTimeUtc : condition.AfterTimeUtc;
+                    BeforeTimeUtc = condition.IsNegative ? condition.AfterTimeUtc : condition.BeforeTimeUtc;
                     break;
             }
         }
 
-        private void SetLiteralDate(Condition condition)
+        public void SetLiteralDate(Condition condition)
         {
-            if (condition.IsNegative)
+            void AddDateCondition(string strCondition)
             {
-                switch ((DateInterval) condition.DateInterval)
+                if (_runOnSpecific != null)
                 {
-                    case Enums.DateInterval.DayOfWeek:
-                        NotDayOfWeek.Add((DayOfTheWeek) condition.PrimaryFrequency);
-                        break;
-                    case Enums.DateInterval.DayOfMonth:
-                        NotDayOfTheMonth.Add(condition.PrimaryFrequency);
-                        break;
-                    case Enums.DateInterval.Month:
-                        NotMonths.Add((Month)condition.PrimaryFrequency);
-                        break;
-                    case Enums.DateInterval.MonthAndDay:
-                        NotStringDates.Add($"{condition.SecondaryFrequency}-{(Month)condition.PrimaryFrequency}");
-                        break;
+                    StringDates.Remove("Daily");
                 }
+
+                if (!condition.IsNegative)
+                    StringDates.Add(strCondition);
+                else
+                    ExceptDates.Add(strCondition);
             }
-            else
+
+            string dateLiteral;
+            switch ((DateInterval?)condition.DateInterval)
             {
-                switch ((DateInterval)condition.DateInterval)
-                {
-                    case Enums.DateInterval.DayOfWeek:
-                        DayOfTheWeek.Add((DayOfTheWeek)condition.PrimaryFrequency);
-                        break;
-                    case Enums.DateInterval.DayOfMonth:
-                        DayOfTheMonth.Add(condition.PrimaryFrequency);
-                        break;
-                    case Enums.DateInterval.Month:
-                        Months.Add((Month)condition.PrimaryFrequency);
-                        break;
-                    case Enums.DateInterval.MonthAndDay:
-                        StringDates.Add($"{condition.SecondaryFrequency}-{(Month)condition.PrimaryFrequency}");
-                        break;
-                }
+                case DateInterval.Daily:
+                    StringDates.Add(condition.PrimaryFrequency == 0
+                        ? "Daily"
+                        : $"Every {condition.PrimaryFrequency} days");
+                    break;
+                case DateInterval.OnWeekday:
+                    if (condition.SecondaryFrequency == 0)
+                    {
+                        _runOnSpecific = $"{(DayOfTheWeek) condition.PrimaryFrequency}";
+                        AddDateCondition(_runOnSpecific);
+                    }
+                    else
+                    {
+                        if (condition.SecondaryFrequency == 5)
+                        {
+                            _runOnSpecific = "last";
+                            dateLiteral = $"{_runOnSpecific} {(DayOfTheWeek)condition.PrimaryFrequency} of month";
+                        }
+                        else
+                        {
+                            _runOnSpecific = condition.SecondaryFrequency.ToString();
+                            dateLiteral = $"{_runOnSpecific} {(DayOfTheWeek)condition.PrimaryFrequency} of month";
+                        }
+
+                        AddDateCondition(dateLiteral);
+                    }
+
+                    break;
+                case DateInterval.DayDuringMonth:
+                    if (condition.PrimaryFrequency < 1 || condition.PrimaryFrequency > 31)
+                    {
+                        _runOnSpecific = "last";
+                    }
+                    else
+                    {
+                        _runOnSpecific = condition.PrimaryFrequency.ToString();
+                    }
+                    AddDateCondition($"{_runOnSpecific} day of month");
+                    break;
+                case DateInterval.DuringMonth:
+                    StringDates.RemoveWhere(str => str.Contains("day of month"));
+                    dateLiteral = $"{_runOnSpecific} day of {(Month) condition.PrimaryFrequency}";
+                    AddDateCondition(dateLiteral);
+                    break;
+                case DateInterval.OnDate:
+                case DateInterval.AfterOrOnDate:
+                case DateInterval.BeforeOrOnDate:
+                    _runOnSpecific = $"{condition.SecondaryFrequency}";
+                    AddDateCondition($@"{_runOnSpecific}-{(Month)condition.PrimaryFrequency}");
+                    break;
+                case DateInterval.WeekDuringMonth:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
-        public ConditionType? ConditionType { get; set; }
-        public DateInterval? DateInterval { get; set; }
-        public List<string> StringDates { get; set; } = new List<string>();
-        public List<string> NotStringDates { get; set; } = new List<string>();
-        public List<DayOfTheWeek> DayOfTheWeek { get; set; } = new List<DayOfTheWeek>();
-        public List<DayOfTheWeek> NotDayOfWeek { get; set; } = new List<DayOfTheWeek>();
-        public List<byte?> DayOfTheMonth { get; set; } = new List<byte?>();
-        public List<byte?> NotDayOfTheMonth { get; set; } = new List<byte?>();
-        public List<Month> Months { get; set; } = new List<Month>();
-        public List<Month> NotMonths { get; set; } = new List<Month>();
-        public DateTime? AfterTimeUTC { get; set; }
-        public DateTime? BeforeTimeUTC { get; set; }
-        public bool IsNegative { get; set; }
-        public List<Guid?> JobDependencies { get; set; } = new List<Guid?>();
-        public List<string> FileDependencies { get; set; } = new List<string>();
     }
 }

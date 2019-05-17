@@ -7,7 +7,7 @@ using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Agents
 {
-    public class AgentConversion : IAgentConverter<JobService, Agent>
+    public class AgentConversion
     {
         private readonly TextWriter _log;
         public AgentConversion(TextWriter log)

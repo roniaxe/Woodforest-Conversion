@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using WoodForestConversion.API.Conversion;
 using WoodForestConversion.API.Conversion.Agents;
 using WoodForestConversion.API.Conversion.Jobs;
@@ -16,8 +17,14 @@ namespace WoodForest.Conversion
                 var jobConverter = new JobConversion(logWriter);
                 var agentConverter = new AgentConversion(logWriter);
 
-                ConvertMain convertMain = new ConvertMain(jobConverter, agentConverter);
-                convertMain.Convert();
+                var convertedJobs = jobConverter.Convert();
+                var convertedAgents = agentConverter.Convert();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
             }
             finally
             {

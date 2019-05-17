@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WoodForestConversion.API.Conversion.Base
 {
-    public interface IConverter<TTarget>
+    public interface IEntityToConvert<TTarget>
     {
         ICollection<TTarget> Convert();
     }
