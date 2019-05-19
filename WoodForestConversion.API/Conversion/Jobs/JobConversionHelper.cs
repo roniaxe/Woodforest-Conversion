@@ -127,52 +127,5 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 serializer.Serialize(file, obj);
             }
         }
-
-        public static void AddIfUnique(this ElementCollection elementCollection, Element element)
-        {
-            switch (element)
-            {
-                case RunawayEvent _:
-                    foreach (var e in elementCollection)
-                    {
-                        if (e is RunawayEvent)
-                        {
-                            return;
-                        }
-                    }
-
-                    elementCollection.Add(element);
-                    break;
-                case Resubmit _:
-                    foreach (var e in elementCollection)
-                    {
-                        if (e is Resubmit)
-                        {
-                            break;
-                        }
-                    }
-
-                    elementCollection.Add(element);
-                    break;
-                case JobDependency jobDependency:
-                    foreach (var e in elementCollection)
-                    {
-                        if (!(e is JobDependency jDep)) continue;
-                        if (jDep.DependOnJob.JobName == jobDependency.DependOnJob.JobName) break;
-                    }
-
-                    elementCollection.Add(element);
-                    break;
-                case FileDependency fileDependency:
-                    foreach (var e in elementCollection)
-                    {
-                        if (!(e is FileDependency fDep)) continue;
-                        if (fDep.FileName == fileDependency.FileName) break;
-                    }
-
-                    elementCollection.Add(element);
-                    break;
-            }
-        }
     }
 }

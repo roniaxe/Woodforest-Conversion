@@ -185,7 +185,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
                     if (endTime.HasValue)
                     {
                         var deltaTime = new DeltaTime(Math.Abs(endTime.Value.TotalSeconds - startTime.TotalSeconds));
-                        Elements.AddIfUnique(new RunawayEvent(deltaTime));
+                        Elements.Add(new RunawayEvent(deltaTime));
                     }
                     #endregion
                 }
@@ -196,7 +196,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
                     var delta = end.TotalSeconds - startTime.TotalSeconds;
                     if (delta < Interval * 60) continue;
 
-                    Elements.AddIfUnique(new Resubmit(new DeltaTime(Interval * 60), endTime ?? default));
+                    Elements.Add(new Resubmit(new DeltaTime(Interval * 60), endTime ?? default));
                     #endregion
                 }
             }
@@ -217,7 +217,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
                 if (JobConversion.ArchonJobDictionary.TryGetValue(jobDependencyId.Value, out var job))
                 {
                     var folder = JobConversion.JobFolderName[jobDependencyId.Value];
-                    Elements.AddIfUnique(new JobDependency($@"\Archon\{folder}\{job.JobName}"));
+                    Elements.Add(new JobDependency($@"\Archon\{folder}\{job.JobName}"));
                 }
                 else
                 {
@@ -230,7 +230,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
         {
             foreach (var fileDependency in FileDependencies)
             {
-                Elements.AddIfUnique(new FileDependency(fileDependency));
+                Elements.Add(new FileDependency(fileDependency));
             }
         }
     }
