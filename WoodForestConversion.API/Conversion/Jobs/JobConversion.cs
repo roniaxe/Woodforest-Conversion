@@ -95,20 +95,19 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public async Task ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob, List<string> duplicates)
         {
-            string jobName;
-            if (duplicates.Contains(sourceJob.JobName))
+            while (!PathName.IsValid(sourceJob.JobName))
             {
-                jobName = sourceJob.JobName + "2";
-                duplicates.Remove(sourceJob.JobName);
-            }
-            else
-            {
-                jobName = sourceJob.JobName;
+                var idx = sourceJob.JobName.IndexOfAny(Path.GetInvalidPathChars());
+                if (idx < 0)
+                {
+                    idx = sourceJob.JobName.IndexOfAny(Path.GetInvalidFileNameChars());
+                }
+                sourceJob.JobName = sourceJob.JobName.Replace(sourceJob.JobName[idx], ' ');
             }
 
             await Task.Run(() =>
             {
-                targetJob.JobName = jobName;
+                targetJob.JobName = sourceJob.JobName;
                 targetJob.Description = sourceJob.Note;
                 targetJob.MethodName = "Sequence";
             });
