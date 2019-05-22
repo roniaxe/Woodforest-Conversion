@@ -14,7 +14,7 @@ using Job = MVPSI.JAMS.Job;
 
 namespace WoodForestConversion.API.Conversion.Jobs
 {
-    public class JobConversion : IEntityToConvert<Job>
+    public class JobConversion : IEntityToConvert
     {
         private readonly TextWriter _log;
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
@@ -26,7 +26,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
         {
             _log = log;
         }
-        public ICollection<Job> Convert()
+        public void Convert()
         {
             using (ArchonEntities = new ARCHONEntities())
             {
@@ -74,8 +74,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 {
                     JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"c:\{convertedJob.Key}.xml");
                 }
-
-                return null;
             }
         }
 

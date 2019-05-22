@@ -16,8 +16,8 @@ namespace WoodForest.Conversion
                 var jobConverter = new JobConversion(logWriter);
                 var agentConverter = new AgentConversion(logWriter);
 
-                var convertedJobs = jobConverter.Convert();
-                var convertedAgents = agentConverter.Convert();
+                jobConverter.Convert();
+                agentConverter.Convert();
 
             }
             catch (Exception ex)

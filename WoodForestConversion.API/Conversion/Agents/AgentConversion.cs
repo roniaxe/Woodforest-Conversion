@@ -7,7 +7,7 @@ using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Agents
 {
-    public class AgentConversion
+    public class AgentConversion : IEntityToConvert
     {
         private readonly TextWriter _log;
         public AgentConversion(TextWriter log)
@@ -15,7 +15,7 @@ namespace WoodForestConversion.API.Conversion.Agents
             _log = log;
         }
 
-        public ICollection<Agent> Convert()
+        public void Convert()
         {
             using (var archonEntities = new ARCHONEntities())
             {
@@ -36,8 +36,6 @@ namespace WoodForestConversion.API.Conversion.Agents
 
                     convertedAgents.Add(convertedAgent);
                 }
-
-                return convertedAgents;
             }
         }
 
