@@ -216,6 +216,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
             {
                 if (JobConversion.ArchonJobDictionary.TryGetValue(jobDependencyId.Value, out var job))
                 {
+                    job.JobName = JobConversionHelper.FixJobName(job.JobName);
                     var folder = JobConversion.JobFolderName[jobDependencyId.Value];
                     var destination = string.IsNullOrWhiteSpace(folder) 
                         ? $@"\Archon\{job.JobName}" 

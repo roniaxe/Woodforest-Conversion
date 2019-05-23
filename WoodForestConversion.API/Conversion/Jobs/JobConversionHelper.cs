@@ -31,7 +31,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
             "sqlops_PRMDB_RebuildIndex",
             "AMBIT Data Export",
             "sqlops_MGDB_RebuildIndex"
-
         };
 
         private static readonly List<string> HasDependencyThatIsNotLive = new List<string>
@@ -113,6 +112,21 @@ namespace WoodForestConversion.API.Conversion.Jobs
         {
             return ConditionsExceptions.Contains(jobName) ||
                    HasDependencyThatIsNotLive.Contains(jobName);
+        }
+
+        public static string FixJobName(string jobName)
+        {
+            while (!PathName.IsValid(jobName))
+            {
+                var idx = jobName.IndexOfAny(Path.GetInvalidPathChars());
+                if (idx < 0)
+                {
+                    idx = jobName.IndexOfAny(Path.GetInvalidFileNameChars());
+                }
+                jobName = jobName.Replace(jobName[idx], ' ');
+            }
+
+            return jobName;
         }
 
         public static void ObjectToJson(string fileName, object obj)

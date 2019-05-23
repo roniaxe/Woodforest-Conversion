@@ -113,15 +113,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public async Task ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob)
         {
-            while (!PathName.IsValid(sourceJob.JobName))
-            {
-                var idx = sourceJob.JobName.IndexOfAny(Path.GetInvalidPathChars());
-                if (idx < 0)
-                {
-                    idx = sourceJob.JobName.IndexOfAny(Path.GetInvalidFileNameChars());
-                }
-                sourceJob.JobName = sourceJob.JobName.Replace(sourceJob.JobName[idx], ' ');
-            }
+            sourceJob.JobName = JobConversionHelper.FixJobName(sourceJob.JobName);
 
             await Task.Run(() =>
             {
