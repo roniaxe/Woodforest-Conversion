@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArchonTasksShr">
-      <HintPath>..\..\..\..\..\..\..\Desktop\Woodforest\Archon Task\Client\ArchonTasksShr.dll</HintPath>
+      <HintPath>..\packages\Archon\ArchonTasksShr.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -46,16 +46,17 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="JAMSSequenceShr">
-      <HintPath>..\..\..\..\JAMS\Dev\CommonBin\Debug\JAMSSequenceShr.dll</HintPath>
+      <HintPath>..\packages\JAMSSequenceShr\JAMSSequenceShr.dll</HintPath>
     </Reference>
     <Reference Include="JAMSShr, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7da961def3057cf2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\JAMS\Dev\CommonBin\Debug\JAMSShr.dll</HintPath>
+      <HintPath>..\packages\JAMSShr\JAMSShr.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />

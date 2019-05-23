@@ -3,8 +3,10 @@ using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using WoodForestConversion.API.Conversion.Base;
@@ -21,11 +23,13 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
         public static Dictionary<Guid, Data.Job> ArchonJobDictionary;
         public static Dictionary<Guid, string> JobFolderName;
+        private string _xmlOutputPath;
         public ARCHONEntities ArchonEntities { get; set; }
 
         public JobConversion(TextWriter log)
         {
             _log = log;
+            _xmlOutputPath = ConfigurationManager.AppSettings["xmloutputlocation"];
         }
         public void Convert()
         {
@@ -63,33 +67,36 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     }
                 }
 
-                //JobConversionHelper.ObjectToJson(@"c:\jobs.json", convertedJobs);
+                var xmlSettings = new XmlWriterSettings
+                {
+                    CloseOutput = true,
+                    Encoding = Encoding.UTF8,
+                    Indent = true
+                };
+                Directory.CreateDirectory(_xmlOutputPath);
                 foreach (var convertedJob in convertedJobs)
                 {
-                    using (StreamWriter file =
-                        new StreamWriter($@"C:\jobList-{convertedJob.Key}.xml", true))
-                    {
-                        file.WriteLine(@"<?xml version=""1.0"" encoding=""utf-8""?>");
-                        file.WriteLine(@"<JAMSObjects>");
-                        foreach (var cj in convertedJob.Value)
-                        {
-                            file.WriteLine($@"<job name=""{XmlEscape(cj.JobName)}"" method=""{cj.MethodName}""></job>");
-                        }
-                        file.WriteLine(@"</JAMSObjects>");
-                    }
+                    Directory.CreateDirectory($"{_xmlOutputPath}{convertedJob.Key}");
+                    XmlWriter xmlWriter = XmlWriter.Create($@"{_xmlOutputPath}{convertedJob.Key}\1_run_first-{convertedJob.Key}.xml", xmlSettings);
+                    xmlWriter.WriteStartDocument();
+                    xmlWriter.WriteStartElement("JAMSObjects");
 
-                    JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"c:\{convertedJob.Key}.xml");
+                    foreach (var cj in convertedJob.Value)
+                    {
+                        xmlWriter.WriteStartElement("job");
+                        xmlWriter.WriteAttributeString("name", cj.JobName);
+                        xmlWriter.WriteAttributeString("method", cj.MethodName);
+                        xmlWriter.WriteFullEndElement();
+                    }
+                    xmlWriter.WriteFullEndElement();
+                    xmlWriter.WriteEndDocument();
+                    xmlWriter.Close();
+                    
+                    JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"{_xmlOutputPath}{convertedJob.Key}\2_run_second-{convertedJob.Key}.xml");
                 }
             }
         }
 
-        public static string XmlEscape(string unescaped)
-        {
-            XmlDocument doc = new XmlDocument();
-            XmlNode node = doc.CreateElement("root");
-            node.InnerText = unescaped;
-            return node.InnerXml;
-        }
         private void PopulateJobConditionsDictionary()
         {
             ArchonJobDictionary = ArchonEntities.Jobs
