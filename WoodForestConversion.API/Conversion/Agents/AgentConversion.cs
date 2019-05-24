@@ -1,8 +1,10 @@
 ﻿using MVPSI.JAMS;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using WoodForestConversion.API.Conversion.Base;
+using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Agents
@@ -19,23 +21,18 @@ namespace WoodForestConversion.API.Conversion.Agents
         {
             using (var archonEntities = new ARCHONEntities())
             {
-                _log.WriteLine("Starting Agent Conversion");
-                _log.WriteLine("-----------------------");
-                _log.WriteLine();
-
                 var sourceAgents = archonEntities.JobServices;
                 List<Agent> convertedAgents = new List<Agent>();
 
-
                 foreach (var jobService in sourceAgents)
                 {
-                    _log.WriteLine($"Converting Agent: {jobService.ServiceName}");
                     Agent convertedAgent = new Agent();
-
-                    ConvertAgentDetails(jobService, convertedAgent);                   
-
+                    ConvertAgentDetails(jobService, convertedAgent);
                     convertedAgents.Add(convertedAgent);
                 }
+
+                Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Agents\");
+                JAMSXmlSerializer.WriteXml(convertedAgents, $@"{ConversionBaseHelper.XmlOutputLocation}\Agents\Agents.xml");
             }
         }
 

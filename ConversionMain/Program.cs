@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using WoodForestConversion.API.Conversion.Agents;
+using WoodForestConversion.API.Conversion.Folders;
 using WoodForestConversion.API.Conversion.Jobs;
 
 namespace WoodForest.Conversion
@@ -15,9 +16,11 @@ namespace WoodForest.Conversion
                 logWriter = File.CreateText("log.txt");
                 var jobConverter = new JobConversion(logWriter);
                 var agentConverter = new AgentConversion(logWriter);
+                var folderConverter = new FoldersConversion(logWriter);
 
                 jobConverter.Convert();
                 agentConverter.Convert();
+                folderConverter.Convert();
 
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MVPSI.JAMS;
 using WoodForestConversion.API.Conversion.ConditionsTree;
+using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.Enums;
 using WoodForestConversion.API.Conversion.Jobs;
 using WoodForestConversion.Data;
@@ -216,11 +217,13 @@ namespace WoodForestConversion.API.Conversion.DTOs
             {
                 if (JobConversion.ArchonJobDictionary.TryGetValue(jobDependencyId.Value, out var job))
                 {
+                    if (JobConversionHelper.HandleATMCreateJob(job.JobName, Elements)) continue;
+
                     job.JobName = JobConversionHelper.FixJobName(job.JobName);
-                    var folder = JobConversion.JobFolderName[jobDependencyId.Value];
+                    var folder = JobConversion.JobFolderName[jobDependencyId.Value].CategoryName;
                     var destination = string.IsNullOrWhiteSpace(folder) 
-                        ? $@"\Archon\{job.JobName}" 
-                        : $@"\Archon\{folder}\{job.JobName}";
+                        ? $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{job.JobName}" 
+                        : $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{folder}\{job.JobName}";
                     
                     Elements.Add(new JobDependency(destination));
                 }

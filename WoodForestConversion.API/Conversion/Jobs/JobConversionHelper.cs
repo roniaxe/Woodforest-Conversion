@@ -2,7 +2,13 @@
 using MVPSI.JAMS;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using System.Text;
+using System.Xml;
+using WoodForestConversion.API.Conversion.ConversionBase;
+using Formatting = Newtonsoft.Json.Formatting;
+using Job = MVPSI.JAMS.Job;
 
 namespace WoodForestConversion.API.Conversion.Jobs
 {
@@ -38,13 +44,11 @@ namespace WoodForestConversion.API.Conversion.Jobs
             "sqlops_SQLKEYDB_RebuildIndex",
             "Process ATM reports from Saturday",
             "Remove BAM Rebuild Index from Live",
-            "CLNUSERPROD Import",
-            "CLNNAIC Import",
-            "CBACCTYPES Import",
-            "sqlops_SQLMaint_Rebuild_Index_bankers",
-            "CommVault_BANKERSTOOLBOXDB",
-            "CLNPRIME Import",
-            "Upload Overdraft Letters to FOS",
+            //"CLNUSERPROD Import",
+            //"CLNNAIC Import",
+            //"CommVault_BANKERSTOOLBOXDB",
+            //"CLNPRIME Import",
+            //"Upload Overdraft Letters to FOS",
             "sqlops_DPMDB_RebuildIndex",
             "CommVault_SQLKEYDB",
             "EMP_REL Import",
@@ -63,7 +67,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             "Confirm email received from Equifax.",
             "CLNCONCEN Import"
         };
-        public static bool GenerateExceptions(Data.Job job, Dictionary<string, List<Job>> convertedJobs)
+        public static bool GenerateExceptions(Job job, Dictionary<string, List<Job>> convertedJobs, Guid jobUID)
         {
             bool jobProcessed;
 
@@ -71,33 +75,34 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 case "ATM Create CAF and PBF":
                     jobProcessed = true;
-                    var jamsJob = new Job();
+                    
                     // Split that job into 2
-                    Job weekendJob = jamsJob.Clone() as Job;
+                    job.Elements.Clear();
+                    Job weekendJob = job.Clone() as Job;
                     weekendJob.JobName = "ATM Create CAF and PBF - Weekend";
 
                     // First Job
                     ScheduleTrigger scheduleTrigger = new ScheduleTrigger("Weekdays", new TimeOfDay("2:30 AM"));
-                    JobDependency jobDependency = new JobDependency(@"\ACH File Import");
-                    jamsJob.Elements.Add(scheduleTrigger);
-                    jamsJob.Elements.Add(jobDependency);
+                    JobDependency jobDependency = new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ACH File Import");
+                    job.Elements.Add(scheduleTrigger);
+                    job.Elements.Add(jobDependency);
 
                     // Second job
                     ScheduleTrigger scheduleTriggerWeekend = new ScheduleTrigger("Saturday, Sunday", new TimeOfDay("12:00 AM"));
-                    JobDependency jobDependencyWeekend = new JobDependency(@"\Enable PBF Creation - Update Bank Table");
-                    JobDependency jobDependencyWeekend2 = new JobDependency(@"\All Critical Processing Complete");
+                    JobDependency jobDependencyWeekend = new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\Bank - All\Enable PBF Creation - Update Bank Table");
+                    JobDependency jobDependencyWeekend2 = new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\Bank - All\All Critical Processing Complete");
                     weekendJob.Elements.Add(scheduleTriggerWeekend);
                     weekendJob.Elements.Add(jobDependencyWeekend);
                     weekendJob.Elements.Add(jobDependencyWeekend2);
 
-                    if (convertedJobs.TryGetValue(JobConversion.JobFolderName[job.JobUID], out var jobForFolder))
+                    if (convertedJobs.TryGetValue(JobConversion.JobFolderName[jobUID]?.CategoryName ?? "", out var jobForFolder))
                     {
-                        jobForFolder.Add(jamsJob);
+                        jobForFolder.Add(job);
                         jobForFolder.Add(weekendJob);
                     }
                     else
                     {
-                        convertedJobs.Add(JobConversion.JobFolderName[job.JobUID], new List<Job> { jamsJob, weekendJob });
+                        convertedJobs.Add(JobConversion.JobFolderName[jobUID]?.CategoryName ?? "", new List<Job> { job, weekendJob });
                     }
                     break;
                 default:
@@ -110,8 +115,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public static bool CheckNonConvertible(string jobName)
         {
-            return ConditionsExceptions.Contains(jobName) ||
-                   HasDependencyThatIsNotLive.Contains(jobName);
+            return HasDependencyThatIsNotLive.Contains(jobName);
         }
 
         public static string FixJobName(string jobName)
@@ -140,6 +144,55 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 };
                 serializer.Serialize(file, obj);
             }
+        }
+
+        public static void CreateDummyJobExportXml(KeyValuePair<string, List<Job>> jobCollection)
+        {
+            var xmlSettings = new XmlWriterSettings
+            {
+                CloseOutput = true,
+                Encoding = Encoding.UTF8,
+                Indent = true
+            };
+
+            Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Jobs\{jobCollection.Key}");
+            XmlWriter xmlWriter = XmlWriter.Create($@"{ConversionBaseHelper.XmlOutputLocation}\Jobs\{jobCollection.Key}\1_run_first-{jobCollection.Key}.xml", xmlSettings);
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteStartElement("JAMSObjects");
+
+            foreach (var cj in jobCollection.Value)
+            {
+                xmlWriter.WriteStartElement("job");
+                xmlWriter.WriteAttributeString("name", cj.JobName);
+                xmlWriter.WriteAttributeString("method", cj.MethodName);
+                xmlWriter.WriteFullEndElement();
+            }
+            xmlWriter.WriteFullEndElement();
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Close();
+        }
+
+        public static bool HandleATMCreateJob(string jobName, ElementCollection elements)
+        {
+            var excludeList = new List<string> {
+                "BI_Warehousing_TeamPerformanceTotals",
+                "CAF Reject Hist",
+                "Chip Card Status Update",
+                "PostCard Full Extract",
+                "Postilion - HotCard File Creation",
+                "Postilion Office - Copy Card and Account Data",
+                "sqlops_ActivityDB_Backup_Dbs_ATM_Woodforest"
+            };
+
+            if (excludeList.Contains(jobName))
+            {
+                elements.Add(jobName.Equals(@"sqlops_ActivityDB_Backup_Dbs_ATM_Woodforest")
+                    ? new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ATM Create CAF and PBF - Weekend")
+                    : new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ATM Create CAF and PBF"));
+                return true;
+            }
+
+            return false;
         }
     }
 }

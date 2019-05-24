@@ -4,15 +4,16 @@ using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using WoodForestConversion.API.Conversion.Base;
+using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
 using WoodForestConversion.Data;
+using Condition = WoodForestConversion.Data.Condition;
 using Job = MVPSI.JAMS.Job;
 
 namespace WoodForestConversion.API.Conversion.Jobs
@@ -22,87 +23,81 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private readonly TextWriter _log;
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
         public static Dictionary<Guid, Data.Job> ArchonJobDictionary;
-        public static Dictionary<Guid, string> JobFolderName;
-        private string _xmlOutputPath;
+        public static Dictionary<Guid, JobCategoryDto> JobFolderName;
         public ARCHONEntities ArchonEntities { get; set; }
 
         public JobConversion(TextWriter log)
         {
             _log = log;
-            _xmlOutputPath = ConfigurationManager.AppSettings["xmloutputlocation"];
         }
         public void Convert()
         {
+            InitializeMembers();
+            PopulateJobConditionsDictionary();
+
             using (ArchonEntities = new ARCHONEntities())
             {
-                PopulateJobConditionsDictionary();
-                //JobConversionHelper.ObjectToJson(@"c:\deps.json", _jobConditionsDictionary);
-
-                JobFolderName = ArchonEntities.Jobs
-                    .ToDictionary(j => j.JobUID, job =>
-                        ArchonEntities.Categories.FirstOrDefault(cat => cat.CategoryUID == job.Category.Value)
-                            ?.CategoryName ?? "");
-
                 Dictionary<string, List<Job>> convertedJobs = new Dictionary<string, List<Job>>();
+
                 foreach (var jobConditions in _jobConditionsDictionary)
                 {
-                    Job jamsJob = new Job();
-
-                    if (JobConversionHelper.CheckNonConvertible(jobConditions.Key.JobName)) continue;
-                    if (JobConversionHelper.GenerateExceptions(jobConditions.Key, convertedJobs)) continue;
-
-                    Task[] tasks = new Task[3];
-                    tasks[0] = ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
-                    tasks[1] = ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
-                    tasks[2] = AddJobStepsAsync(jobConditions.Key, jamsJob);
-                    Task.WaitAll(tasks);
-
-                    if (convertedJobs.TryGetValue(JobFolderName[jobConditions.Key.JobUID], out var jobForFolder))
+                    try
                     {
-                        jobForFolder.Add(jamsJob);
+                        Job jamsJob = new Job();
+
+                        Task[] tasks = new Task[3];
+                        tasks[0] = ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
+                        tasks[1] = ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
+                        tasks[2] = AddJobStepsAsync(jobConditions.Key, jamsJob);
+                        Task.WaitAll(tasks);
+
+                        if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
+
+                        if (convertedJobs.TryGetValue(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", out var jobForFolder))
+                        {
+                            jobForFolder.Add(jamsJob);
+                        }
+                        else
+                        {
+                            convertedJobs.Add(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", new List<Job> { jamsJob });
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        convertedJobs.Add(JobFolderName[jobConditions.Key.JobUID], new List<Job> { jamsJob });
+                        Console.WriteLine(ex.Message);
+                        throw;
                     }
                 }
 
-                var xmlSettings = new XmlWriterSettings
-                {
-                    CloseOutput = true,
-                    Encoding = Encoding.UTF8,
-                    Indent = true
-                };
-                Directory.CreateDirectory(_xmlOutputPath);
                 foreach (var convertedJob in convertedJobs)
                 {
-                    Directory.CreateDirectory($"{_xmlOutputPath}{convertedJob.Key}");
-                    XmlWriter xmlWriter = XmlWriter.Create($@"{_xmlOutputPath}{convertedJob.Key}\1_run_first-{convertedJob.Key}.xml", xmlSettings);
-                    xmlWriter.WriteStartDocument();
-                    xmlWriter.WriteStartElement("JAMSObjects");
-
-                    foreach (var cj in convertedJob.Value)
-                    {
-                        xmlWriter.WriteStartElement("job");
-                        xmlWriter.WriteAttributeString("name", cj.JobName);
-                        xmlWriter.WriteAttributeString("method", cj.MethodName);
-                        xmlWriter.WriteFullEndElement();
-                    }
-                    xmlWriter.WriteFullEndElement();
-                    xmlWriter.WriteEndDocument();
-                    xmlWriter.Close();
+                    JobConversionHelper.CreateDummyJobExportXml(convertedJob);
                     
-                    JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"{_xmlOutputPath}{convertedJob.Key}\2_run_second-{convertedJob.Key}.xml");
+                    JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"{ConversionBaseHelper.XmlOutputLocation}\Jobs\{convertedJob.Key}\2_run_second-{convertedJob.Key}.xml");
                 }
+            }
+        }
+
+        private void InitializeMembers()
+        {
+            using (var context = new ARCHONEntities())
+            {
+                JobFolderName =
+                    (from job in context.Jobs
+                    join category in context.Categories
+                        on job.Category equals category.CategoryUID into ps
+                        from category in ps.DefaultIfEmpty()
+                    select new {job.JobUID, category.CategoryName})
+                    .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
+
+                ArchonJobDictionary = context.Jobs
+                    .Where(j => j.IsLive && !j.IsDeleted)
+                    .ToDictionary(j => j.JobUID);
             }
         }
 
         private void PopulateJobConditionsDictionary()
         {
-            ArchonJobDictionary = ArchonEntities.Jobs
-                .Where(j => j.IsLive && !j.IsDeleted)
-                .ToDictionary(j => j.JobUID);
-
             foreach (var jobKeyValue in ArchonJobDictionary)
             {
                 JobFreqDto jobFreq = new JobFreqDto(jobKeyValue.Value);
