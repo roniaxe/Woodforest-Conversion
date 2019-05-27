@@ -3,8 +3,6 @@ using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +11,6 @@ using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
 using WoodForestConversion.Data;
-using Condition = WoodForestConversion.Data.Condition;
 using Job = MVPSI.JAMS.Job;
 
 namespace WoodForestConversion.API.Conversion.Jobs
@@ -29,71 +26,66 @@ namespace WoodForestConversion.API.Conversion.Jobs
         public JobConversion(TextWriter log)
         {
             _log = log;
+            ArchonEntities = new ARCHONEntities();
         }
         public void Convert()
         {
             InitializeMembers();
             PopulateJobConditionsDictionary();
 
-            using (ArchonEntities = new ARCHONEntities())
+            Dictionary<string, List<Job>> convertedJobs = new Dictionary<string, List<Job>>();
+
+            foreach (var jobConditions in _jobConditionsDictionary)
             {
-                Dictionary<string, List<Job>> convertedJobs = new Dictionary<string, List<Job>>();
-
-                foreach (var jobConditions in _jobConditionsDictionary)
+                try
                 {
-                    try
+                    Job jamsJob = new Job();
+
+                    Task[] tasks = new Task[3];
+                    tasks[0] = ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
+                    tasks[1] = ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
+                    tasks[2] = AddJobStepsAsync(jobConditions.Key, jamsJob);
+                    Task.WaitAll(tasks);
+
+                    if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
+
+                    if (convertedJobs.TryGetValue(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", out var jobForFolder))
                     {
-                        Job jamsJob = new Job();
-
-                        Task[] tasks = new Task[3];
-                        tasks[0] = ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
-                        tasks[1] = ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
-                        tasks[2] = AddJobStepsAsync(jobConditions.Key, jamsJob);
-                        Task.WaitAll(tasks);
-
-                        if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
-
-                        if (convertedJobs.TryGetValue(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", out var jobForFolder))
-                        {
-                            jobForFolder.Add(jamsJob);
-                        }
-                        else
-                        {
-                            convertedJobs.Add(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", new List<Job> { jamsJob });
-                        }
+                        jobForFolder.Add(jamsJob);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Console.WriteLine(ex.Message);
-                        throw;
+                        convertedJobs.Add(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", new List<Job> { jamsJob });
                     }
                 }
-
-                foreach (var convertedJob in convertedJobs)
+                catch (Exception ex)
                 {
-                    JobConversionHelper.CreateDummyJobExportXml(convertedJob);
-                    
-                    JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"{ConversionBaseHelper.XmlOutputLocation}\Jobs\{convertedJob.Key}\2_run_second-{convertedJob.Key}.xml");
+                    Console.WriteLine(ex.Message);
+                    throw;
                 }
+            }
+
+            foreach (var convertedJob in convertedJobs)
+            {
+                JobConversionHelper.CreateDummyJobExportXml(convertedJob);
+
+                JAMSXmlSerializer.WriteXml(convertedJob.Value, $@"{ConversionBaseHelper.XmlOutputLocation}\Jobs\{convertedJob.Key}\2_run_second-{convertedJob.Key}.xml");
             }
         }
 
         private void InitializeMembers()
         {
-            using (var context = new ARCHONEntities())
-            {
-                JobFolderName =
-                    (from job in context.Jobs
-                    join category in context.Categories
-                        on job.Category equals category.CategoryUID into ps
-                        from category in ps.DefaultIfEmpty()
-                    select new {job.JobUID, category.CategoryName})
-                    .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
+            JobFolderName =
+                (from job in ArchonEntities.Jobs
+                 join category in ArchonEntities.Categories
+                     on job.Category equals category.CategoryUID into ps
+                 from category in ps.DefaultIfEmpty()
+                 select new { job.JobUID, category.CategoryName })
+                .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
 
-                ArchonJobDictionary = context.Jobs
-                    .Where(j => j.IsLive && !j.IsDeleted)
-                    .ToDictionary(j => j.JobUID);
-            }
+            ArchonJobDictionary = ArchonEntities.Jobs
+                .Where(j => j.IsLive && !j.IsDeleted)
+                .ToDictionary(j => j.JobUID);
         }
 
         private void PopulateJobConditionsDictionary()
@@ -118,11 +110,11 @@ namespace WoodForestConversion.API.Conversion.Jobs
             });
         }
 
-        public async Task ConvertJobConditionsAsync(object conditions, Job targetJob)
+        public async Task ConvertJobConditionsAsync(JobFreqDto conditions, Job targetJob)
         {
             await Task.Run(() =>
             {
-                var jobConditions = (JobFreqDto)conditions;
+                var jobConditions = conditions;
                 jobConditions.PopulateScheduleTriggers(jobConditions.ConditionsTree);
                 jobConditions.PopulateFileDependencies();
                 jobConditions.PopulateJobDependencies();
