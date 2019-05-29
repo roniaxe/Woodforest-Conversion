@@ -186,7 +186,10 @@ namespace WoodForestConversion.API.Conversion.DTOs
                     if (endTime.HasValue)
                     {
                         var deltaTime = new DeltaTime(Math.Abs(endTime.Value.TotalSeconds - startTime.TotalSeconds));
-                        Elements.Add(new RunawayEvent(deltaTime));
+                        if (!Elements.Any(e => e is RunawayEvent))
+                        {
+                            Elements.Add(new RunawayEvent(deltaTime));
+                        }
                     }
                     #endregion
                 }
@@ -197,7 +200,10 @@ namespace WoodForestConversion.API.Conversion.DTOs
                     var delta = end.TotalSeconds - startTime.TotalSeconds;
                     if (delta < Interval * 60) continue;
 
-                    Elements.Add(new Resubmit(new DeltaTime(Interval * 60), endTime ?? default));
+                    if (!Elements.Any(e => e is Resubmit))
+                    {
+                        Elements.Add(new Resubmit(new DeltaTime(Interval * 60), endTime ?? default));
+                    }
                     #endregion
                 }
             }
