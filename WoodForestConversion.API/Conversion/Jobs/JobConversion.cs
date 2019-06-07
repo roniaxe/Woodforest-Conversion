@@ -3,6 +3,7 @@ using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
         public static Dictionary<Guid, Data.Job> ArchonJobDictionary;
         public static Dictionary<Guid, JobCategoryDto> JobFolderName;
+        public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
         public ARCHONEntities ArchonEntities { get; set; }
+        private static readonly Random Rnd = new Random();
 
         public JobConversion(TextWriter log)
         {
@@ -30,6 +33,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
         }
         public void Convert()
         {
+            ServiceModuleDictionary = CreateServiceModuleDtoAsync();
             InitializeMembers();
             PopulateJobConditionsDictionary();
 
@@ -41,11 +45,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 {
                     Job jamsJob = new Job();
 
-                    Task[] tasks = new Task[3];
-                    tasks[0] = ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
-                    tasks[1] = ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
-                    tasks[2] = AddJobStepsAsync(jobConditions.Key, jamsJob);
-                    Task.WaitAll(tasks);
+                    ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
+                    ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
+                    AddJobStepsAsync(jobConditions.Key, jamsJob);
 
                     if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
 
@@ -86,6 +88,25 @@ namespace WoodForestConversion.API.Conversion.Jobs
             ArchonJobDictionary = ArchonEntities.Jobs
                 .Where(j => j.IsLive && !j.IsDeleted)
                 .ToDictionary(j => j.JobUID);
+
+        }
+
+        private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> CreateServiceModuleDtoAsync()
+        {
+            return (
+                from serviceModule in ArchonEntities.ServiceModules
+                join executionModule in ArchonEntities.ExecutionModules on serviceModule.ModuleUID equals executionModule.ModuleUID
+                join jobService in ArchonEntities.JobServices on serviceModule.ServiceUID equals jobService.ServiceUID
+                select new ServiceModuleDto
+                {
+                    ModuleName = executionModule.ModuleName,
+                    ModuleUid = executionModule.ModuleUID,
+                    ServiceUID = jobService.ServiceUID,
+                    ServiceName = jobService.ServiceName
+                })
+                .GroupBy(arg => arg.ModuleUid)
+                .ToList()
+                .ToDictionary(dtos => dtos.Key);
         }
 
         private void PopulateJobConditionsDictionary()
@@ -98,89 +119,132 @@ namespace WoodForestConversion.API.Conversion.Jobs
             }
         }
 
-        public async Task ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob)
+        private void ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob)
         {
             sourceJob.JobName = JobConversionHelper.FixJobName(sourceJob.JobName);
 
-            await Task.Run(() =>
-            {
-                targetJob.JobName = sourceJob.JobName;
-                targetJob.Description = sourceJob.Note;
-                targetJob.MethodName = "Sequence";
-            });
+            targetJob.JobName = sourceJob.JobName;
+            targetJob.Description = sourceJob.Note;
+            targetJob.MethodName = "Sequence";
         }
 
-        public async Task ConvertJobConditionsAsync(JobFreqDto conditions, Job targetJob)
+        private void ConvertJobConditionsAsync(JobFreqDto conditions, Job targetJob)
         {
-            await Task.Run(() =>
-            {
-                var jobConditions = conditions;
-                jobConditions.PopulateScheduleTriggers(jobConditions.ConditionsTree);
-                jobConditions.PopulateFileDependencies();
-                jobConditions.PopulateJobDependencies();
+            var jobConditions = conditions;
+            jobConditions.PopulateScheduleTriggers(jobConditions.ConditionsTree);
+            jobConditions.PopulateFileDependencies();
+            jobConditions.PopulateJobDependencies();
 
-                if (!jobConditions.Elements.Any())
+            if (!jobConditions.Elements.Any())
+            {
+                switch (jobConditions.ExecutionFrequency)
                 {
-                    switch (jobConditions.ExecutionFrequency)
-                    {
-                        //
-                        // Manual jobs - Do nothing for now
-                        //
-                        case ExecutionFrequency.Once:
-                            break;
-                        //
-                        // Always executing, with intervals (Everyday + Resubmit)
-                        // 
-                        case ExecutionFrequency.AlwaysExecuting:
-                            targetJob.Elements.Add(new ScheduleTrigger("Daily", new TimeOfDay(new DateTime())));
-                            targetJob.Elements.Add(new Resubmit(new DeltaTime(jobConditions.Interval * 60),
-                                new TimeOfDay(DateTime.Today - TimeSpan.FromMinutes(jobConditions.Interval))));
-                            break;
-                    }
+                    //
+                    // Manual jobs - Do nothing for now
+                    //
+                    case ExecutionFrequency.Once:
+                        break;
+                    //
+                    // Always executing, with intervals (Everyday + Resubmit)
+                    // 
+                    case ExecutionFrequency.AlwaysExecuting:
+                        targetJob.Elements.Add(new ScheduleTrigger("Daily", new TimeOfDay(new DateTime())));
+                        targetJob.Elements.Add(new Resubmit(new DeltaTime(jobConditions.Interval * 60),
+                            new TimeOfDay(DateTime.Today - TimeSpan.FromMinutes(jobConditions.Interval))));
+                        break;
                 }
-                else
+            }
+            else
+            {
+                foreach (var jobConditionsElement in jobConditions.Elements)
                 {
-                    foreach (var jobConditionsElement in jobConditions.Elements)
-                    {
-                        targetJob.Elements.Add(jobConditionsElement);
-                    }
+                    targetJob.Elements.Add(jobConditionsElement);
                 }
-            });
+            }
         }
 
-        private async Task AddJobStepsAsync(Data.Job sourceJob, Job targetJob)
+        private void AddJobStepsAsync(Data.Job sourceJob, Job targetJob)
         {
-            await Task.Run(() =>
-            {
-                SequenceTask sequenceTask = new SequenceTask();
-                sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
-                targetJob.SourceElements.Add(sequenceTask);
+            SequenceTask sequenceTask = new SequenceTask();
+            sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
+            targetJob.SourceElements.Add(sequenceTask);
 
-                var archonSteps = ArchonEntities.JobSteps
-                    .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
-                    .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
-                    {
-                        ArchonStepName = js.StepName,
-                        ArchonConfiguration = js.ConfigurationFile,
-                        ParentTaskID = sequenceTask.ElementUid,
-                        DisplayTitle = js.StepName,
-                        ExecutionModule =
-                            ArchonEntities.ExecutionModules.FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
-                    });
-
-                foreach (var archonStep in archonSteps)
+            var archonSteps = ArchonEntities.JobSteps
+                .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
+                .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
                 {
-                    var archonTask = Element.Create("ArchonStep");
-                    archonTask.Properties.SetValue("ArchonStepName", archonStep.ArchonStepName);
-                    archonTask.Properties.SetValue("ArchonModuleName", archonStep.ExecutionModule.ModuleName);
-                    archonTask.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
-                    archonTask.Properties.SetValue("ArchonModuleAssembly", ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
-                    archonTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
-                    archonTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
-                    archonTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
-                    targetJob.SourceElements.Add(archonTask);
+                    ArchonStepName = js.StepName,
+                    ArchonConfiguration = js.ConfigurationFile,
+                    ParentTaskID = sequenceTask.ElementUid,
+                    DisplayTitle = js.StepName,
+                    ExecutionModule =
+                        ArchonEntities.ExecutionModules.FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
+                });
+
+            SelectAgent(archonSteps, targetJob);
+
+            foreach (var archonStep in archonSteps)
+            {
+                var archonTask = Element.Create("ArchonStep");
+                archonTask.Properties.SetValue("ArchonStepName", archonStep.ArchonStepName);
+                archonTask.Properties.SetValue("ArchonModuleName", archonStep.ExecutionModule.ModuleName);
+                archonTask.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
+                archonTask.Properties.SetValue("ArchonModuleAssembly", ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
+                archonTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
+                archonTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
+                archonTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+                targetJob.SourceElements.Add(archonTask);
+            }
+        }
+
+        private void SelectAgent(IQueryable<ArchonStepDto> archonSteps, Job targetJob)
+        {
+            HashSet<Guid> jobModules = new HashSet<Guid>(archonSteps.Select(step => step.ExecutionModule.ModuleUID));
+            if (!jobModules.Any()) return;
+
+            List<string> mergedList = new List<string>();
+            try
+            {
+                foreach (var jobModule in jobModules)
+                {
+                    List<string> serviceList;
+
+                    if (ServiceModuleDictionary.ContainsKey(jobModule))
+                    {
+                        serviceList = ServiceModuleDictionary[jobModule].Select(dto => dto.ServiceName).ToList();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"No service found to run module {jobModule} - Job: {targetJob.JobName}");
+                        continue;
+                    }
+
+                    if (!mergedList.Any())
+                    {
+                        mergedList = serviceList;
+                    }
+                    else
+                    {
+                        mergedList = mergedList.Join(serviceList,
+                            s => s, s => s, (s, s1) => s).ToList();
+                    }
                 }
-            });
+
+                if (!mergedList.Any())
+                {
+                    Console.WriteLine($"Job {targetJob.JobName} has no agent to run on. No agent will be assigned.");
+                    return;
+                }
+
+                int r = Rnd.Next(mergedList.Count);
+
+                targetJob.AgentName = mergedList[r];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
