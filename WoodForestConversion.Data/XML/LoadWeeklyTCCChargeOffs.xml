@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Monitor Markups
-	-->
-	<event server="ddadb.woodforest.net" database="Reports" timeout="36000">
-		<executesql>EXEC dbo.LoadWeeklyTCC_ChargeOffs</executesql>
-	</event>
-</sqlinstruction>

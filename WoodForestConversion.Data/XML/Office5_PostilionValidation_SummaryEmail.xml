@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<event server="SQLRestoreDB" database="PostilionOfficeValidation" timeout="3000">
-		<executesql>EXEC PostingFile_SummaryEmail;</executesql>
-	</event>
-	<event server="SQLRestoreDB" database="PostilionOfficeValidation" timeout="3000">
-		<executesql>PostingFile_RemoveOldImport;</executesql>
-	</event>
-</sqlinstruction>

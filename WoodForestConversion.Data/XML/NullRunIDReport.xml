@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Branch Capture - Get Null IDs
-	-->
-- <event server="#Server_ActivityDB#" database="#Database_WNBUtility#" timeout="1000">
-		<executesql>EXEC dbo.brc_GetAllNullUpload</executesql>
-	</event>
-</sqlinstruction>

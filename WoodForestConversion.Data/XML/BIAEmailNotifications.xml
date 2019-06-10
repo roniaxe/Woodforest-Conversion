@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<commands>
-    <command exec="\\woodforest.net\jobs\Archon2\Apps\BIAEmailNotifications\BIAEmailNotifications.exe" args="" ignoreout="0" />
-</commands>

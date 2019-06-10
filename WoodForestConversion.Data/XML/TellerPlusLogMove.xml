@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<commands>
-<command exec="cscript" args="#directory_scripts#\TellerplusLogMove.vbs" ignoreout="1" /> 
-</commands>
-  
-  
-  
-  

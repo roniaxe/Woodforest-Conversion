@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for ChequeScribe Archive Table
-	-->
-	<event server="#server_tellerplusdb#" database="chequescribe2" timeout="300">
-		<executesql>EXEC dbo.spCleanArchiveTable</executesql>
-	</event>
-</sqlinstruction>

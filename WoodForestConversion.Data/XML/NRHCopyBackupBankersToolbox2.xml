@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcpolsql04\c$\mountpoints\Backup\Backup\BankersToolbox\bsav2_woodforest\ \\dc1cbpolsql04\c$\Mountpoints\Backup\Backup\BankersToolbox\bsav2_woodforest\" ignoreout="1" />
-</commands>

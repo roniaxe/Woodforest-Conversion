@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="cscript" args="#directory_scripts#\sqlops_SQLMaint_Update_Stats.vbs DC1CVPLYSQL07\ThirdParty2005,40007 include VM_OPSMGR_VDI,VM_VC_VDI,VM_VIEW_VDI,IDGVPNData,WNBUtility,Metrics_Commercial" ignoreout="0" checkexitcode="1" />
-</commands>
-

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <copy file="\\DC1CBATMSVC01\card_production\svc_cards\output.txt" to="\\woodforest.net\jobs\Archon2\Apps\EFTrans\Old Gift Card Orders\#DATE(yyyyMMdd)#.WNBGC.txt" />
-  <move file="\\DC1CBATMSVC01\card_production\svc_cards\output.txt" to="\\sftp.woodforest.net\users\debit\eftsource\Outgoing\#DATE(yyyyMMdd)#WNBGC.txt" />
-</fileinstructions>

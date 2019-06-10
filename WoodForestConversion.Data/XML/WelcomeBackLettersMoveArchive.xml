@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-        <!-- WelcomeBackLetter.txt -->
-        <!-- to FOS outbound -->
-	<copy file="\\woodforest.net\jobs\Letters_WelcomeBack\WelcomeBackLetter.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\WelcomeBackLetter#DATE(MMddyy)#.txt" />
-        <!-- to archive -->
-	<move file="\\woodforest.net\jobs\Letters_WelcomeBack\WelcomeBackLetter.txt"  to="\\woodforest.net\jobs\Letters_WelcomeBack\Archive\WelcomeBackLetter#DATE(MMddyy)#.txt" />
-</fileinstructions>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-		<!-- Copy LeadRequestResponse file to Archive -->
-	<copy file="\\woodforest.net\jobs\ProjectCue\LeadRequestResponse\LeadRequestResponse.csv" to="\\woodforest.net\jobs\ProjectCue\LeadRequestResponse\Archive\LeadRequestResponse_#DATEADD(d, 0, yyyyMMdd)#.csv" />
-    <!-- Move LeadRequestResponse file to SFTP -->
-	<move file="\\woodforest.net\jobs\ProjectCue\LeadRequestResponse\LeadRequestResponse.csv" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\LeadRequestResponse_#DATEADD(d, 0, yyyyMMdd)#.csv" />
-</fileinstructions>
-
-

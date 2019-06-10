@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\STOPS_ST_PMT" to="#import_archive#\STOPS_ST_PMT" />
-	<move file="#import_download#\STOPS_ST_PMT.xxx" to="#import_archive#\STOPS_ST_PMT.xxx" />
-</fileinstructions>

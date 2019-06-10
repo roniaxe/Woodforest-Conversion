@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-    <command exec="dtexec.exe" args="/F #directory_ssis#\TopNotch_ETL_Payments.dtsx" ignoreout="0" checkexitcode="1" />
-</commands>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!-- Review the profiles in the system and determine which should be sent today. -->
-	<event server="#server_woodforestdb#" database="Woodforest" timeout="1200">
-		<executesql>
-			EXEC dbo.Notification_Engine_ReviewNsfEligibility;
-		</executesql>
-	</event>
-</sqlinstruction>

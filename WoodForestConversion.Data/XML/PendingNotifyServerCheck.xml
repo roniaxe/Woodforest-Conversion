@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Used to check to make sure no Notifications servers are still pending to launch
-	-->
-	<event server="#server_wnbappsdb#" database="#database_Notifications#" timeout="960">
-		<executesql>EXEC dbo.spPendingNotifyServerCheck</executesql>
-	</event>
-</sqlinstruction>

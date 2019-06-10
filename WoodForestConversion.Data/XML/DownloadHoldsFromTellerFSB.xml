@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for the daily Settlement files
-	-->
-	<event server="#server_activitydb#" database="#database_activity#" timeout="300">
-		<executesql>EXEC dbo.Util_GetHoldsFromTellerFSB</executesql>
-	</event>
-</sqlinstruction>

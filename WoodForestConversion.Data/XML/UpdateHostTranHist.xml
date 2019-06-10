@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Refresh Host Balances -->
-	<event server="#TransactionHistoryDB#" database="TransactionHistory" timeout="1200">
-		<executesql>EXEC hcp_UpdateTransactionHistory</executesql>
-	</event>
-</sqlinstruction>

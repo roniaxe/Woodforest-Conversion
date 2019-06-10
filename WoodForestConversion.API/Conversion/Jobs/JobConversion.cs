@@ -20,8 +20,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
     {
         private readonly TextWriter _log;
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
-        public static Dictionary<Guid, Data.Job> ArchonJobDictionary;
-        public static Dictionary<Guid, JobCategoryDto> JobFolderName;
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
         public ARCHONEntities ArchonEntities { get; set; }
         private static readonly Random Rnd = new Random();
@@ -44,20 +42,20 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 try
                 {
                     Job jamsJob = new Job();
-
+                    Console.WriteLine($"Converting {jobConditions.Key.JobName}");
                     ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
                     ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
                     AddJobStepsAsync(jobConditions.Key, jamsJob);
 
                     if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
 
-                    if (convertedJobs.TryGetValue(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", out var jobForFolder))
+                    if (convertedJobs.TryGetValue(JobConversionHelper.JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", out var jobForFolder))
                     {
                         jobForFolder.Add(jamsJob);
                     }
                     else
                     {
-                        convertedJobs.Add(JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", new List<Job> { jamsJob });
+                        convertedJobs.Add(JobConversionHelper.JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", new List<Job> { jamsJob });
                     }
                 }
                 catch (Exception ex)
@@ -77,7 +75,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         private void InitializeMembers()
         {
-            JobFolderName =
+            JobConversionHelper.JobFolderName =
                 (from job in ArchonEntities.Jobs
                  join category in ArchonEntities.Categories
                      on job.Category equals category.CategoryUID into ps
@@ -85,7 +83,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                  select new { job.JobUID, category.CategoryName })
                 .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
 
-            ArchonJobDictionary = ArchonEntities.Jobs
+            JobConversionHelper.ArchonJobDictionary = ArchonEntities.Jobs
                 .Where(j => j.IsLive && !j.IsDeleted)
                 .ToDictionary(j => j.JobUID);
 
@@ -111,7 +109,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         private void PopulateJobConditionsDictionary()
         {
-            foreach (var jobKeyValue in ArchonJobDictionary)
+            foreach (var jobKeyValue in JobConversionHelper.ArchonJobDictionary)
             {
                 JobFreqDto jobFreq = new JobFreqDto(jobKeyValue.Value);
 
@@ -130,14 +128,13 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         private void ConvertJobConditionsAsync(JobFreqDto conditions, Job targetJob)
         {
-            var jobConditions = conditions;
-            jobConditions.PopulateScheduleTriggers(jobConditions.ConditionsTree);
-            jobConditions.PopulateFileDependencies();
-            jobConditions.PopulateJobDependencies();
+            conditions.PopulateScheduleTriggers(conditions.ConditionsTree);
+            conditions.PopulateFileDependencies();
+            conditions.PopulateJobDependencies(targetJob.JobName);
 
-            if (!jobConditions.Elements.Any())
+            if (!conditions.Elements.Any())
             {
-                switch (jobConditions.ExecutionFrequency)
+                switch (conditions.ExecutionFrequency)
                 {
                     //
                     // Manual jobs - Do nothing for now
@@ -149,14 +146,14 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     // 
                     case ExecutionFrequency.AlwaysExecuting:
                         targetJob.Elements.Add(new ScheduleTrigger("Daily", new TimeOfDay(new DateTime())));
-                        targetJob.Elements.Add(new Resubmit(new DeltaTime(jobConditions.Interval * 60),
-                            new TimeOfDay(DateTime.Today - TimeSpan.FromMinutes(jobConditions.Interval))));
+                        targetJob.Elements.Add(new Resubmit(new DeltaTime(conditions.Interval * 60),
+                            new TimeOfDay(DateTime.Today - TimeSpan.FromMinutes(conditions.Interval))));
                         break;
                 }
             }
             else
             {
-                foreach (var jobConditionsElement in jobConditions.Elements)
+                foreach (var jobConditionsElement in conditions.Elements)
                 {
                     targetJob.Elements.Add(jobConditionsElement);
                 }

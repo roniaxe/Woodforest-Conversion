@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Check for ACH Download Complete -  WNB
-	-->
-	<event server="#server_atmdb#" database="#database_banklinewnb#" timeout="300">
-		<executesql>EXEC dbo.CheckACH_AStatus</executesql>
-	</event>
-</sqlinstruction>

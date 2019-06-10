@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Get Transactions from Teller and load them into Staging Table  CRRTellerPaymentsFromTeller.xml
-	-->
-	<event server="#server_activitydb#" database="#database_staging#" timeout="2700">
-		<executesql>EXEC dbo.CRRTellerPaymentsFromTeller</executesql>
-	</event>
-</sqlinstruction>

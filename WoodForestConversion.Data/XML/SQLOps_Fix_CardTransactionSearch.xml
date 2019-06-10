@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<event server="#server_postilionoffice#" database="POUtils" timeout="28800">
-		<executesql>
-			EXEC sp_recompile spCardTransactions
-		</executesql>
-	</event>
-
-</sqlinstruction>

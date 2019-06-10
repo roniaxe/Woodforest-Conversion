@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_banclinedb#" database="#database_bancline#" timeout="500">
-		<executesql>exec LoadGLBalanceArchive</executesql>
-	</event>
-</sqlinstruction>

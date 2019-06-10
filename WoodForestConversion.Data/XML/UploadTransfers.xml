@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Transfer Create -  Move transfers into settlements -->
-	<event server="#server_activitydb#" database="#database_activity#" timeout="2700">
-		<executesql>EXEC dbo.UploadTransfers</executesql>
-	</event>
-</sqlinstruction>

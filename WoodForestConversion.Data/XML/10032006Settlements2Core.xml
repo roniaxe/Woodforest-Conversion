@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="dtsrun" args="/N Settlements to Core /V {46AFE04A-6666-4ECA-88C9-8877ABBE9E6C} /F \\woodforest.net\jobs\archon\dts\packages\SettlementsToCore.dts" ignoreout="0" />
-</commands>

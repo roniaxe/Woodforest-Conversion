@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLNBASTB" to="#import_archive#\CLNBASTB" />
-	<move file="#import_download#\CLNBASTB.xxx" to="#import_archive#\CLNBASTB.xxx" />
-</fileinstructions>

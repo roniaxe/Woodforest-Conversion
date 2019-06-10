@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  ProcessorSettlementMailer -->
-- <event server="#Server_activitydb#" database="#database_ATM#" timeout="1000">
-		<executesql>EXEC dbo.rptProcessorSettlementDailyMailer</executesql>
-	</event>
-</sqlinstruction>

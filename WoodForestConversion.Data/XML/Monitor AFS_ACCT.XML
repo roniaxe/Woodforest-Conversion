@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
- <fileinstructions>
- <monitor file="#import_download#\AFS_ACCT.xxx" /> 
- <monitor file="#import_download#\AFS_ACCT.zip" /> 
-<unzip file="#import_download#\AFS_ACCT.zip" to="#import_extractto#\" extract="#import_extractbase#/AFS_ACCT" />
-</fileinstructions>

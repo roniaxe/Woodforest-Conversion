@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  PostSquare Credits 
-	-->
-	<event server="#server_activitydb#" database="staging" timeout="2700">
-		<executesql>EXEC [Office5].[CompareTranType21Credits]</executesql>
-	</event>
-</sqlinstruction>

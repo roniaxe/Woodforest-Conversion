@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
-		<executesql>EXEC dbo.[HostMerge_Operator_FSB]</executesql>
-	</event>
-	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
-		<executesql>EXEC dbo.[HostMerge_Officer_FSB]</executesql>
-	</event>
-</sqlinstruction>

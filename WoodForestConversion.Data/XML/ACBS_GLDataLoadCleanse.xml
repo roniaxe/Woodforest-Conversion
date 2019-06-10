@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!-- Delete any data loaded today in staging   
-	-->
-	<event server="#server_datawarehousedb#" database="#database_Staging#" timeout="7200">
-		<executesql>EXEC ACBSGLDataLoadSanityCheck</executesql>
-	</event>
-</sqlinstruction>

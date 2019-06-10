@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates daily balances in the data warehouse
-	-->
-	<event server="#server_activitydb#" database="activity" timeout="660">
-		<executesql>EXEC FixMaestroForcePost</executesql>
-	</event>
-</sqlinstruction>

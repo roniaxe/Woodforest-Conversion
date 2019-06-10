@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
- <fileinstructions>
-  <move file="#import_download#\AFS_ACCT.zip" to="#import_archive#\AFS_ACCT.zip" /> 
-  <move file="#import_download#\AFS_ACCT.xxx" to="#import_archive#\AFS_ACCT.xxx" /> 
-  <delete file="#import_extractto#\AFS_ACCT" /> 
- </fileinstructions>

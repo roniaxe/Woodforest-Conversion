@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<conversion coreid="#core_id#" timeout="900">
-  <core server="#server_banclinedb#" database="#database_bancline#" />
-  <host server="#server_woodforestdb#" database="#database_woodforest#" />
-  <account subsystem="7" rtn="#core_defaultrtn#" />
-</conversion>

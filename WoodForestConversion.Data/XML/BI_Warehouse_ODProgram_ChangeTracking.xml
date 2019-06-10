@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--    
-	-->
-	<event server="#server_datawarehousedb#" database="#database_WNB#" timeout="72000">
-		<executesql>EXEC dbo.Util_ODProgramChangeTracking</executesql>
-	</event>
-</sqlinstruction>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-  <commands>
-<!-- BAMPlusLogFilepath: = \\BankersToolboxAppSrv\e$\BAMPlus\Output\  -->
-    <command exec="cscript" args="E:\BAMPlus\BAMPlus_File_Output_to_Archon.vbs" ignoreout="0" checkexitcode="1" />
-  </commands>

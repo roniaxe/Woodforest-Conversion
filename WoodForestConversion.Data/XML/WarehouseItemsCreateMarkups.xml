@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Creates markups for FSB warehouse items
-	-->
-	<event server="WNBSQL01" database="#database_DDA#" timeout="300">
-		<executesql>EXEC dbo.spBuildACHMarkups 2</executesql>
-	</event>
-</sqlinstruction>

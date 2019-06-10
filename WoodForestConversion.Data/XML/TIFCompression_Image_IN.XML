@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<commands>
-    <command exec="#Archon_Apps2012#\TIFCompression\TIFCompression.exe" args="\\MSCVADJAPP01\e$\MCOM\Image_IN" checkexitcode="1" />
-</commands>

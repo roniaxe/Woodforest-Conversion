@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-        <!-- SmallBusinessReLiRenewal.txt -->
-        <!-- to FOS outbound -->
-	<copy file="\\woodforest.net\jobs\Letters_SmallBusinessRenewals\SmallBusinessReLiRenewal.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\SmallBusinessReLiRenewal#DATE(MMddyy)#.txt" />
-        <!-- to archive -->
-	<move file="\\woodforest.net\jobs\Letters_SmallBusinessRenewals\SmallBusinessReLiRenewal.txt"  to="\\woodforest.net\jobs\Letters_SmallBusinessRenewals\Archive\SmallBusinessReLiRenewal#DATE(MMddyy)#.txt" />
-</fileinstructions>

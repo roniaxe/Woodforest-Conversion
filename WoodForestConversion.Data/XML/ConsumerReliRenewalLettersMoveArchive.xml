@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-        <!-- ConsumerReLiRenewal.txt -->
-        <!-- to FOS outbound -->
-	<copy file="\\woodforest.net\jobs\Letters_ConsumerReliRenewals\ConsumerReLiRenewal.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\ConsumerReLiRenewal#DATE(MMddyy)#.txt" />
-        <!-- to archive -->
-	<move file="\\woodforest.net\jobs\Letters_ConsumerReliRenewals\ConsumerReLiRenewal.txt"  to="\\woodforest.net\jobs\Letters_ConsumerReliRenewals\Archive\ConsumerReLiRenewal#DATE(MMddyy)#.txt" />
-</fileinstructions>

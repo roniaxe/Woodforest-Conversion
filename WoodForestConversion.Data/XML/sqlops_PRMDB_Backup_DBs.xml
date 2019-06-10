@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="cscript" args="#directory_scripts#\sqlops\sqlops_Backup_Database_MSOLEDBSQL_v3.vbs PRMDB full" ignoreout="0" checkexitcode="1" />
-</commands>
-
-
-
-

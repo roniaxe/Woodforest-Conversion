@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Corillian Payee Email Notify
-	-->
-	<event server="#server_activitydb#" database="#database_wnbutility#" timeout="2700">
-		<executesql>EXEC dbo.spCorillianSendPayeeEmails</executesql>
-	</event>
-</sqlinstruction>

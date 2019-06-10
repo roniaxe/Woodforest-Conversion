@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Create Fees for Text Messages sent to customers cell phone	-->
-	<event server="#server_activitydb#" database="#database_activity#" timeout="2700">
-		<executesql>EXEC dbo.Util_TextMsg_FeeCreation</executesql>
-	</event>
-</sqlinstruction>

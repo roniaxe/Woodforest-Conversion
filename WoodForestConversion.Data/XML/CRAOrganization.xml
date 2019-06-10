@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
- 	<command exec="C:\Program Files\Microsoft SQL Server\130\DTS\Binn\DTEXEC.exe" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\BI\CRA\OrganizationImport.dtsx"  ignoreout="0" checkexitcode="1" />
-</commands>

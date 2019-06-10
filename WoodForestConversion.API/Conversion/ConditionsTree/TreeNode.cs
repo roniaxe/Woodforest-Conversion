@@ -26,7 +26,7 @@ namespace WoodForestConversion.API.Conversion.ConditionsTree
             Id = id;
         }
         public int ChildrenCount => Children.Count;
-        public static TreeNode BuildTree(ConditionSet root, List<ConditionSet> conditionSets, IEnumerable<Condition> conditions)
+        public static TreeNode BuildTree(ConditionSet root, IQueryable<ConditionSet> conditionSets, IQueryable<Condition> conditions)
         {
             var treeNode = new TreeNode(root.SetUID)
             {

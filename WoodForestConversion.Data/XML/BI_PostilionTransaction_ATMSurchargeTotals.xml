@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  
-	-->
-	<event server="#server_PostilionOffice#" database="POUtils" timeout="600">
-		<executesql>EXEC Util_SurchargeFees_Load</executesql>
-	</event>
-	
-</sqlinstruction>

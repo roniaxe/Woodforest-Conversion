@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Step 2. appends on some additional month-end data about the customers and accounts from the most current/previous month-ends
-	-->
-	<event server="DataWarehouseDB" database="TransactionBucket" timeout="28800">
-		<executesql>EXEC dbo.TransactionBucket_MonthlyBuildAncillary</executesql>
-	</event>
-</sqlinstruction>

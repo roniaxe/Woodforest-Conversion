@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>	
-	<command exec="NET STOP "AccuCaptureImport Woodforest National Bank" args="" />
-	<command exec="NET STOP "AccuCaptureImport Woodforest National Bank" args="" />
-</commands>	

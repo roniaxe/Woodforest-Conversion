@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure to load customer data to AccuLoanLoad Database -->
-	<event server="#server_datawarehousedb#" database="#database_wnb#" timeout="8000">
-		<executesql>EXEC dbo.AccuLoan_Download_Customer_Info</executesql>
-	</event>
-</sqlinstruction>

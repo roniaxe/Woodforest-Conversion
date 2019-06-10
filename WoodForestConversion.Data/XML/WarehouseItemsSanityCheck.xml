@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Verifies data in the table warehouse items table
-	-->
-	<event server="#server_banclinedb#" database="#database_banklinefsb#" timeout="300">
-		<executesql>EXEC dbo.Util_SanityCheck_Warehouse_Items</executesql>
-	</event>
-</sqlinstruction>

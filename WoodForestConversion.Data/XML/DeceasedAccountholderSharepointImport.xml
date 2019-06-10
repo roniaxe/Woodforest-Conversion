@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-<command exec="DTExec.exe" args="/F #directory_ssis#\DeceasedAccountholderSharepointImport.dtsx /SET \Package.Variables[User::DatabaseServer].Properties[Value];#server_datawarehousedb#  /SET \Package.Variables[User::Database].Properties[Value];WNBUtility " ignoreout="0" checkexitcode="1" />
-</commands>

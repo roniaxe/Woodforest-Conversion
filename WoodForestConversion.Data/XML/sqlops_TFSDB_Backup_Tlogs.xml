@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="cscript" args="#directory_scripts#\sqlops\sqlops_Backup_Database_MSOLEDBSQL_v3.vbs TFSDB log exclude TFS_3rdparty,Tfs_Configuration,Tfs_DefaultCollection,Tfs_Dynamix,Tfs_Internal,Tfs_Operations,Tfs_QA,TFS_Reporting_Warehouse,Tfs_Sandbox,Tfs_VSSProjects,TFS_Warehouse_Extensions" ignoreout="0" checkexitcode="1" />
-</commands>
-
-
-

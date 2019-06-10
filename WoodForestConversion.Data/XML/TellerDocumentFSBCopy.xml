@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="TellerDB" database="TellerWNBUtils" timeout="300">
-		<executesql>
-			EXEC dbo.DocumentFSBCopy
-		</executesql>
-	</event>
-</sqlinstruction>

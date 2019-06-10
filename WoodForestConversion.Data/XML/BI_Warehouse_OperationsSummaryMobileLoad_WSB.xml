@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Load WSB Operations Summary mobile numbers for month-end 
-	-->
-	<event server="#server_activitydb#" database="Woodforest" timeout="14400">
-		<executesql>EXEC Report.OperationsSummaryLoadMobile  @Bank='WSB'</executesql>
-	</event>
-</sqlinstruction>

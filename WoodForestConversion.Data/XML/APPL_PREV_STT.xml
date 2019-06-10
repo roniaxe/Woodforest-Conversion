@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\APPL_PREV_STT" to="#import_archive#\APPL_PREV_STT" />
-	<move file="#import_download#\APPL_PREV_STT.xxx" to="#import_archive#\APPL_PREV_STT.xxx" />
-</fileinstructions>

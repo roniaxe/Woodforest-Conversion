@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Process New Debit Cards
-	-->
-	<event server="#DDADB#" database="DDA" timeout="120">
-		<executesql>EXEC dbo.spVisaOrders</executesql>
-	</event>
-</sqlinstruction>

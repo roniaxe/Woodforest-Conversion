@@ -1,5 +1,0 @@
-<sqlinstruction>
-	<event server="#server_paymentwarehousedb#" database="#database_postilion#" timeout="1000">
-		<executesql>EXEC dbo.FindARCOFeesToRefund</executesql>
-	</event>
-</sqlinstruction>

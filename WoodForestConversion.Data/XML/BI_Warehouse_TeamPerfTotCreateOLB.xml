@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates daily balances in the data warehouse
-	-->
-	<event server="#server_activitydb#" database="WNBUtility" timeout="1200">
-		<executesql>EXEC rptTeamPerformanceCreateOLBStats</executesql>
-	</event>
-</sqlinstruction>

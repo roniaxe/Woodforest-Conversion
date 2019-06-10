@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="dtsrun" args="/F \\woodforest.net\jobs\archon2\dts\packages\Create EAS Log File.dts" ignoreout="0" />
-</commands>

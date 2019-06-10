@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Move realtime decline log data to history table
-	-->
-	<event server="#server_wnbappsdb#" database="PaymentSystems" timeout="10800">
-		<executesql>EXEC Judge.AuthValidate_ArchiveData</executesql>
-	</event>
-</sqlinstruction>

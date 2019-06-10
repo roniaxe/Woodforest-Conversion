@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Account Open (SCC and TCC) Fees to UploadTrans - Monitor
-	-->
-- <event server="#server_activitydb#" database="#database_woodforest#" timeout="1000">
-		<executesql>EXEC dbo.util_MonitorAccountOpenFees</executesql>
-	</event>
-</sqlinstruction>

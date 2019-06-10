@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Set Flag Local Copy Flag to True for Bankers Toolbox Archon Job
-	-->
-	<event server="#server_bankerstoolboxdb#" database="#database_wnbutility#" timeout="7400">
-		<executesql>EXEC [WNBUtility].[dbo].[COPY_Set_Copy_Flag_to_True]</executesql>
-	</event>
-</sqlinstruction>

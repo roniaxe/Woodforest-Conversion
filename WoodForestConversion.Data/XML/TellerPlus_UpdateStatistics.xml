@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Updates stats on transaction table
-	-->
-- <event server="#Server_TellerPlusDB#" database="#database_WNBUtility#" timeout="1000">
-		<executesql>exec dbo.TellerPlus_UpdateStatistics</executesql>
-	</event>
-</sqlinstruction>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Clean Up the Notifications Database: ContactRequest_History table 
-	-->
-	<event server="#server_wnbappsdb#" database="CustomerContact" timeout="2700">
-		<executesql>EXEC dbo.Util_Clean_ContactRequest_History @Days = 45</executesql>
-	</event>
-</sqlinstruction>

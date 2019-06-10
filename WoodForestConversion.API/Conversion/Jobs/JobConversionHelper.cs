@@ -1,11 +1,12 @@
-﻿using System;
-using MVPSI.JAMS;
+﻿using MVPSI.JAMS;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
 using WoodForestConversion.API.Conversion.ConversionBase;
+using WoodForestConversion.API.Conversion.DTOs;
 using Formatting = Newtonsoft.Json.Formatting;
 using Job = MVPSI.JAMS.Job;
 
@@ -13,59 +14,10 @@ namespace WoodForestConversion.API.Conversion.Jobs
 {
     public static class JobConversionHelper
     {
-        private static readonly List<string> ConditionsExceptions = new List<string>
-        {
-            "ATM Create CAF and PBF",
-            "Enable PBF Creation - Update Bank Table",
-            "Excessive NSF OD Fee - Daily Email",
-            "MCOM Decompress *",
-            "Send Shift Change Email",
-            "sqlops_Fix_Card_Transaction_Search - Scheduled to run on sunday and not on sunday",
-            "CommVault_ORIONDB",
-            "PDF Statement Upload to Depot",
-            "CommVault_AMBITDB",
-            "Add ACH completion time to Processing Timesheet",
-            "CommVault_PRMDB",
-            "CommVault_EvergreenDB",
-            "CommVault_MGDB",
-            "CommVault_DataWarehouseDB",
-            "Bill Pay Import",
-            "Review Immediate Availability",
-            "CommVault_BIMODELDB",
-            "CommVault_CRMDB",
-            "sqlops_PRMDB_RebuildIndex",
-            "AMBIT Data Export",
-            "sqlops_MGDB_RebuildIndex"
-        };
-
-        private static readonly List<string> HasDependencyThatIsNotLive = new List<string>
-        {
-            "sqlops_SQLKEYDB_RebuildIndex",
-            "Process ATM reports from Saturday",
-            "Remove BAM Rebuild Index from Live",
-            //"CLNUSERPROD Import",
-            //"CLNNAIC Import",
-            //"CommVault_BANKERSTOOLBOXDB",
-            //"CLNPRIME Import",
-            //"Upload Overdraft Letters to FOS",
-            "sqlops_DPMDB_RebuildIndex",
-            "CommVault_SQLKEYDB",
-            "EMP_REL Import",
-            "CLNWHENT Import",
-            "CLNWHEN Import",
-            "CommVault_DPMDB",
-            "CommVault_SSASDB",
-            "CLNBASTB Import",
-            "CLCOLLTY Import",
-            "SFTP Branch Capture CSV file to FOS",
-            "sqlops_EVERGREEN_ServerProperties_Update",
-            "CLNBASIS Import",
-            "ACH Disputes database sync",
-            "CLNGRADE Import",
-            "CLCOLLOC Import",
-            "Confirm email received from Equifax.",
-            "CLNCONCEN Import"
-        };
+        #region Static Properties
+        public static Dictionary<Guid, Data.Job> ArchonJobDictionary { get; set; }
+        public static Dictionary<Guid, JobCategoryDto> JobFolderName { get; set; }
+        #endregion
         public static bool GenerateExceptions(Job job, Dictionary<string, List<Job>> convertedJobs, Guid jobUID)
         {
             bool jobProcessed;
@@ -74,7 +26,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 case "ATM Create CAF and PBF":
                     jobProcessed = true;
-                    
+
                     // Split that job into 2
                     job.Elements.Clear();
                     Job weekendJob = job.Clone() as Job;
@@ -94,14 +46,14 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     weekendJob.Elements.Add(jobDependencyWeekend);
                     weekendJob.Elements.Add(jobDependencyWeekend2);
 
-                    if (convertedJobs.TryGetValue(JobConversion.JobFolderName[jobUID]?.CategoryName ?? "", out var jobForFolder))
+                    if (convertedJobs.TryGetValue(JobFolderName[jobUID]?.CategoryName ?? "", out var jobForFolder))
                     {
                         jobForFolder.Add(job);
                         jobForFolder.Add(weekendJob);
                     }
                     else
                     {
-                        convertedJobs.Add(JobConversion.JobFolderName[jobUID]?.CategoryName ?? "", new List<Job> { job, weekendJob });
+                        convertedJobs.Add(JobFolderName[jobUID]?.CategoryName ?? "", new List<Job> { job, weekendJob });
                     }
                     break;
                 default:
@@ -110,11 +62,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
             }
 
             return jobProcessed;
-        }
-
-        public static bool CheckNonConvertible(string jobName)
-        {
-            return HasDependencyThatIsNotLive.Contains(jobName);
         }
 
         public static string FixJobName(string jobName)
@@ -173,7 +120,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public static bool HandleATMCreateJob(string jobName, ElementCollection elements)
         {
-            var excludeList = new List<string> {
+            var excludeList = new List<string>
+            {
                 "BI_Warehousing_TeamPerformanceTotals",
                 "CAF Reject Hist",
                 "Chip Card Status Update",
@@ -183,15 +131,15 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 "sqlops_ActivityDB_Backup_Dbs_ATM_Woodforest"
             };
 
-            if (excludeList.Contains(jobName))
-            {
-                elements.Add(jobName.Equals(@"sqlops_ActivityDB_Backup_Dbs_ATM_Woodforest")
-                    ? new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ATM Create CAF and PBF - Weekend")
-                    : new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ATM Create CAF and PBF"));
-                return true;
-            }
+            if (!excludeList.Contains(jobName)) return false;
 
-            return false;
+            elements.Add(jobName.Equals(@"sqlops_ActivityDB_Backup_Dbs_ATM_Woodforest")
+                ? new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ATM Create CAF and PBF - Weekend")
+                : new JobDependency($@"\{ConversionBaseHelper.JamsArchonRootFolder}\ATM Create CAF and PBF"));
+
+            return true;
+
         }
+
     }
 }

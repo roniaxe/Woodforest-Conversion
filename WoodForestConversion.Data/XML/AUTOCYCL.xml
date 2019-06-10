@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_extractto#\AUTOCYCL" to="#import_archive#\AUTOCYCL" />
-	<move file="#import_download#\AUTOCYCL.xxx" to="#import_archive#\AUTOCYCL.xxx" />
-</fileinstructions>

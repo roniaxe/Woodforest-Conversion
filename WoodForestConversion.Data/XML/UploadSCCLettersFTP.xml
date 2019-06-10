@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <move file="\\woodforest.net\Jobs\Letters_SCC_Conversion\#DATE(yyyyMMdd)#_SCC_ConversionLetters.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\#DATE(yyyyMMdd)#_SCC_ConversionLetters.txt" />
-</fileinstructions>

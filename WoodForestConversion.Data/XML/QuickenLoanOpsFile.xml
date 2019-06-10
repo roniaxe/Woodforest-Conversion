@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <move file="\\sftp\users\loanops\quickenloans" search="*.*" to="\\MSIVSPFE03\Sites\LoanOps\Quicken Loans\" />
-</fileinstructions>

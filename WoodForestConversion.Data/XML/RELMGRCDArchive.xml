@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-<move file="#import_download#\REL.MGR.CD.ZIP" to="#import_archive#\REL.MGR.CD.ZIP" />
-<move file="#import_download#\REL.MGR.CD.xxx" to="#import_archive#\REL.MGR.CD.xxx" />
-<delete file="#import_extractto#\REL.MGR.CD" /> 
-
-</fileinstructions>

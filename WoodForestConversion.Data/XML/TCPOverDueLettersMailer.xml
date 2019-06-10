@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  TCLOverdueLetterSummaryMailer -->
-	<event server="#Server_datawarehouseDB#" database="#Database_WNB#" timeout="1000">
-		<executesql>EXEC TCLOverdueLetterSummaryMailer</executesql>
-	</event>
-</sqlinstruction>

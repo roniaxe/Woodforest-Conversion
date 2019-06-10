@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Delete Pending Reversals for Debit Card pre-auth transactions
-	-->
-	<event server="#server_activitydb#" database="#database_woodforest#" timeout="2700">
-		<executesql>EXEC Util_SSPBonus_Funding @Amount=25.00</executesql>
-	</event>
-</sqlinstruction>

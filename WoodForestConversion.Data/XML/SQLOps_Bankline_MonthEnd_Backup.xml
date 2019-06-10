@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Step 1. - Backup BanklineWNB and BanklineFSB databases on ActivityDB.
-	-->
-	<event server="#server_activitydb#" database="WNBUtility" timeout="28800">
-		<executesql>EXEC dbo.util_Bankline_MonthEnd_Backup</executesql>
-	</event>
-</sqlinstruction>

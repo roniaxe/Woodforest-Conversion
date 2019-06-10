@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-<copy file="\\DC1CVLOANAP01\CFIWin\CFI\UCCEXPORT\" search="*.xml*" to="\\DC1CVLOANAP01\CFIWin\CFI\UCCEXPORT\Archive\" />
-<move file="\\DC1CVLOANAP01\CFIWin\CFI\UCCEXPORT\" search="*.xml*" to="\\sftp.woodforest.net\users\loanops\uccdirect\outgoing\" />
-</fileinstructions>

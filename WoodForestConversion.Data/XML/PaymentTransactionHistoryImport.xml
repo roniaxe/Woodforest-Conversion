@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Consolidates post_tran and post_tran_cust trans to the PostilionTransaction table on Postilion_Office
-	-->
-	<event server="paymentwarehousedb" database="postilion" timeout="3600">
-		<executesql>EXEC PaymentTransactionHistoryImport</executesql>
-	</event>
-</sqlinstruction>

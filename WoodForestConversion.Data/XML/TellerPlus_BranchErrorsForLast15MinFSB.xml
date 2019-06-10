@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Gathers last 15 min of tellerPlus errors
-	-->
-- <event server="#Server_TellerPlusDB#" database="TellerWNBUtils" timeout="1000">
-		<executesql>exec rptBranchErrorsForLast15MinutesFSB</executesql>
-	</event>
-</sqlinstruction>

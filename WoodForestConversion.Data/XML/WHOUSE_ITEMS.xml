@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\WHOUSE_ITEMS" to="#import_archive#\WHOUSE_ITEMS" />
-	<move file="#import_download#\WHOUSE_ITEMS.xxx" to="#import_archive#\WHOUSE_ITEMS.xxx" />
-</fileinstructions>

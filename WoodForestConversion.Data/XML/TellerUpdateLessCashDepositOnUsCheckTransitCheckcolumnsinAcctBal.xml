@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Teller - Update Less Cash, Deposit, OnUs Check, Transit Check columns in Acct_Bal
-	-->
-	<event server="#WNBDB#" database="WNB" timeout="1200">
-		<executesql>exec spUpdLessCash</executesql>
-	</event>
-	
-</sqlinstruction>

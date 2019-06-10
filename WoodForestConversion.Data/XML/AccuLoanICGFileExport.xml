@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <copy file="\\DC1CVLOANAP01\accusystems$\Acculoan\ICG\ExportFiles\Adds.txt" to="\\sftp.woodforest.net\users\loanops\icgtax\outgoing\WFB_Adds_#DATE(yyyyMMdd)#.txt" /> 
-  <move file="\\DC1CVLOANAP01\accusystems$\Acculoan\ICG\ExportFiles\Adds.txt" to="\\DC1CVLOANAP01\accusystems$\Acculoan\ICG\ExportFiles\Archive\#DATE(yyyyMMdd)#_Adds.txt" /> 
-</fileinstructions>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <move file="\\woodforest.net\jobs\PulseReports\CD-Pulse\Download\Superfile\" search="HXPLD0C10.*" to="\\woodforest.net\jobs\PulseReports\CD-Pulse\Download\Superfile\Archive\" />
-</fileinstructions>

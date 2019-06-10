@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_activitydb#" database="#database_Woodforest#" timeout="900">
-		<executesql>EXEC HostMerge_UpdateChargeOffBalance </executesql>
-	</event>
-</sqlinstruction>

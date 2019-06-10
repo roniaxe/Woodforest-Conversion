@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Load Transactions from Staging Table to Settlements and PendingTransaction  CRRTellerPaymentsToMiddleTier.xml
-	-->
-	<event server="#server_activitydb#" database="#database_staging#" timeout="2700">
-		<executesql>EXEC dbo.CRRTellerPaymentsToMiddleTier</executesql>
-	</event>
-</sqlinstruction>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-<monitor file="#import_download#\USERDDA.xxx" />
-<monitor file="#import_download#\USERDDA.zip" />
-<unzip file="#import_download#\USERDDA.zip" to="#import_extractto#\" extract="#import_extractbase#/USERDDA" />
-</fileinstructions>

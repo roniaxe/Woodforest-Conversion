@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<monitor file="#import_download#\BENOWN_CONTROL_INFO.xxx" />
-	<monitor file="#import_download#\BENOWN_CONTROL_INFO" />
-	<copy file="#import_download#\BENOWN_CONTROL_INFO" to="#import_extractto#\BENOWN_CONTROL_INFO" />
-</fileinstructions>

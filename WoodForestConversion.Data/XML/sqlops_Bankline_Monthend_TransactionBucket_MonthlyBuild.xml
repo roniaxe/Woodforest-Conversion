@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Step 1. rolls up the daily data from TransactionBucket.dbo.TranBucketSummary
-	-->
-	<event server="DataWarehouseDB" database="TransactionBucket" timeout="28800">
-		<executesql>EXEC dbo.TransactionBucket_MonthlyBuild</executesql>
-	</event>
-</sqlinstruction>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="Activitydb.woodforest.net" database="WNBUtility" timeout="700">
-		<executesql> EXEC dbo.ATMAuditHistoryBackup</executesql>
-	</event>
-</sqlinstruction>

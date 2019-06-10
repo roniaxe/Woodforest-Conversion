@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
- <fileinstructions>
-  <copy file="\\woodforest.net\jobs\temp\" search="New*.txt" to="\\woodforest.net\jobs\temp\#DATEADD(d, -1, yyyyMMdd)#\" />
-</fileinstructions>

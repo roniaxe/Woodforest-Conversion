@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  CAF Extract
-	-->
-	<event server="#server_atmdb#" database="#database_atm#" timeout="1000">
-		<executesql>EXEC dbo.spCAFExtract</executesql>
-	</event>
-</sqlinstruction>

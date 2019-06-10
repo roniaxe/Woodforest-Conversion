@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for Insert ChargeOff Payments
-	-->
-	<event server="#server_tellerplusdb#" database="TellerPlus2" timeout="300">
-		<executesql>EXEC dbo.spInsertChargeoffPayments</executesql>
-	</event>
-</sqlinstruction>

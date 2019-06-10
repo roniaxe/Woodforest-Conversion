@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Gets and places debit card tran stats onto the datawarehouse server
-	-->
-	<event server="DC1CBATMPO01" database="POUtils" timeout="3000">
-		<executesql>EXEC rptBuildTransVol_Type</executesql>
-	</event>
-	
-</sqlinstruction>

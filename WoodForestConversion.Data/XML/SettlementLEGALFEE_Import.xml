@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Settlements - LEGALFEE -->
-	<event server="#server_activitydb#" database="#database_activity#" timeout="14400">
-		<executesql>exec dbo.util_LEGALFEESettlementImport</executesql>
-	</event>
-</sqlinstruction>

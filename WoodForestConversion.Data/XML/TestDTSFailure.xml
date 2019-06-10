@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="dtsrun" args="/N TestFailure /V {F6EBFA2F-09ED-4540-8AD5-4A33977AE6B1} /F \\wnbnas01\jobs\Archon\DTS\Packages\TestFailure.dts /W 0" ignoreout="0" />
-</commands>

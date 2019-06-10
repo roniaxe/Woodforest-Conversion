@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_atmdb#" database="#database_atm#" timeout="1200">
-		<executesql>Select 1</executesql>
-	</event>
-</sqlinstruction>

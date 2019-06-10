@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-<command exec="c:\program files\Microsoft SQL Server\100\DTS\Binn\DTExec.exe" args="/F #directory_ssis#\NexxoMoneyOrderDailyImport.dtsx /SET \Package.Variables[User::Database].Properties[Value];#database_WNBUtility# /SET \Package.Variables[User::DBServer].Properties[Value];#server_datawarehousedb# /SET \Package.Variables[User::SourceLocation].Properties[Value];\\sftp.woodforest.net\users\branchops\nexxofinancial\ /SET \Package.Variables[User::Table].Properties[Value];NexxoMoneyOrderDailyTransactions" ignoreout="0" checkexitcode="1" />
-</commands>

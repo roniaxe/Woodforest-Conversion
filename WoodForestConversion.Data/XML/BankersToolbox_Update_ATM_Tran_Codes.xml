@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  New ATM Check Deposit Tran Code Import to BKTB
-	-->
-	<event server="#server_bankerstoolboxdb#" database="#database_wnbutility#" timeout="600">
-		<executesql>EXEC [WNBUtility].[dbo].[BankersToolbox_Update_ATM_Tran_Codes]</executesql>
-	</event>
-</sqlinstruction>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<!-- Archive the file -->
-	<copy file="\\CMBApps\ACBS\DataExtracts\ACBSDMReports.zip" to="\\woodforest.net\jobs\ACBS\DataMartReports\Compressed\ACBSDMReports.zip" />
-	<move file="\\CMBApps\ACBS\DataExtracts\ACBSDMReports.zip" to="\\CMBApps\ACBS\DataExtracts\Archive\#DATEADD(d, 0, yyyyMMdd)#_ACBSDMReports.zip" />	     	
-</fileinstructions>

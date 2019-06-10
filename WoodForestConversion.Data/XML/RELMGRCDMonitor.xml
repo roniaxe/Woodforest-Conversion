@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-<monitor file="#import_download#\REL.MGR.CD.XXX" />
-<monitor file="#import_download#\REL.MGR.CD.ZIP" />
-<unzip file="#import_download#\REL.MGR.CD.ZIP" to="#import_extractto#\" extract="#import_extractbase#/REL.MGR.CD" /> 
-
-</fileinstructions>

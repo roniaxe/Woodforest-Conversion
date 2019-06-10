@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CDS_DDATRANS" to="#import_archive#\CDS_DDATRANS" />
-	<move file="#import_download#\CDS_DDATRANS.xxx" to="#import_archive#\CDS_DDATRANS.xxx" />
-</fileinstructions>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  CAF Compare
-	-->
-	<event server="#server_atmdb#" database="#database_atm#" timeout="300">
-		<executesql>EXEC dbo.spCAFCompare</executesql>
-	</event>
-</sqlinstruction>

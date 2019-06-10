@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLNINDEX" to="#import_archive#\CLNINDEX" />
-	<move file="#import_download#\CLNINDEX.xxx" to="#import_archive#\CLNINDEX.xxx" />
-</fileinstructions>

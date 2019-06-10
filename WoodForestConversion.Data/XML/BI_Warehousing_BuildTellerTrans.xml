@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Gets and places teller tran stats onto the datawarehouse server
-	-->
-	<event server="#server_datawarehousedb#" database="WNB" timeout="1600">
-		<executesql>EXEC dbo.rptBuildTellerTransByMonth</executesql>
-	</event>
-	
-</sqlinstruction>

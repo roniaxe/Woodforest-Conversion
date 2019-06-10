@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<event server="EvergreenDB" database="Evergreen_Staging" timeout="28800">
-		<executesql>
-			exec ArchonVerifySQLOpsJobs
-		</executesql>
-	</event>
-</sqlinstruction>

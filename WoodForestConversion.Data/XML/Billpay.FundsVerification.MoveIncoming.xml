@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="\\sftp.woodforest.net\users\products\fisbp\incoming" search="WNBEP3286o.#DATE(yyyyMMdd)#*.xml" to="#olx_apps#\Billpay\FundsVerification\Incoming" /> 
-</fileinstructions>

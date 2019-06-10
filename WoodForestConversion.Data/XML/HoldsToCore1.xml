@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="#SSIS#" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\HoldsToCore.dtsx" ignoreout="0" />
-</commands>

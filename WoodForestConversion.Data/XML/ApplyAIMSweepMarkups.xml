@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!-- Apply AIM Sweep Markups -->
-	<event server="#server_ActivityDB#" database="#database_Activity#" timeout="600">
-		<executesql>Exec util_ApplyAIMSweepMarkups</executesql>
-	</event>
-</sqlinstruction>

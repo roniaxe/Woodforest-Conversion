@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Gets and places atm tran stats onto the datawarehouse server
-	-->
-	<event server="#server_warehousedb#" database="WNB" timeout="300">
-		<executesql>EXEC dbo.rptBuildDebitCardStats</executesql>
-	</event>
-	
-</sqlinstruction>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--   Clean Up Notification Database on WNBSQL01 Keep 30 Days --> 
-	<event server="#server_activitydb#" database="#database_atm#" timeout="5000">
- 		 <executesql>EXEC spDebitCardOrderCompare</executesql> 
- 	</event>
-</sqlinstruction>

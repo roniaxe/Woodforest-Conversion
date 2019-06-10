@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<!-- Copy from Bancline to ACBS Connect Direct -->
-	<copy file="\\wnbcore.woodforest.net\transfer\wnb\extracts\SSSWTRIN.#DATEADD(d, -1, yyyyMMdd)#" to="\\CMBApps\ACBS\Sweep\Outbound\SSSWTRIN" />
-	<!-- Archive the file -->
-	<move file="\\wnbcore.woodforest.net\transfer\wnb\extracts\" search="SSSWTRIN*.*" to="\\CMBApps\ACBS\Sweep\Outbound\Archive\" />	     	
-</fileinstructions>

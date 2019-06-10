@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Load Transactions to TranHist
-	-->
-	<event server="#server_banclinedb#" database="#database_banklinewnb#" timeout="3000">
-		<executesql>EXEC dbo.UTIL_GetHFC_Catalog</executesql>
-	</event>
-</sqlinstruction>

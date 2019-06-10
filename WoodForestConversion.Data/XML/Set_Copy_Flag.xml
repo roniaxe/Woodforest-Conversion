@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <move file="#vego_flagpath#\Available\Copy_Flag.txt" to="#vego_flagpath#\Executing\Copy_Flag.txt" />
-</fileinstructions>

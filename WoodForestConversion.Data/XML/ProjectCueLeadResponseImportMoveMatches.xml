@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="\\sftp.woodforest.net\users\loanops\projectcue\Response\" search="*matches.csv" to="\\woodforest.net\jobs\ProjectCue\LeadRequestResponse\" />
-</fileinstructions>

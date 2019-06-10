@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="#SSIS#" args="/F \\woodforest.net\jobs\Archon2\DTS\Packages\DTS_TEST.dts" ignoreout="0" />
-</commands>

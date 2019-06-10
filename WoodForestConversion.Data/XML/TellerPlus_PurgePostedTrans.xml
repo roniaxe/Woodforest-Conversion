@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Purges posted trans table
-	-->
-- <event server="#Server_TellerPlusDB#" database="#database_WNBUtility#" timeout="1000">
-		<executesql>exec dbo.TellerPlus_PurgePostedTransactions</executesql>
-	</event>
-</sqlinstruction>

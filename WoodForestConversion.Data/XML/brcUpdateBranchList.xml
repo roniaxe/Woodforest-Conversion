@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for the daily Settlement files
-	-->
-	<event server="ImageArchivedb" database="BranchCaptureReports" timeout="300">
-		<executesql>EXEC dbo.brc_UpdateBranchList</executesql>
-	</event>
-</sqlinstruction>

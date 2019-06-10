@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <move file="\\woodforest.net\crm\Legal\GarnishmentLettersToFOS\GarnishmentLettersData_#DATE(MMddyyyy)#.zip" to="\\dc1ivtwftp01\users\support-analysts\fis\outgoing\GarnishmentLettersData_#DATE(MMddyyyy)#.zip" /> 
-</fileinstructions>

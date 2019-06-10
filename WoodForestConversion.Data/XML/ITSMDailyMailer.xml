@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures Monitor TellerPlus Errors.
-	-->
-	<event server="EvergreenDB" database="evergreen_staging" timeout="300">
-		<executesql>EXEC dbo.ITMSDailyMailer</executesql>
-	</event>
-</sqlinstruction>

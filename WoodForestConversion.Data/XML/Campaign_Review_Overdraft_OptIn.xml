@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-  <event server="#server_woodforestdb#" database="Woodforest" timeout="9600">
-    <executesql>EXEC [dbo].[ServiceCampaign_ReviewDebitCardOptIn]</executesql>
-  </event>
-</sqlinstruction>

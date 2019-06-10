@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_activitydb#" database="#database_WNBUtility#" timeout="1200">
-		<executesql>EXEC dbo.util_SSAMDF_Load</executesql>
-	</event>
-</sqlinstruction>

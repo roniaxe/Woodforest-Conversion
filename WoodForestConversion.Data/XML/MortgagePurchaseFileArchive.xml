@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-        <!-- MortgageUpload -->
-	<move file="\\woodforest\jobs\MortgagePurchase\Bancline Mapping.xls" to="\\woodforest\jobs\MortgagePurchase\Archive\#DATEADD(d, 0, yyyyMMdd)#_Bancline Mapping.xls" />
-	<move file="\\woodforest\jobs\MortgagePurchase\WNB.txt" to="\\woodforest\jobs\MortgagePurchase\Archive\#DATEADD(d, 0, yyyyMMdd)#_WNB.txt" />
-
-</fileinstructions>

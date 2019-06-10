@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\dtexec.exe" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\TopNotch_ETL_Payments.dtsx" ignoreout="0" checkexitcode="1" />
-</commands>

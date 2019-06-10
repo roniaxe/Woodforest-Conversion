@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  PostilionSettlement-LoadPostilionSweeps.xml
-	-->
-	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="300">
-		<executesql>EXEC dbo.Util_PostilionSweep</executesql>
-	</event>
-</sqlinstruction>

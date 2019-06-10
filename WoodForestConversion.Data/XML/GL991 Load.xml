@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Loads data from staging table to GL991 table -->
-	<event server="#server_warehousedb#" database="#database_ReportExtracts#" timeout="600">
-		<executesql>EXEC spLoadGL991</executesql>
-	</event>
-</sqlinstruction>

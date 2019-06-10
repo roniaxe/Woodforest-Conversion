@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="SQLCMD" args="-S BankersToolboxDB -E -d bktb3_woodforest -iE:\BAMPlus\BAMPlusSyncStep1.sql -o E:\BAMPlus\Output\BAMPlusSyncStep1_Outputlog.txt" ignoreout="0" checkexitcode="1" />
-</commands>

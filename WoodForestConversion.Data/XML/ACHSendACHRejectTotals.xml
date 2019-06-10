@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures ACH - Send ACH Reject Totals
-	-->
-	<event server="BanklineDB" database="Bankline" timeout="300">
-		<executesql>EXEC spACH013Rpt_Totals</executesql>
-	</event>
-	
-</sqlinstruction>

@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Update routing number in location table based on data out of bankline.dbo.branch extract (codes-branch)
-	-->
-- <event server="#Server_ActivityDB#" database="#Database_WOODFOREST#" timeout="1000">
-		<executesql>EXEC dbo.Location_UpdateRoutingNumber</executesql>
-	</event>
-</sqlinstruction>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Clean ACH Warehouse Entries
-	-->
-	<event server="#server_activitydb#" database="#database_wnbutility#" timeout="2700">
-		<executesql>EXEC dbo.InternalAccountSweep_Dec26Update</executesql>
-	</event>
-</sqlinstruction>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <move file="\\sftp.woodforest.net\users\payroll\kronos\incoming\" search="Woodforest*" to="\\woodforest\jobs\HR_Interfaces\Kronos\" />
-</fileinstructions>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<!-- Archive the file -->
-	<copy file="\\CMBApps\ACBS\Invoices\ACBSDMInvoices.zip" to="\\woodforest.net\jobs\ACBS\Invoices\ACBSDMInvoices.zip" />
-	<move file="\\CMBApps\ACBS\Invoices\ACBSDMInvoices.zip" to="\\CMBApps\ACBS\Invoices\Archive\#DATEADD(d, 0, yyyyMMdd)#_ACBSDMInvoices.zip" />	     	
-</fileinstructions>

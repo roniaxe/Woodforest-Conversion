@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!-- Archive the notifications previously sent. -->
-	<event server="#server_wnbappsdb#" database="CustomerContact" timeout="1200">
-		<executesql>EXEC dbo.ContactRequest_Batch_ArchiveNow</executesql>
-	</event>
-</sqlinstruction>

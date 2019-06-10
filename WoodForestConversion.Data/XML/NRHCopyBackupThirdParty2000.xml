@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql03\c$\mountpoints\Backup\Backup\ThirdParty2000\Metrics_Commercial\ 			\\DC2CVPLYSQL03\c$\Mountpoints\Backup\Backup\ThirdParty2000\Metrics_Commercial\" ignoreout="1" />
-</commands>

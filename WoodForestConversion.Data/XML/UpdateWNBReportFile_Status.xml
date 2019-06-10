@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure to update the ReportFile_Status-->
-	<event server="#server_banclinedb#" database="#database_banklinewnb#" timeout="300">
-		<executesql>EXEC dbo.spUpdateReportTable</executesql>
-	</event>
-</sqlinstruction>

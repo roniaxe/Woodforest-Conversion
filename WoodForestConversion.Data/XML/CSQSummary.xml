@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Get CSQ Summary Data
-	-->
-	<event server="#server_reportwarehouse#" database="#database_WNBUtility#" timeout="2700">
-		<executesql>exec GetCSQSummaryData</executesql>
-	</event>
-</sqlinstruction>

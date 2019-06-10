@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <move file="\\sftp.woodforest.net\users\hr\retirement-horizons\incoming\" search="CONTRRATECHANGE_Woodforest*" to="\\woodforest.net\jobs\HR_Interfaces\RHI\ElectionChanges\" />
-</fileinstructions>

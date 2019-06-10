@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Run Vendor Script
-	-->
-	<event server="#server_prismdb#" database="WNBDebit" timeout="2700">
-		<executesql>EXEC dbo.pp_Monitor_Alerts</executesql>
-	</event>
-</sqlinstruction>

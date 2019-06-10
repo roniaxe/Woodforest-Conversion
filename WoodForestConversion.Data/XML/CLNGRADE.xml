@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLNGRADE" to="#import_archive#\CLNGRADE" />
-	<move file="#import_download#\CLNGRADE.xxx" to="#import_archive#\CLNGRADE.xxx" />
-</fileinstructions>

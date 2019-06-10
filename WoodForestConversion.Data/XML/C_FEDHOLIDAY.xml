@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-        <move file="#import_download#\C_FEDHOLIDAY.zip" to="#import_archive#\C_FEDHOLIDAY.zip" />
-	<move file="#import_download#\C_FEDHOLIDAY.xxx" to="#import_archive#\C_FEDHOLIDAY.xxx" />
-	<delete file="#import_extractto#\C_FEDHOLIDAY" />
-</fileinstructions>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="cscript" args="#directory_scripts#\NRHCopyBackup.vbs \\wbcplysql06\c$\mountpoints\Backup\Backup\WNBApps\EnterpriseApps\ \\dc2cvplysql08\c$\Mountpoints\Backup\Backup\WNBApps\EnterpriseApps\" ignoreout="1" />
-</commands>

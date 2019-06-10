@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="psexec.exe" args="\\dc1cvbktb02 E:\BKTB\bsa\daemon\appupdate.exe" ignoreout="0" />
-</commands>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-  <?move file="\\dmzutil02\ftproot\users\cmc\" search="Set*.txt" to="\\dc1cvtnwap01\TopNotch Download\Discover\" /?>
-  <move file="\\sftp.woodforest.net\users\collections\cmc\" search="Set*.txt" to="\\dc1cvtnwap01\TopNotch Download\Discover\" />
-</fileinstructions>

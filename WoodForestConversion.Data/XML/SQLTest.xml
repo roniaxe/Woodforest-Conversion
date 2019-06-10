@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="DEVSQL03" database="Nightly">
-		<executesql>SELECT * FROM ProcessDefinitions</executesql>
-	</event>
-	<event server="DEVSQL03" database="Nightly">
-		<executesql>SELECT * FROM Dependency</executesql>
-	</event>
-</sqlinstruction>

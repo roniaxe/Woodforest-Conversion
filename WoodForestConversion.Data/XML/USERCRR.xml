@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\USERCRR.zip" to="#import_archive#\USERCRR.zip" />
-	<move file="#import_download#\USERCRR.xxx" to="#import_archive#\USERCRR.xxx" />
-	<delete file="#import_extractto#\USERCRR" />
-</fileinstructions>

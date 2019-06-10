@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure Merchant - Copy divert accounts into seperate table
-	-->
-	<event server="DDADB" database="DDA" timeout="300">
-		<executesql>EXEC spCopyDailyDivertAccounts</executesql>
-	</event>
-	
-</sqlinstruction>

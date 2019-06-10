@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-    <command exec="#ssis#" args="/F \\woodforest.net\Jobs\Archon2\SSIS\Packages\TellerFTI.dtsx /SET \Package.Variables[User::rDate].Properties[Value];Default" ignoreout="0" checkexitcode="1" />
-</commands>

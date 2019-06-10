@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-  <commands>
-    <command exec="E:\TopNotch Download\move-files3.cmd" args="NOWAIT" ignoreout="0" />
-  </commands>

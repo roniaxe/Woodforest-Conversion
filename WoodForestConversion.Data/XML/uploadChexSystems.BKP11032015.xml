@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <copy file="\\woodforest.net\Jobs\CheckPay\ChexSystems\#DATE(MMddyyyy)#.txt" to="\\sftp.woodforest.net\users\collections\chexsystems\outgoing\woodfrs.txt" />
-  <move file="\\woodforest.net\Jobs\CheckPay\TRS\" search="*NEG*" to="\\sftp.woodforest.net\users\collections\telecheck\outgoing\" /> 
-  <move file="\\woodforest.net\Jobs\CheckPay\TRS\" search="*COL*" to="\\sftp.woodforest.net\users\collections\telecheck\outgoing\" /> 
-  <move file="\\woodforest.net\Jobs\CheckPay\TRS\" search="*LOAN*" to="\\sftp.woodforest.net\users\collections\telecheck\outgoing\" /> 
-</fileinstructions>

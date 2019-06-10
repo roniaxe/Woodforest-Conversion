@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure ACH Repost Markups
-	-->
-	<event server="PaymentWarehousedb" database="Pulse" timeout="6000">
-		<executesql>EXEC dbo.SuperFileImport</executesql>
-	</event>
-	
-</sqlinstruction>

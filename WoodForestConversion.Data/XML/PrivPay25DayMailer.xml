@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  OverdraftLetterSummaryMailer -->
-	<event server="#Server_datawarehouseDB#" database="#Database_WNB#" timeout="1000">
-		<executesql>EXEC spPrivPay25DayMailer</executesql>
-	</event>
-</sqlinstruction>

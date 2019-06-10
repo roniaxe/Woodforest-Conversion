@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLC_COMP" to="#import_archive#\CLC_COMP" />
-	<move file="#import_download#\CLC_COMP.xxx" to="#import_archive#\CLC_COMP.xxx" />
-</fileinstructions>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  CAF Update CashLimits
-	-->
-	<event server="#server_atmdb#" database="#database_atm#" timeout="300">
-		<executesql>EXEC dbo.spCAFUpdateCashLimits</executesql>
-	</event>
-</sqlinstruction>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--   Update Hold Dates --> 
-	<event server="#server_activitydb#" database="#database_banklinewnb#" timeout="300">
- 		 <executesql>EXEC util_UpdateHoldDate</executesql> 
- 	</event>
-</sqlinstruction>

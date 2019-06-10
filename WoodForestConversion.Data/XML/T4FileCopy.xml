@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions> 
-  <copy file="\\mscvpayutl01\mastercard\Download\" search="*.*" to="\\mscvjobs01\mcreports\#DATE(yyyy)#\#DATE(MM)#\#DATE(dd)#\" />
-</fileinstructions>

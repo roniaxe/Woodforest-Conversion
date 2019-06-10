@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CBPORTFOLIO.zip" to="#import_archive#\CBPORTFOLIO.zip" />
-	<move file="#import_download#\CBPORTFOLIO.xxx" to="#import_archive#\CBPORTFOLIO.xxx" />
-	<delete file="#import_extractto#\CBPORTFOLIO" />
-</fileinstructions>

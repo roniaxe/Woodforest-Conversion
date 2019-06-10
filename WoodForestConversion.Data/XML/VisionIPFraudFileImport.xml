@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-<command exec="DTExec.exe" args="/F #directory_ssis#\VisionIPFraudFileImport.dtsx /SET \Package.Variables[User::ArchiveDirectory].Properties[Value];\\woodforest.net\jobs\AFS\VisionIPFraudFile\Archive\\ /SET \Package.Variables[User::DBServer].Properties[Value];#server_DatawarehouseDB# /SET \Package.Variables[User::SourceDirectory].Properties[Value];\\vsuyear\Vision\Spool\\" ignoreout="0" checkexitcode="1" />
-</commands>

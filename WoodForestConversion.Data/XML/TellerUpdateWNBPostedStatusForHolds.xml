@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures to update wnbposted status on teller holds table
-	-->
-	<event server="#server_tellerdb#" database="WNBUtility" timeout="900">
-		<executesql>EXEC dbo.Util_TellerWNBPostedStatusChange</executesql>
-	</event>
-</sqlinstruction>

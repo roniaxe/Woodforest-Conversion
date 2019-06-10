@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Update Official Checks
-	-->
-	<event server="#server_wnbappsdb#" database="ODOffset" timeout="18000">
-		<executesql>exec dbo.Util_OffsetsRelAccts_Select</executesql>
-	</event>
-</sqlinstruction>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Notifications - Daily Reset
-	-->
-	<event server="NotificationsDB\wnbapps,40012" database="Notifications" timeout="300">
-		<executesql>EXEC dbo.WNBNotifyReset</executesql>
-	</event>
-</sqlinstruction>

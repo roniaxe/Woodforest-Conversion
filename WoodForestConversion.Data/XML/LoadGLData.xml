@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure to load monthly loan GL data -->
-	<event server="DatawarehouseDB" database="WNBUtility" timeout="8000">
-		<executesql>EXEC dbo.spLoadGLDataForLoanLosses</executesql>
-	</event>
-</sqlinstruction>

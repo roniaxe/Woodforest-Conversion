@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\MEMOUNPSTD" to="#import_archive#\MEMOUNPSTD" />
-	<move file="#import_download#\MEMOUNPSTD.xxx" to="#import_archive#\MEMOUNPSTD.xxx" />
-</fileinstructions>

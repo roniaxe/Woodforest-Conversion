@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates call detail in the data warehouse
-	-->
-	<event server="#server_datawarehousedb#" database="WNB" timeout="600">
-		<executesql>EXEC spGetCallerSelection</executesql>
-	</event>
-</sqlinstruction>

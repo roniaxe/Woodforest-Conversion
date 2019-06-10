@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\DDA_CYC" to="#import_archive#\DDA_CYC" />
-	<move file="#import_download#\DDA_CYC.xxx" to="#import_archive#\DDA_CYC.xxx" />
-</fileinstructions>

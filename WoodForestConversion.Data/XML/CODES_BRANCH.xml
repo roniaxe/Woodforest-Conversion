@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CODES_BRANCH" to="#import_archive#\CODES_BRANCH" />
-	<move file="#import_download#\CODES_BRANCH.xxx" to="#import_archive#\CODES_BRANCH.xxx" />
-</fileinstructions>

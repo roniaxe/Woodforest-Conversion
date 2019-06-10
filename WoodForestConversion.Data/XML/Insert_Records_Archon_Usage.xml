@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_WNBAppsDB#" database="#database_WNBUtility#" timeout="1300">
-		<executesql>	EXEC dbo.Insert_Records_Archon_Usage 
-		</executesql>
-	</event>
-</sqlinstruction>

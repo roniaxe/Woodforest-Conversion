@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLPURPOS" to="#import_archive#\CLPURPOS" />
-	<move file="#import_download#\CLPURPOS.xxx" to="#import_archive#\CLPURPOS.xxx" />
-</fileinstructions>

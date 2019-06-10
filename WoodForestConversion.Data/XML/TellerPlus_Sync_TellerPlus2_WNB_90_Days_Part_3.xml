@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Sync transactions between TellerPlus2 and TellerPlus2_WNB_90_Days -->
-
-	<event server="#Server_TellerPlusDB#" database="TellerPlus2_WNB_90_Days" timeout="3000">
-		<executesql>exec spTellerPlus2_Sync_Large_Tables</executesql>
-	</event>
-
-</sqlinstruction>

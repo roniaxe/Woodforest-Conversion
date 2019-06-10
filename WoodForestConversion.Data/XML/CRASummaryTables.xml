@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<event server="#server_datawarehousedb#" database="Warehouse" timeout="2500">
-		<executesql>Exec dbo.LoadCRASummaryTables</executesql>
-	</event>
-	<event server="#server_datawarehousedb#" database="CRA" timeout="2500">
-		<executesql>Exec dbo.LoadCRASummaryTables</executesql>
-	</event>	
-</sqlinstruction>

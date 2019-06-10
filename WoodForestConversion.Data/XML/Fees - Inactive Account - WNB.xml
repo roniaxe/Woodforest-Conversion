@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Return Mail Fee - FSB -->
-	<event server="#server_activitydb#" database="#database_bancline_All#" timeout="600">
-		<executesql>EXEC dbo.Util_InactiveAccountFee @CoreID='#core_id#'</executesql>
-	</event>
-</sqlinstruction>

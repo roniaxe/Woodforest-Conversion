@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\GL991.TXT" to= "#import_archive#\GL991.TXT" />
-	<move file="#import_download#\GL991.xxx" to= "#import_archive#\GL991.xxx" />
-</fileinstructions>

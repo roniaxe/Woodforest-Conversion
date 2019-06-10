@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<sqlinstruction>
-	<!-- 
-	--> 
-	<event server="#server_warehousedb#" database="DataAnalysis" timeout="3600">
-  		<executesql>EXEC DataAnalysis.dbo.BuildRegEOptInProgress</executesql> 
-  	</event>
-
-</sqlinstruction>

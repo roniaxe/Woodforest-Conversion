@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <monitor file="\\woodforest.net\jobs\BanclineReports\#DATE(yyyyMMdd)#\ACH001" /> 
-  <copy file="\\woodforest.net\jobs\BanclineReports\#DATE(yyyyMMdd)#\ACH001" to="\\wnbutil18\AchReportImport\ACH001" /> 
-</fileinstructions>

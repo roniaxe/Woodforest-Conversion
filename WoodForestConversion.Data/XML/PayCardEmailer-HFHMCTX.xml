@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sqlinstruction> 
-<!-- Create ACH Warehouse Entries -->
-<event timeout="900" database="#database_woodforest#" server="#server_activitydb#"> 
-<executesql>EXEC dbo.util_PayCardMailer @Company='HFHMCTX', @Message='has been moved to the bancline directory to be processed.'</executesql> </event>
-</sqlinstruction>

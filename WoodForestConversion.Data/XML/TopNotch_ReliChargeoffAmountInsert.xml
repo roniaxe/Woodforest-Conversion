@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_Topnotchdb#" database="Wnbutility" timeout="3500">
-		<executesql>EXEC dbo.spInsert_ReLiCOAmountnTopnotch</executesql>
-	</event>
-</sqlinstruction>

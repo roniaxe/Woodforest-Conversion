@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CD_CLXREF.TXT" to="#import_archive#\CD_CLXREF.TXT" />
-	<move file="#import_download#\CD_CLXREF.TXT.xxx" to="#import_archive#\CD_CLXREF.TXT.xxx" />
-</fileinstructions>

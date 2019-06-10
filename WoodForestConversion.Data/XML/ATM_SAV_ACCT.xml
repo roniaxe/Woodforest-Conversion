@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\ATM_SAV_ACCT" to="#import_archive#\ATM_SAV_ACCT" />
-	<move file="#import_download#\ATM_SAV_ACCT.xxx" to="#import_archive#\ATM_SAV_ACCT.xxx" />
-</fileinstructions>

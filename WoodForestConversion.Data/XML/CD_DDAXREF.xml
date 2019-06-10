@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CD_DDAXREF.TXT" to="#import_archive#\CD_DDAXREF.TXT" />
-	<move file="#import_download#\CD_DDAXREF.TXT.xxx" to="#import_archive#\CD_DDAXREF.TXT.xxx" />
-</fileinstructions>

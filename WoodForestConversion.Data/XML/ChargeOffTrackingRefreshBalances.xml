@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  
-				
-	-->
-	<event server="#server_wnbappsdb#" database="reports" timeout="900">
-		<executesql>EXEC rptChargeOffRefreshBalances</executesql>
-	</event>
-</sqlinstruction>

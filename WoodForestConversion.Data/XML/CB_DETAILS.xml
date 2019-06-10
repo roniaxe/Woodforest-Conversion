@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CB_DETAILS.zip" to="#import_archive#\CB_DETAILS.zip" />
-	<move file="#import_download#\CB_DETAILS.xxx" to="#import_archive#\CB_DETAILS.xxx" />
-	<delete file="#import_extractto#\CB_DETAILS" />
-</fileinstructions>

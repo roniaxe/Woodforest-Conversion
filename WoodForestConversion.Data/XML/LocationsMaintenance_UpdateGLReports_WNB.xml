@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  
-	-->
-	<event server="#server_woodforestdb#" database="#database_banklineWNB#" timeout="300">
-		<executesql>EXEC dbo.spGLReportsAddCursor</executesql>
-	</event>
-	
-</sqlinstruction>

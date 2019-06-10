@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for the daily WebNet BAI Sanity Check
-	-->
-	<event server="#server_activitydb#" database="#database_dda#" timeout="3600">
-		<executesql>EXEC dbo.spBAIFileLoadSanityCheck</executesql>
-	</event>
-</sqlinstruction>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  called PostilionSettlement-ACHSanityCheck.xml
-	-->
-	<event server="#server_postilionoffice#" database="POUtils" timeout="3600">
-		<executesql>EXEC dbo.Util_PostilionACHSanity 1</executesql>
-	</event>
-</sqlinstruction>

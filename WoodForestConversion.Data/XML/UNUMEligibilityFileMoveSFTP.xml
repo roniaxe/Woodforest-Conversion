@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <copy file="\\woodforest\jobs\HR_Interfaces\UNUM\Archive\Eligibility\" search="WoodforestElig#DATE(MMddyyyy)#.txt" to="\\sftp.woodforest.net\users\hr\unum\outgoingTCS\" />
-</fileinstructions>

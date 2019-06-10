@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <copy file="\\sftp.woodforest.net\users\loanops\icgtax\CurrentLoanStatus.icg" to="\\DC1CVIIS01\LQAS\ICG\CurrentLoanStatus.icg" /> 
-  <move file="\\sftp.woodforest.net\users\loanops\icgtax\CurrentLoanStatus.icg" to="\\DC1CVIIS01\LQAS\ICG\Archive\#DATE(yyyyMMdd)#_CurrentLoanStatus.icg" /> 
-</fileinstructions>

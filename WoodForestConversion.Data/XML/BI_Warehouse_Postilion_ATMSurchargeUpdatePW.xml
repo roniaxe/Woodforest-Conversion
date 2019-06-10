@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Updates Surcharge fees for each transaction in the PostilionTransaction table.
-	-->
-	<event server="#server_postilionoffice#" database="POUtils" timeout="300">
-		<executesql>EXEC dbo.util_PostilionTransactionPW_Updates</executesql>
-	</event>
-</sqlinstruction>

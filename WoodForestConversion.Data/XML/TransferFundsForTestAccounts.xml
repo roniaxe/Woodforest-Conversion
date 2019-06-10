@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Transfer Funds For Test Accounts
-	-->
-- <event server="#Server_ActivityDB#" database="#database_activity#" timeout="1000">
-		<executesql>EXEC dbo.util_TransferTestAccountfunds</executesql>
-	</event>
-</sqlinstruction>

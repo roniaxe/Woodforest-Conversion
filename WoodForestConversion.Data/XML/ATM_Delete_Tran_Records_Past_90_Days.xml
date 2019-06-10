@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Delete ATM Tran records past 90 days -->
-
-	<event server="#server_activitydb#" database="ATM" timeout="3600000">
-		<executesql>exec spATMTranOver90DayDelete 4000</executesql>
-	</event>
-
-</sqlinstruction>

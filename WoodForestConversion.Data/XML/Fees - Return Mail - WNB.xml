@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Return Mail Fee - WNB -->
-	<event server="#server_activitydb#" database="#database_bancline_ALL#" timeout="600">
-		<executesql>EXEC dbo.Util_ReturnMailFee @CoreID='#core_id#'</executesql>
-	</event>
-</sqlinstruction>

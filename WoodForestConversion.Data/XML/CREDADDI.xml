@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CREDADDI.zip" to="#import_archive#\CREDADDI.zip" />
-	<move file="#import_download#\CREDADDI.xxx" to="#import_archive#\CREDADDI.xxx" />
-	<delete file="#import_extractto#\CREDADDI" />
-</fileinstructions>

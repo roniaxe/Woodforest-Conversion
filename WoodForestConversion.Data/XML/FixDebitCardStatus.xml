@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="600">
-		<!-- UPDATE dbo.DebitCard SET Status = 0 WHERE Status = 18 -->
-		<executesql></executesql>
-	</event>
-</sqlinstruction>

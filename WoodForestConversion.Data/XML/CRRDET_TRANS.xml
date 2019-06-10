@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CRRDET_TRANS.xml" to="#import_archive#\CRRDET_TRANS.xml" />
-	<copy file="#import_download#\CRRDET_TRANS.xsd" to="#import_archive#\CRRDET_TRANS.xsd" />
-</fileinstructions>

@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Builds TP Bond redemption tables
-	-->
-- <event server="#Server_TellerPlusDB#" database="#database_WNBUtility#" timeout="1000">
-		<executesql>exec dbo.Tellerplus_BuildBondRedemptionTable</executesql>
-	</event>
-</sqlinstruction>

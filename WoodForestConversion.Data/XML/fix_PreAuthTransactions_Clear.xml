@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Find Pre-auth transactions from PostilionTransaction table that may not match the Force Post transaction
-	-->
-	<event server="#server_activitydb#" database="atm" timeout="2400">
-		<executesql>EXEC fix_PreAuthTransactions_Clear</executesql>
-	</event>
-</sqlinstruction>

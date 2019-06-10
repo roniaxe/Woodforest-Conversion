@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Change settlment records with status of U before 9:00 PM to an  S status also run fix sproc for XFER records
-	-->
-	<event server="#server_activitydb#" database="#database_activity#" timeout="2700">
-		<executesql>EXEC dbo.util_ReadySettlements</executesql>
-	</event>
-</sqlinstruction>

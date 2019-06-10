@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure to load daily call data for tech support team -->
-	<event server="DataWarehouseDB" database="WNBUtility" timeout="8000">
-		<executesql>EXEC dbo.spLoadCallDataForTechSupportTeam</executesql>
-	</event>
-</sqlinstruction>

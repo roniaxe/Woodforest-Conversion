@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  
-			RefundTracking	Processed
-	-->
-	<event server="#server_refundtracking#" database="#database_refundtracking#" timeout="1500">
-		<executesql>EXEC dbo.RefundTracking_StatusUpdate @OldStatus='Uploading',@NewStatus='Processed'</executesql>
-	</event>
-</sqlinstruction>

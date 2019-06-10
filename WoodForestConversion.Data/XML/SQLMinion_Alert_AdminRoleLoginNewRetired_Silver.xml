@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<sqlinstruction>
-	<!-- 
-	--> 
-	<event server="#server_Miniondb#" database="Minion" timeout="21600">
-  		<executesql>EXEC [Alert].[AdminRoleLoginNewRetired] @EmailProfile='SQLMinion' , @ServiceLevel='Silver'</executesql>
-  	</event>
-</sqlinstruction>

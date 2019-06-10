@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates backdated entries into GLHist_Current and updates the GLControl totals
-	-->
-	<event server="#server_warehousedb#" database="GLHist" timeout="2100">
-		<executesql>EXEC util_GetBackdatedEntries</executesql>
-	</event>
-</sqlinstruction>

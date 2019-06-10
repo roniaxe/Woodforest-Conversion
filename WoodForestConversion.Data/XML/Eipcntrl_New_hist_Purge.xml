@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Refresh Host Balances -->
-	<event server="#server_banclineDB#" database="#database_bancline#" timeout="1200">
-		<executesql>EXEC Util_EIPCNTRL_NEW_HIST_Purge</executesql>
-	</event>
-</sqlinstruction>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\glhist#DATEADD(M|d, -1|-1, MM)#" to="#import_archive#\glhist#DATEADD(M|d, -1|-1, MM)#" />
-	<move file="#import_download#\glhist#DATEADD(M|d, -1|-1, MM)#.xxx" to="#import_archive#\glhist#DATEADD(M|d, -1|-1, MM)#.xxx" />
-</fileinstructions>

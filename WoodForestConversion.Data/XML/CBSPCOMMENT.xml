@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CBSPCOMMENT.zip" to="#import_archive#\CBSPCOMMENT.zip" />
-	<move file="#import_download#\CBSPCOMMENT.xxx" to="#import_archive#\CBSPCOMMENT.xxx" />
-	<delete file="#import_extractto#\CBSPCOMMENT" />
-</fileinstructions>

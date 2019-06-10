@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Settlements - Harvey Fee Refunds
-	-->
-	<event server="#server_activitydb#" database="#database_woodforest#" timeout="14400">
-		<executesql>exec dbo.RefundNSF_ODFees_for_Harvey</executesql>
-	</event>
-</sqlinstruction>

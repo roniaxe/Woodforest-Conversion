@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  OverdraftLetterSummarySanityCheck -->
-	<event server="#Server_datawarehouseDB#" database="#Database_WNB#" timeout="1000">
-		<executesql>EXEC OverdraftLetterSummarySanityCheck</executesql>
-	</event>
-</sqlinstruction>

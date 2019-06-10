@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<fileinstructions>
-	<copy file="\\sftp.woodforest.net\users\loanops\criflending\Laserpro\" search="*.XFR" to="\\MSCVLOANFS01.woodforest.net\CreditRisk_PortfolioMonitoring\Action\Laserpro\"/>
-	<move file="\\sftp.woodforest.net\users\loanops\criflending\Laserpro\" search="*.XFR" to="\\woodforest.net\Jobs\ACTION\Laserpro\"/>
-</fileinstructions>

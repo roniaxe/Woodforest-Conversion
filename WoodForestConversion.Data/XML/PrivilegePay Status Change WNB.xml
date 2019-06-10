@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="dtsrun" args="/V {B8649F17-9078-4829-B066-903ACCAE34F2} /F \\woodforest.net\jobs\Archon2\DTS\Packages\PrivilegePay Status Change File Export WNB.dts" ignoreout="0" />
-</commands>

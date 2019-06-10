@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Update new household transactions and cif branch
-	-->
-	<event server="#server_datawarehousedb#" database="WNB" timeout="14400">
-		<executesql>EXEC dbo.spNewHouseholdActivityTransactionUpdate</executesql>
-	</event>
-</sqlinstruction>	
-

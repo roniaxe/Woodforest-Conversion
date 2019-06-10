@@ -1,5 +1,0 @@
-<sqlinstruction>
-<event server="#server_bankerstoolboxdb#" database="WNBUtility" timeout="3600">
-<executesql>EXECUTE [BKTBRead_DaemonLog_UpdateLogTimes]</executesql> 
-</event>
-</sqlinstruction>

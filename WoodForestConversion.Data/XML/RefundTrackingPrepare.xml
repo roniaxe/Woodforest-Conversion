@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  
-			Prepare RefundTracking	
-	-->
-	<event server="#server_refundtracking#" database="#database_refundtracking#" timeout="1500">
-		<executesql>EXEC dbo.RefundTracking_StatusUpdate @OldStatus='Pending',@NewStatus='Uploading'</executesql>
-	</event>
-</sqlinstruction>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-<copy file="\\sftp.woodforest.net\users\treasury\MagnoliaISD\Paycard" search="PEC*.txt" to="\\wnbcore\transfer\WNB\MEMOS" />
-<move file="\\sftp.woodforest.net\users\treasury\MagnoliaISD\Paycard" search="PEC*.txt" to="\\dc1ivspsfe01\sites\TreasuryManagement\Team\Paycard\Magnolia ISD" />
-</fileinstructions>

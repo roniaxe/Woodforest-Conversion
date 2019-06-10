@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Download CheckPay Status vales
-	-->
-	<event server="#server_activitydb#" database="#database_banklinewnb#" timeout="6000">
-		<executesql>EXEC dbo.GetDailyCheckPayStat</executesql>
-	</event>
-</sqlinstruction>

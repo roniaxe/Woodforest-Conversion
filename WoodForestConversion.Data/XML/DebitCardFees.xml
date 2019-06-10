@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<commands>
-    <command exec="\\woodforest.net\jobs\archon2\apps\DebitCardFees\DebitCardFees.exe" checkexitcode="1" />
-</commands>

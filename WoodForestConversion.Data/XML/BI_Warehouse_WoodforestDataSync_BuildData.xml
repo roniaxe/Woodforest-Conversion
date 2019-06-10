@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--    
-	-->
-	<event server="#server_ActivityDB#" database="#database_Woodforest#" timeout="7200">
-		<executesql>EXEC dbo.WoodforestDataSync</executesql>
-	</event>
-</sqlinstruction>

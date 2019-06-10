@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!-- Cleanup Ghost Holds -->
-	<event server="#server_ActivityDB#" database="#database_Activity#" timeout="600">
-		<executesql>Exec dbo.Util_CleanupGhostHolds</executesql>
-	</event>
-</sqlinstruction>

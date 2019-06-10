@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  OD Call Campaign Load	-->
-	<event server="#server_activityDB#" database="#database_woodforest#" timeout="108000">
-		<executesql>exec ODCallProgram_ServiceRequest_Load '23:00'</executesql>
-	</event>
-</sqlinstruction>

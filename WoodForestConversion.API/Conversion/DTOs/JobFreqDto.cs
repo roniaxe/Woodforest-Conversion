@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using MVPSI.JAMS;
 using WoodForestConversion.API.Conversion.ConditionsTree;
@@ -58,7 +59,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
         {
             using (var context = new ARCHONEntities())
             {
-                var conditionSets = context.ConditionSets.Where(cs => cs.EntityUID == job.JobUID).ToList();
+                var conditionSets = context.ConditionSets.Where(cs => cs.EntityUID == job.JobUID);
                 var root = conditionSets.FirstOrDefault(cs => cs.ParentSet == Guid.Empty);
                 if (root == null) throw new Exception($"Job {job.JobName} is missing condition hierarchy");
                 var conditions = context.Conditions
@@ -217,16 +218,15 @@ namespace WoodForestConversion.API.Conversion.DTOs
             }
         }
 
-        public void PopulateJobDependencies()
+        public void PopulateJobDependencies(string targetJobName)
         {
+            if (JobConversionHelper.HandleATMCreateJob(targetJobName, Elements)) return;
             foreach (var jobDependencyId in JobDependencies)
             {
-                if (JobConversion.ArchonJobDictionary.TryGetValue(jobDependencyId.Value, out var job))
+                if (JobConversionHelper.ArchonJobDictionary.TryGetValue(jobDependencyId.Value, out var job))
                 {
-                    if (JobConversionHelper.HandleATMCreateJob(job.JobName, Elements)) continue;
-
                     job.JobName = JobConversionHelper.FixJobName(job.JobName);
-                    var folder = JobConversion.JobFolderName[jobDependencyId.Value].CategoryName;
+                    var folder = JobConversionHelper.JobFolderName[jobDependencyId.Value].CategoryName;
                     var destination = string.IsNullOrWhiteSpace(folder) 
                         ? $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{job.JobName}" 
                         : $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{folder}\{job.JobName}";

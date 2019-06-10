@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_activitydb#" database="#database_activity#" timeout="300">
-		<executesql>EXEC dbo.spUpdateODLimit</executesql>
-	</event>
-</sqlinstruction>

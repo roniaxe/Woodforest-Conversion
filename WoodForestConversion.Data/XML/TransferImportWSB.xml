@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="#ssis201664bit#" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\AutomaticTransferWSB.dtsx /SET \Package.Variables[User::TransferFilePath].Properties[Value];#import_extractto#\TRANSFER " ignoreout="0" checkexitcode="1" />
-</commands>

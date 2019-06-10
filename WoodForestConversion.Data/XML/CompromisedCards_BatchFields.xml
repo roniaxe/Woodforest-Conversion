@@ -1,5 +1,0 @@
-<sqlinstruction>
-	<event server="#server_SQLStagingDB#" database="#database_Batch#" timeout="1000">
-		<executesql>EXEC dbo.usp_CompromisedCards_BatchFields</executesql>
-	</event>
-</sqlinstruction>

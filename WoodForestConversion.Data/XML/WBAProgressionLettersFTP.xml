@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <move file="\\woodforest.net\jobs\Letters_WBAProgression\#DATE(yyyyMMdd)#_WBA_ProgressionLetters.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\#DATE(yyyyMMdd)#_WBA_ProgressionLetters.txt" />
-</fileinstructions>

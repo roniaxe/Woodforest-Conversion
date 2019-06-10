@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Update Data for Reli Application details with score report
-	-->
-	<event server="#server_datawarehousedb#" database="#database_WNBUtility#" timeout="2700">
-		<executesql>EXEC dbo.spReliAppDetUpdate</executesql>
-	</event>
-</sqlinstruction>

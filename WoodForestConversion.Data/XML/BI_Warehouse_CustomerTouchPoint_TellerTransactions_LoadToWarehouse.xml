@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--    
-	-->
-	<event server="#server_datawarehousedb#" database="CustomerTouchpoint" timeout="7200">
-		<executesql>EXEC dbo.BI_CustomerTouchPoint_TellerTransactions_Load</executesql>
-	</event>
-</sqlinstruction>

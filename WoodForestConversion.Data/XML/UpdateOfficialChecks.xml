@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates daily balances in the data warehouse
-	-->
-	<event server="#server_activitydb#" database="#database_dda#" timeout="300">
-		<executesql>EXEC UpdateOffChks</executesql>
-	</event>
-</sqlinstruction>

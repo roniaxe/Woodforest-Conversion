@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates daily Key Money and Projected Net Income amounts into Datawarehouse for the Accounting dept.  
-	-->
-	<event server="#server_warehousedb#" database="WNB" timeout="7200">
-		<executesql>EXEC dbo.util_BuildDailyTrend</executesql>
-	</event>
-</sqlinstruction>

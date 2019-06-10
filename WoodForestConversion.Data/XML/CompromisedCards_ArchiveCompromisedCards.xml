@@ -1,5 +1,0 @@
-<sqlinstruction>
-	<event server="#server_sqlstagingdb#" database="#database_batch#" timeout="1000">
-		<executesql>EXEC dbo.usp_CompromisedCards_Cleanup</executesql>
-	</event>
-</sqlinstruction>

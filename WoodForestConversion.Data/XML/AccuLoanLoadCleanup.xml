@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure to Cleanup AccuLoanLoad Database -->
-	<event server="ThirdPartyRSDB" database="AccuLoanLoad" timeout="8000">
-		<executesql>EXEC dbo.AccuLoanLoadCleanUp</executesql>
-	</event>
-</sqlinstruction>

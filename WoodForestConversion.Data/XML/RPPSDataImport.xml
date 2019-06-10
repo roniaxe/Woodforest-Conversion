@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-<command exec="#SSIS2016#" 
-			args="/F #directory_ssis#\BI\RPPSDataImport.dtsx  /SET \Package.Variables[User::ArchiveDirectory].Properties[Value];\\mscvpayutl01\mastercard\RPPS\Archives\\ /SET \Package.Variables[User::DestinationDirectory].Properties[Value];\\sftp.woodforest.net\users\treasury\Paystar\outgoing\\ /SET \Package.Variables[User::SourceDirectory].Properties[Value];\\sftp.woodforest.net\users\debit\mastercardrpps\incoming\\ /SET \Package.Variables[User::FileNamingConvention].Properties[Value];MCI.AR.T708.S.E0088494" ignoreout="0" checkexitcode="1" />
-</commands>

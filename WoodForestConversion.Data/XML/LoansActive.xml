@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<sqlinstruction>
-	<!-- 
-	--> 
-	<event server="#server_historicaldb#" database="WNBUtility" timeout="36000">
-  		<executesql>EXEC dbo.spLoansActive</executesql> 
-  	</event>
-
-</sqlinstruction>

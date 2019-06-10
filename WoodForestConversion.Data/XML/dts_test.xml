@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="C:\Program Files (x86)\Microsoft SQL Server\80\Tools\Binn\DTSRUN
-" args="/F \\woodforest.net\jobs\Archon2\DTS\Packages\DTS_TEST.dts /G 9435760F-B0BC-48F7-8243-DE375903F775" ignoreout="0" />
-</commands>

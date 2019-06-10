@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Missing 220's - Match and Kill ATMTran and Transaction History
-	-->
-	<event server="#server_activitydb#" database="#database_staging#" timeout="6000">
-		<executesql>EXEC dbo.Util_Missing220_MatchAndKill_NoDescription</executesql>
-	</event>
-</sqlinstruction>

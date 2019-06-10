@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
- <fileinstructions>
-  <copy file="\\woodforest.net\Jobs\ODLetters\ODProgram\#DATE(yyyyMMdd)#_STRDisqualificationLetters.txt" to="\\woodforest.net\Jobs\ODLetters\ODProgram\Backup\#DATE(yyyyMMdd)#_STRDisqualificationLetters.txt" /> 
-  <move file="\\woodforest.net\Jobs\ODLetters\ODProgram\#DATE(yyyyMMdd)#_STRDisqualificationLetters.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\#DATE(MMddyyyy)#_STRDisqualificationLetters.txt" /> 
-  </fileinstructions>

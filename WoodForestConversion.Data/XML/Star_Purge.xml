@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  This is the process to Archive data from Star
-	-->
-	<event server="#server_thirdpartydb#" database="#database_star#" timeout="0">
-		<executesql>EXEC dbo.ssp_archive</executesql>
-	</event>
-</sqlinstruction>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CD_CRRTRANS" to="#import_archive#\CD_CRRTRANS" />
-	<move file="#import_download#\CD_CRRTRANS.xxx" to="#import_archive#\CD_CRRTRANS.xxx" />
-</fileinstructions>

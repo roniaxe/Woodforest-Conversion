@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="C:\Program Files\Microsoft SQL Server\110\DTS\BINN\dtexec.exe" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\Optimizer.dtsx" ignoreout="0" checkexitcode="1" />
-</commands>

@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Inserts a daily summary from PostilionTransaction 
-	-->
-	<event server="#server_reportwarehouse#" database="#database_postilion#" timeout="10800">
-		<executesql>Update Statistics dbo.PostilionTransaction</executesql>
-	</event>
-</sqlinstruction>

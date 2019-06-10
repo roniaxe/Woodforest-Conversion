@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure Hold File Cleanup
-	-->
-	<event server="BanklineDB" database="Bankline" timeout="300">
-		<executesql>EXEC spHoldFileCleanup</executesql>
-	</event>
-	
-</sqlinstruction>

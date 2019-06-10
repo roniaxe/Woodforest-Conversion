@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CIF_MAINT.zip" to="#import_archive#\CIF_MAINT.zip" />
-	<move file="#import_download#\CIF_MAINT.xxx" to="#import_archive#\CIF_MAINT.xxx" />
-	<delete file="#import_extractto#\CIF_MAINT.zip" />
-</fileinstructions>

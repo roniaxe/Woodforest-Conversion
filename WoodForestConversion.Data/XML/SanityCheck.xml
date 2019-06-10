@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_ddadb#" database="#database_dda#" timeout="300">
-		<executesql>EXEC dbo.spProcessDone</executesql>
-	</event>
-</sqlinstruction>

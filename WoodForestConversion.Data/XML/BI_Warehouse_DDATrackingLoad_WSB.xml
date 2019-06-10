@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Load DDA Tracking data for month-end
-	-->
-	<event server="#server_datawarehousedb#" database="Historical" timeout="7200">
-		<executesql>EXEC dbo.spDDATrackingLoad @Bank='FSB'</executesql>
-	</event>
-</sqlinstruction>

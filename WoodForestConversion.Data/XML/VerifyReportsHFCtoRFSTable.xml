@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_activitydb#" database="#database_banklineWNB#" timeout="600">
-<executesql>EXEC spVerifyReportInfoHFCtoRFSTable</executesql>
-</event>
-</sqlinstruction>
-

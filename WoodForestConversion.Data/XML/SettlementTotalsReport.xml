@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Account Tracking Warehouse Update
-	-->
-	<event server="#server_activitydb#" database="#database_activity#" timeout="1800">
-		<executesql>EXEC rptSettlementTotalsByBatch</executesql>
-	</event>
-</sqlinstruction>

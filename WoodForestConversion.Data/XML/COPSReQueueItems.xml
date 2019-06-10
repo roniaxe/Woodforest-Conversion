@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure COPS - (Re)Queue Items
-	-->
-	<event server="#server_chargeoffdb#" database="#database_chargeoff#" timeout="600">
-		<executesql>EXEC qsp_UpdateDailyCallQueue</executesql>
-	</event>
-</sqlinstruction>

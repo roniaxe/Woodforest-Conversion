@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-<command exec="#ssis201664bit#" args="/F \\woodforest.net\Jobs\Archon2\SSIS\Packages\CL-005.dtsx /SET \Package.Variables[User::CoreID].Properties[Value];#core_id# /SET \Package.Variables[User::PathToSourceFile].Properties[Value];#import_download#\REX_CL-005" ignoreout="0" checkexitcode="1" />
-</commands>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLNNAIC" to="#import_archive#\CLNNAIC" />
-	<move file="#import_download#\CLNNAIC.xxx" to="#import_archive#\CLNNAIC.xxx" />
-</fileinstructions>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CD_SDBTRANS" to="#import_archive#\CD_SDBTRANS" />
-	<move file="#import_download#\CD_SDBTRANS.xxx" to="#import_archive#\CD_SDBTRANS.xxx" />
-</fileinstructions>

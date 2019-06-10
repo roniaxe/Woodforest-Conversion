@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Create records for rows with inncorrect bus recon date
-	-->
-	<event server="#server_postilionoffice#" database="POutils" timeout="2700">
-		<executesql>EXEC dbo.Util_UpdatePendingPulseDateIssue</executesql>
-	</event>
-</sqlinstruction>

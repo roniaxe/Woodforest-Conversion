@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Report Warehousing Branch Account Performance Calc process
-	-->
-	<event server="#server_warehousedb#" database="WNB" timeout="2000">
-		<executesql>EXEC dbo.rptBranchAcctPerfCalc</executesql>
-	</event>
-</sqlinstruction>

@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates CardAccount for Card Management
-	-->
-	<event server="PaymentServicesDB" database="CardManagement" timeout="2100">
-		<executesql>EXEC spDebitCardPopulate</executesql>
-	</event>
-</sqlinstruction>

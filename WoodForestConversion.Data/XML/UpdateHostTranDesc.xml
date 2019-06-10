@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#TransactionHistoryDB#" database="TransactionHistory" timeout="3000">
-		<executesql>EXEC dbo.hcp_UpdateTransactionDescriptions</executesql>
-	</event>
-</sqlinstruction>

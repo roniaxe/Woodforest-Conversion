@@ -1,5 +1,0 @@
-<sqlinstruction>
-<event server="#server_bankerstoolboxdb#" database="WNBUtility" timeout="3600">
-<executesql>EXECUTE [BKTBInsert_Daemon_SequencesRuns]</executesql> 
-</event>
-</sqlinstruction>

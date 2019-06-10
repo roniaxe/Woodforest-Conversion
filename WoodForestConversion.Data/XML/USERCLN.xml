@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\USERCLN" to="#import_archive#\USERCLN" />
-	<move file="#import_download#\USERCLN.xxx" to="#import_archive#\USERCLN.xxx" />
-</fileinstructions>

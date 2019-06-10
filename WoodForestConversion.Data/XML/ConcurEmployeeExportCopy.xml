@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<fileinstructions>
-  <copy file="\\woodforest.net\jobs\ConcurExpense\Users\" search="employee_p0002117zxh5_*" to="\\sftp.woodforest.net\users\hr\concur\outgoing" />
-  <copy file="\\woodforest.net\jobs\ConcurExpense\Users\" search="list_p0002117zxh5_*" to="\\sftp.woodforest.net\users\hr\concur\outgoing" />
-</fileinstructions>

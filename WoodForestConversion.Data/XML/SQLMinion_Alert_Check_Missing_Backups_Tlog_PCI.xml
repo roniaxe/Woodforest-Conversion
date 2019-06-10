@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<sqlinstruction>
-	<!-- 
-	--> 
-	<event server="#server_Miniondb#" database="Minion" timeout="21600">
-  		<executesql>EXEC Alert.Backups @SearchType = 'SLA', @SearchValue = 'PCI', @BackupType = 'Log', @IncludeDefer = 1, @IncludeException = 1, @IncludeChange = 1, @EmailProfile = 'SQLMinion'</executesql> 
-  	</event>
-</sqlinstruction>

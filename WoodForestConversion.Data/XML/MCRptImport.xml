@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="#ssis201664bit#" args="/F \\woodforest.net\jobs\Archon2\SSIS\Packages\VisualStudio2008\MCActivityRptV2.dtsx" ignoreout="0" checkexitcode="1" />
-</commands>

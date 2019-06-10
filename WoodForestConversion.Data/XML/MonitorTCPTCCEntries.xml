@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Monitor Markups
-	-->
-	<event server="wnbsql01" database="Reports" timeout="300">
-		<executesql>EXEC dbo.MonitorTCPTCCChargeOffs</executesql>
-	</event>
-</sqlinstruction>

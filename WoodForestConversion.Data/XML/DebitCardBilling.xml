@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Generate Debit Card Billing
-	-->
-- <event server="#Server_ActivityDB#" database="#Database_WOODFOREST#" timeout="10000">
-		<executesql>EXEC dbo.util_DebitCardFees</executesql>
-	</event>
-</sqlinstruction>

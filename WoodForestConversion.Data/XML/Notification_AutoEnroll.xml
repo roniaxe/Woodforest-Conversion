@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!-- Auto enroll new customers into notifications. -->
-	<event server="#server_woodforestdb#" database="#database_woodforest#" timeout="1200">
-		<executesql>EXEC dbo.Notification_Engine_NewCustomer</executesql>
-	</event>
-</sqlinstruction>

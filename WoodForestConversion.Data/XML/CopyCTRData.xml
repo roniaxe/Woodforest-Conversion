@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_tellerplusdb#" database="TellerWNBUtils" timeout="3000">
-		<executesql>
-			EXEC dbo.spCTR_CTRExport
-		</executesql>
-	</event>
-</sqlinstruction>

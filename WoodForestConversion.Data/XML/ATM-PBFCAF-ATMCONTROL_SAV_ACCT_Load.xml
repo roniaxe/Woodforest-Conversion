@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  
-	-->
-	<event server="#server_atmdb#" database="#database_atm#" timeout="1800">
-		<executesql>EXEC dbo.DebitCard_ATMCONTROL_SAV_ACCT_Load</executesql>
-	</event>
-</sqlinstruction>

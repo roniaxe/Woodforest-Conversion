@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure Holds - Update Hold Date
-	-->
-	<event server="BanklineDB" database="Bankline" timeout="300">
-		<executesql>EXEC util_UpdateHoldDate</executesql>
-	</event>
-	
-</sqlinstruction>

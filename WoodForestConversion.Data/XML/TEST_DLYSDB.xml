@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\TEST_DLYSDB" to="#import_archive#\TEST_DLYSDB" />
-	<move file="#import_download#\TEST_DLYSDB.xxx" to="#import_archive#\TEST_DLYSDB.xxx" />
-</fileinstructions>

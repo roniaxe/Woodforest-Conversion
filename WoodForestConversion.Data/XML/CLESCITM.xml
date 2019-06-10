@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLESCITM" to="#import_archive#\CLESCITM" />
-	<move file="#import_download#\CLESCITM.xxx" to="#import_archive#\CLESCITM.xxx" />
-</fileinstructions>

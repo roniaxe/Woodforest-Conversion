@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Get AIM Sweep Markups from Core -->
-	<event server="WNBSQL01" database="#database_dda#" timeout="600">
-		<executesql>Exec util_GetAIMSweepMarkups</executesql>
-	</event>
-</sqlinstruction>

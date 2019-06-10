@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!-- Create ACH charge back settlement records -->
-	<event server="#server_activitydb#" database="Activity" timeout="2700">
-		<executesql>EXEC dbo.util_SettlementACHChargeBack</executesql>
-	</event>
-</sqlinstruction>

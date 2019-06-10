@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Update Account Data
-	-->
-	<event server="wbcplysql07\thirdparty2005,40007" database="ThirdPartyUtils" timeout="3000">
-		<executesql>exec dbo.spContactLetters_updateMatchingInfo</executesql>
-	</event>
-</sqlinstruction>

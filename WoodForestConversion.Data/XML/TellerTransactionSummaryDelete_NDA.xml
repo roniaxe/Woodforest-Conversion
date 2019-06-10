@@ -1,5 +1,0 @@
-<sqlinstruction>
-	<event server="#server_tellerdb#" database="wnbutility" timeout="3000">
-		<executesql>EXEC dbo.TransactionsSummary_NDA_Delete</executesql>
-	</event>
-</sqlinstruction>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="\\sftp.woodforest.net\users\branchops\hpidirect\incoming\" search="*PayrollAdviceFromHPI*" to="\\woodforest.net\jobs\HPI\" />
-</fileinstructions>

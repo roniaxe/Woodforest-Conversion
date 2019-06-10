@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CBRATCLOSE.zip" to="#import_archive#\CBRATCLOSE.zip" />
-	<move file="#import_download#\CBRATCLOSE.xxx" to="#import_archive#\CBRATCLOSE.xxx" />
-	<delete file="#import_extractto#\CBRATCLOSE" />
-</fileinstructions>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Load related new household activity
-	-->
-	<event server="#server_datawarehousedb#" database="WNB" timeout="14400">
-		<executesql>EXEC dbo.spNewHouseholdActivityRelatedLoad</executesql>
-	</event>
-</sqlinstruction>	
-

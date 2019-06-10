@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure to do Debit Card Cleanup.
-	-->
-	<event server="#server_activitydb#" database="ATM" timeout="300">
-		<executesql>EXEC dbo.util_DebitCardCleanup</executesql>
-	</event>
-</sqlinstruction>

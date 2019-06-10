@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
- <sqlinstruction>
-   <event server="ACTIVITYDB" database="Woodforest" timeout="700">
-    <executesql>
-       <![CDATA[  EXEC dbo.SCCUpgrade_ServiceRequest_Load ]]>
-    </executesql>
-  </event>
-</sqlinstruction>

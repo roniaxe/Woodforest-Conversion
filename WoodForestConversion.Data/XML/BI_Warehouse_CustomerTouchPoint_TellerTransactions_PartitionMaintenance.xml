@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--    
-	-->
-	<event server="#server_datawarehousedb#" database="CustomerTouchpoint" timeout="7200">
-		<executesql>EXEC dbo.TellerTransactionsPartitionMaintenance</executesql>
-	</event>
-</sqlinstruction>

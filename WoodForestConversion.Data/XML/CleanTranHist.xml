@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_banclinedb#" database="#database_bancline#" timeout="300">
-		<executesql>EXEC dbo.HostMerge_PrepareTransactionSerial</executesql>
-	</event>
-	<!-- <event server="#server_ddadb#" database="#database_dda#" timeout="300">
-		<executesql>EXEC dbo.hcp_CleanTransactionHistory</executesql>
-	</event> -->
-</sqlinstruction>

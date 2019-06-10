@@ -1,5 +1,0 @@
-<sqlinstruction>
-	<event server="#server_activitydb#" database="activity" timeout="3000">
-		<executesql>EXEC [Account].[TransactionSettings_ReviewImmediateAvailabilityGlobal]</executesql>
-	</event>
-</sqlinstruction>

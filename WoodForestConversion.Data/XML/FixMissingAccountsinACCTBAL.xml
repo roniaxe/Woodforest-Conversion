@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure Fix missing accounts in ACCT_BAL
-	-->
-	<event server="DDADB" database="DDA" timeout="300">
-		<executesql>EXEC spFixMissingAccts</executesql>
-	</event>
-	
-</sqlinstruction>

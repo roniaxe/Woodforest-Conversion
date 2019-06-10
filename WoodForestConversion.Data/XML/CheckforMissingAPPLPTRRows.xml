@@ -1,8 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedure Check for Missing APPLPTR Rows
-	-->
-	<event server="DDADB" database="DDA" timeout="300">
-		<executesql>EXEC spCheckAcctBal</executesql>
-	</event>
-	
-</sqlinstruction>

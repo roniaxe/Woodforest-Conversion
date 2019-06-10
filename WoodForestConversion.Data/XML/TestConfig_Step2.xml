@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<monitor file="D:\Jobs\Archon\Configuration\" search="*.zip" />
-	<move file="D:\Jobs\Archon\Configuration\" search="*.zip" to="D:\Jobs\" />
-</fileinstructions>

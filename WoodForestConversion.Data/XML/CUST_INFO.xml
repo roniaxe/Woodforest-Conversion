@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CUST_INFO" to="#import_archive#\CUST_INFO" />
-	<move file="#import_download#\CUST_INFO.xxx" to="#import_archive#\CUST_INFO.xxx" />
-</fileinstructions>

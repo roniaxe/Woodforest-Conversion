@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\DDA1" to="#import_archive#\DDA1" />
-	<move file="#import_download#\DDA1.xxx" to="#import_archive#\DDA1.xxx" />
-</fileinstructions>

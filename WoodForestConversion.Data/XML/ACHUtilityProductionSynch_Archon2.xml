@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="#Archon_Apps2012#\ACHUtility\ACHUtility.exe" args="4" ignoreout="1" />
-</commands>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-  <command exec="E:\Jobs\Archon2\Apps\MapQuest\Curl.exe" args="-include -F &quot;file=@E:\Jobs\MapQuestUploads\ExportData.csv&quot; -F &quot;user=31980&quot; -F &quot;pass=!woodforest1hmc&quot; -s -k https://trc.mapquest.com/dmdata/upload.do" ignoreout="1" />
-</commands>
-

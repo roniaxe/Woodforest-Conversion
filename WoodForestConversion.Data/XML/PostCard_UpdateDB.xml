@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="#PostCard_JobRunPath#\PostCard_UpdateDB.cmd" args="" ignoreout="1" />
-</commands>

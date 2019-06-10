@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="cscript" args="#directory_scripts#\sqlops_SQLMaint_Rebuild_Index.vbs WNBAppsDB include LargeItemReview" ignoreout="0" checkexitcode="1" />
-</commands>
-

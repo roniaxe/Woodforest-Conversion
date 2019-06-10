@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-		<move file="\\wnbutil14\BSASAR\Outgoing\" to="\\wnbutil14\BSASAR\Upload\" search="BSARST.#DATE(yyyy)##DATE(mm)##DATE(dd)#*.WOODFOREST.asc" />
-		<move file="\\wnbutil14\BSASAR\Outgoing\" to="\\wnbutil14\BSASAR\Upload\" search="BSARST.#DATE(yyyy)##DATE(mm)##DATE(dd)#*.WOODFOREST.*.zip" />
-</fileinstructions>

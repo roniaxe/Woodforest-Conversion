@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Missing 220's - Load from MCActivity into staging table
-	-->
-	<event server="#server_reportwarehouse#" database="#database_postilion#" timeout="90000">
-		<executesql>EXEC dbo.Util_Missing220_LoadMCActivityStage</executesql>
-	</event>
-</sqlinstruction>

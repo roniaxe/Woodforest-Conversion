@@ -1,5 +1,0 @@
-<sqlinstruction>
-	<event server="#server_tellerdb#" database="#database_WNBUtility#" timeout="1000">
-		<executesql>EXEC dbo.rptTellerPlusWCFTrans</executesql>
-	</event>
-</sqlinstruction>

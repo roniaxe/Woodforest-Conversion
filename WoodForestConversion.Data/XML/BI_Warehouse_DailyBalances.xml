@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Populates daily balances in the data warehouse
-	-->
-	<event server="#server_datawarehousedb#" database="AccountBalance" timeout="12000">
-		<executesql>EXEC spInsertDDA_LedgerBal</executesql>
-	</event>
-</sqlinstruction>

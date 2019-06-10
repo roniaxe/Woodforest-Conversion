@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\CLN_DIST_NOT" to="#import_archive#\CLN_DIST_NOT" />
-	<move file="#import_download#\CLN_DIST_NOT.xxx" to="#import_archive#\CLN_DIST_NOT.xxx" />
-</fileinstructions>

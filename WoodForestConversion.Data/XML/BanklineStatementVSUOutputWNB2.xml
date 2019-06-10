@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-    <command exec="dtexec" args="/F #directory_ssis#\BanklineStatementVSUOutput.dtsx /SET \Package.Variables[User::ConnectionString].Properties[Value];\&quot;&quot;Data Source=Activitydb;Initial Catalog=BanklineFSB;Provider=SQLNCLI11.0;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-BanklineStatementVSUOutput;&quot;\&quot; /SET \Package.Variables[User::OutputServer].Properties[Value];&quot;\\vsuyear&quot; /SET \Package.Variables[User::OutputFileName].Properties[Value];&quot;WNB715_XMLFILE_WNB2.txt&quot;" ignoreout="0" checkexitcode="1" />
-</commands>

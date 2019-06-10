@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions> 
-  <move file="\\mscvpayutl01\pulsereports\download" search="*D10A*" to="\\mscvpayutl01\pulsereports\Dispute\ReadyToMask\" />
-</fileinstructions>

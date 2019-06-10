@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Postcard sanity check -->
-- <event server="#server_postcarddb#" database="PostCard" timeout="3000">
-		<executesql>EXEC dbo.WNB_RecreateIndexs</executesql>
-	</event>
-</sqlinstruction>

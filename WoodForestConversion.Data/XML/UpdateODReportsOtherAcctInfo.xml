@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Updates other OD Info
-				
-	-->
-	<event server="#server_banclinedb#" database="Reports" timeout="900">
-		<executesql>exec spUpdateODReportsOtherAcctInfo</executesql>
-	</event>
-</sqlinstruction>

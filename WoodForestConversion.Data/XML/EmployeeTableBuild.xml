@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for the daily Settlement files
-	-->
-	<event server="#server_wnbappsdb#" database="#database_wnbutils#" timeout="3000">
-		<executesql>EXEC dbo.spBuildEmployeeTable</executesql>
-	</event>
-</sqlinstruction>

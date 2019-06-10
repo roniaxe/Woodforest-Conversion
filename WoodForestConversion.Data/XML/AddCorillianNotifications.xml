@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Add Notification Accounts from Corillian -->
-	<event server="#server_ActivityDB#" database="#database_woodforest#" timeout="700">
-		<executesql>EXEC dbo.spAddNotifications</executesql>
-	</event>
-</sqlinstruction>

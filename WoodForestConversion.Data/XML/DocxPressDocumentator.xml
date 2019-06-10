@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<commands>
-	<command exec="cscript" args="E:\DocxPress_Code\DocxPressDocumentator.vbs 3" ignoreout="0" checkexitcode="1" />
-</commands>
-

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<event server="#server_banclinedb#" database="#database_bancline#" timeout="900">
-		<executesql>EXEC dbo.HostMerge_PrepareStatements</executesql>
-	</event>
-	<event server="#server_tranhistdb#" database="#database_tranhist#" timeout="900">
-		<executesql>EXEC dbo.HostMerge_ImportStatements_FSB</executesql>
-	</event>
-</sqlinstruction>

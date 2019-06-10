@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<move file="#import_download#\GL" to="#import_archive#\GL" />
-	<move file="#import_download#\GL.xxx" to="#import_archive#\GL.xxx" />
-</fileinstructions>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<!-- Archive the file -->
-	<move file="\\CMBApps\ACBS\GL\UG2R1100.txt" to="\\CMBApps\ACBS\GL\Archive\#DATEADD(d, 0, yyyyMMdd)#_GLInterface.txt" />	     	
-</fileinstructions>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Create Customer Touchpoint - Customer Care record in datawarehouse
-	-->
-	<event server="#server_wnbappsdb#" database="#database_WOSS#" timeout="2700">
-		<executesql>exec BI_CustomerTouchpoint_CustomerCare</executesql>
-	</event>
-</sqlinstruction>

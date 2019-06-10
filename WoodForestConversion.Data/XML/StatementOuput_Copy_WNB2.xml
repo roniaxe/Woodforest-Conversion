@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?> 
- <fileinstructions>
-  <copy file="\\woodforest.net\jobs\STMT\XMLOutput\WNB2\" search="XMLStatementOutput_WNB2*.txt" to="\\mscvfs01\fichewsb\#DATEADD(d, -1, yyyyMMdd)#\" />
-  <move file="\\woodforest.net\jobs\STMT\XMLOutput\WNB2\" search="XMLStatementOutput_WNB2*.txt" to="\\sftp.woodforest.net\users\support-analysts\fis\outgoing\" /> 
-  </fileinstructions>

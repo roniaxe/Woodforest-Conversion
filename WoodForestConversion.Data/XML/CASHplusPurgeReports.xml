@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<commands>
-    <command exec="\\woodforest.net\jobs\archon2\apps\CASHplusPurgeReports\CASHplusPurgeReports.exe" args="" ignoreout="0" />
-</commands>

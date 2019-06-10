@@ -1,6 +1,0 @@
-<sqlinstruction>
-	<!--  Populates weekly DMF data	-->
-	<event server="#server_datawarehousedb#" database="WNB" timeout="10000">
-		<executesql>EXEC SSADMFWeeklyLoad</executesql>
-	</event>
-</sqlinstruction>

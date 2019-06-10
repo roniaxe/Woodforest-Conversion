@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<commands>
-   <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\AdjHub-Remove-Files.ps1 &quot;\\mscvadjapp01\e$\MCOM\Save_image_out&quot; 14" ignoreout="0" checkexitcode="1" />
-   <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\AdjHub-Remove-Files.ps1 &quot;\\mscvadjapp01\e$\MCOM\Save&quot; 60" ignoreout="0" checkexitcode="1" />
-   <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\AdjHub-Remove-Files.ps1 &quot;\\mscvadjapp01\e$\ProgramFiles\Apache Software Foundation\Tomcat 8.5\logs&quot; 2" ignoreout="0" checkexitcode="1" />
-   <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\AdjHub-Remove-Files.ps1 &quot;\\mscvadjapp01\e$\ProgramFiles\Apache Software Foundation\Tomcat 8.5\temp\PDFtoTIFF&quot; 2" ignoreout="0" checkexitcode="1" />
-   <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\AdjHub-Remove-Files.ps1 &quot;\\mscvadjapp01\e$\ProgramFiles\Apache Software Foundation\Tomcat 8.5\temp&quot; 1" ignoreout="0" checkexitcode="1" />
-   <command exec="Powershell" args="-ExecutionPolicy ByPass -file \\woodforest.net\jobs\Archon2\Scripts\AdjHub-Remove-Files.ps1 &quot;\\mscvadjapp01\e$\AdjHubData\Logs&quot; 5 &quot;N&quot;" ignoreout="0" checkexitcode="1" />
-</commands>

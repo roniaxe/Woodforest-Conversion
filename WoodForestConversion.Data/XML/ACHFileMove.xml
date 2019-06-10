@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<fileinstructions>
-	<copy file="\\sftp.woodforest.net\users\ach\adp\" search="*.*" to="\\mscvach01\files\ORIG\in\files\" />
-	<copy file="\\sftp.woodforest.net\users\ach\mcps\" search="*.*" to="\\mscvach01\files\ORIG\in\files\" />
-	<copy file="\\sftp.woodforest.net\users\ach\mctx\" search="*.*" to="\\mscvach01\files\ORIG\in\files\" />
-	<move file="\\sftp.woodforest.net\users\ach\adp\" search="*.*" to="\\sftp.woodforest.net\users\ach\adp\archives\" />
-	<move file="\\sftp.woodforest.net\users\ach\mcps\" search="*.*" to="\\sftp.woodforest.net\users\ach\mcps\archives\" />
-	<move file="\\sftp.woodforest.net\users\ach\mctx\" search="*.*" to="\\sftp.woodforest.net\users\ach\mctx\archives\" />
-</fileinstructions>

@@ -1,7 +1,0 @@
-<sqlinstruction>
-	<!--  Executes Stored Procedures for the daily Settlement files
-	-->
-	<event server="#server_activitydb#" database="#database_woodforest#" timeout="300">
-		<executesql>EXEC dbo.spUpdateBranchTimeZone</executesql>
-	</event>
-</sqlinstruction>

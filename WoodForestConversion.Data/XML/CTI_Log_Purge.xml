@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<sqlinstruction>
-	<!--  Remove records from IVR logging table older than 10 days
-	-->
-	<event server="#server_wnbappsdb#" database="IVR" timeout="300">
-		<executesql>EXEC dbo.IVRCTI_LogPurge</executesql>
-	</event>
-</sqlinstruction>
