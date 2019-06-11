@@ -41,6 +41,7 @@ namespace WoodForestConversion.API.Conversion.Agents
             targetAgent.AgentName = sourceAgent.ServiceName;
             targetAgent.Online = sourceAgent.Available;
             targetAgent.AgentTypeName = "Outgoing";
+            targetAgent.JobLimit = sourceAgent.Capacity;
             targetAgent.AgentPlatform = AgentPlatform.Windows;
             targetAgent.PlatformTypeName = "Windows";
         }
