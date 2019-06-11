@@ -1,8 +1,7 @@
-﻿using System;
+﻿using MVPSI.JAMS;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using MVPSI.JAMS;
 using WoodForestConversion.API.Conversion.ConditionsTree;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.Enums;
@@ -16,12 +15,13 @@ namespace WoodForestConversion.API.Conversion.DTOs
     [Serializable]
     public class JobFreqDto
     {
+        private readonly ARCHONEntities _ctx;
         private TimeSpan? _stopsAtUtc;
 
         #region Properties
         public TreeNode ConditionsTree { get; set; }
         public ElementCollection Elements { get; set; } = new ElementCollection();
-        public ExecutionFrequency ExecutionFrequency { get;}
+        public ExecutionFrequency ExecutionFrequency { get; }
         public int Interval { get; }
         public TimeSpan? StopsAtUTC
         {
@@ -45,8 +45,9 @@ namespace WoodForestConversion.API.Conversion.DTOs
         public HashSet<string> FileDependencies { get; set; } = new HashSet<string>();
         #endregion
 
-        public JobFreqDto(Job job)
+        public JobFreqDto(Job job, ARCHONEntities ctx)
         {
+            _ctx = ctx;
             ExecutionFrequency = (ExecutionFrequency)job.Frequency;
             StopsAtUTC = job.StopAtUtc.TimeOfDay;
             Interval = job.Interval;
@@ -57,15 +58,13 @@ namespace WoodForestConversion.API.Conversion.DTOs
 
         private void BuildConditionTree(Job job)
         {
-            using (var context = new ARCHONEntities())
-            {
-                var conditionSets = context.ConditionSets.Where(cs => cs.EntityUID == job.JobUID);
-                var root = conditionSets.FirstOrDefault(cs => cs.ParentSet == Guid.Empty);
-                if (root == null) throw new Exception($"Job {job.JobName} is missing condition hierarchy");
-                var conditions = context.Conditions
-                    .Where(c => c.EntityUID == job.JobUID && c.IsLive);
-                ConditionsTree = TreeNode.BuildTree(root, conditionSets, conditions);
-            }
+
+            var conditionSets = _ctx.ConditionSets.Where(cs => cs.EntityUID == job.JobUID);
+            var root = conditionSets.FirstOrDefault(cs => cs.ParentSet == Guid.Empty);
+            if (root == null) throw new Exception($"Job {job.JobName} is missing condition hierarchy");
+            var conditions = _ctx.Conditions
+                .Where(c => c.EntityUID == job.JobUID && c.IsLive);
+            ConditionsTree = TreeNode.BuildTree(root, conditionSets, conditions);
         }
 
         private void BuildElements(TreeNode node)
@@ -76,7 +75,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
 
                 foreach (var nodeCondition in node.Conditions)
                 {
-                    if (nodeCondition.ConditionType == (byte) ConditionType.RunOnTimeWindow)
+                    if (nodeCondition.ConditionType == (byte)ConditionType.RunOnTimeWindow)
                     {
                         node.NodeScheduleTrigger.Add(new SetFreqDto(nodeCondition));
                     }
@@ -102,7 +101,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
                     }
                 }
             }
-            
+
             if (node.ChildrenCount > 0)
             {
                 foreach (var nodeChild in node.Children)
@@ -227,10 +226,10 @@ namespace WoodForestConversion.API.Conversion.DTOs
                 {
                     job.JobName = JobConversionHelper.FixJobName(job.JobName);
                     var folder = JobConversionHelper.JobFolderName[jobDependencyId.Value].CategoryName;
-                    var destination = string.IsNullOrWhiteSpace(folder) 
-                        ? $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{job.JobName}" 
+                    var destination = string.IsNullOrWhiteSpace(folder)
+                        ? $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{job.JobName}"
                         : $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{folder}\{job.JobName}";
-                    
+
                     Elements.Add(new JobDependency(destination));
                 }
                 else

@@ -2,8 +2,9 @@
 using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
     {
         private readonly TextWriter _log;
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
+
+        private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
         public ARCHONEntities ArchonEntities { get; set; }
         private static readonly Random Rnd = new Random();
@@ -33,11 +36,13 @@ namespace WoodForestConversion.API.Conversion.Jobs
         {
             ServiceModuleDictionary = CreateServiceModuleDtoAsync();
             InitializeMembers();
+            var timer = Stopwatch.StartNew();
             PopulateJobConditionsDictionary();
+            Console.WriteLine(timer.ElapsedMilliseconds);
 
             Dictionary<string, List<Job>> convertedJobs = new Dictionary<string, List<Job>>();
 
-            foreach (var jobConditions in _jobConditionsDictionary)
+            foreach (var jobConditions in _concurrentDictionary)
             {
                 try
                 {
@@ -109,12 +114,52 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         private void PopulateJobConditionsDictionary()
         {
-            foreach (var jobKeyValue in JobConversionHelper.ArchonJobDictionary)
-            {
-                JobFreqDto jobFreq = new JobFreqDto(jobKeyValue.Value);
+            //foreach (var jobKeyValue in JobConversionHelper.ArchonJobDictionary)
+            //{
+            //    JobFreqDto jobFreq = new JobFreqDto(jobKeyValue.Value);
 
-                _jobConditionsDictionary.Add(jobKeyValue.Value, jobFreq);
-            }
+            //    _jobConditionsDictionary.Add(jobKeyValue.Value, jobFreq);
+            //}
+
+            //Parallel.ForEach(JobConversionHelper.ArchonJobDictionary, job =>
+            //{
+            //    JobFreqDto jobFreq = new JobFreqDto(job.Value);
+
+            //    _concurrentDictionary.AddOrUpdate(job.Value, jobFreq, (job1, dto) => dto);
+            //});
+
+            // Get the partitioner.
+            OrderablePartitioner<KeyValuePair<Guid, Data.Job>> partitioner = Partitioner.Create(JobConversionHelper.ArchonJobDictionary);
+
+            // Get the partitions.
+            // You'll have to set the parameter for the number of partitions here.
+            // See the link for creating custom partitions for more
+            // creation strategies.
+            IList<IEnumerator<KeyValuePair<Guid, Data.Job>>> paritions = partitioner.GetPartitions(Environment.ProcessorCount);
+
+            // Create a task for each partition.
+            Task[] tasks = paritions.Select(p => Task.Run(() =>
+            {
+                // Create the context.
+                using (var ctx = new ARCHONEntities())
+                // Remember, the IEnumerator<T> implementation
+                // might implement IDisposable.
+                using (p)
+                    // While there are items in p.
+                    while (p.MoveNext())
+                    {
+                        // Get the current item.
+                        var current = p.Current;
+                        JobFreqDto jobFreq = new JobFreqDto(current.Value, ctx);
+                        // Call the stored procedures.  Process the item
+                        _concurrentDictionary.AddOrUpdate(current.Value, jobFreq, (job1, dto) => dto);
+                    }
+            })).
+                // ToArray is needed (or something to materialize the list) to
+                // avoid deferred execution.
+                ToArray();
+
+            Task.WaitAll(tasks);
         }
 
         private void ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob)
