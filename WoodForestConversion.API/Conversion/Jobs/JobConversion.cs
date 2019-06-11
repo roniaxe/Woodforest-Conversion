@@ -20,8 +20,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
     public class JobConversion : IEntityToConvert
     {
         private readonly TextWriter _log;
-        private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
-
         private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
         public ARCHONEntities ArchonEntities { get; set; }
