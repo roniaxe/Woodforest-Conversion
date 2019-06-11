@@ -2,8 +2,9 @@
 using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
     {
         private readonly TextWriter _log;
         private readonly Dictionary<Data.Job, JobFreqDto> _jobConditionsDictionary = new Dictionary<Data.Job, JobFreqDto>();
+
+        private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
         public ARCHONEntities ArchonEntities { get; set; }
         private static readonly Random Rnd = new Random();
@@ -37,7 +40,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
             Dictionary<string, List<Job>> convertedJobs = new Dictionary<string, List<Job>>();
 
-            foreach (var jobConditions in _jobConditionsDictionary)
+            foreach (var jobConditions in _concurrentDictionary)
             {
                 try
                 {
@@ -49,13 +52,14 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
                     if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
 
-                    if (convertedJobs.TryGetValue(JobConversionHelper.JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", out var jobForFolder))
+                    var jobCategoryName = JobConversionHelper.JobFolderName[jobConditions.Key.JobUID]?.CategoryName;
+                    if (convertedJobs.TryGetValue(jobCategoryName ?? "", out var jobForFolder))
                     {
                         jobForFolder.Add(jamsJob);
                     }
                     else
                     {
-                        convertedJobs.Add(JobConversionHelper.JobFolderName[jobConditions.Key.JobUID]?.CategoryName ?? "", new List<Job> { jamsJob });
+                        convertedJobs.Add(jobCategoryName ?? "", new List<Job> { jamsJob });
                     }
                 }
                 catch (Exception ex)
@@ -95,6 +99,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 from serviceModule in ArchonEntities.ServiceModules
                 join executionModule in ArchonEntities.ExecutionModules on serviceModule.ModuleUID equals executionModule.ModuleUID
                 join jobService in ArchonEntities.JobServices on serviceModule.ServiceUID equals jobService.ServiceUID
+                where jobService.Available && jobService.Capacity > 0
                 select new ServiceModuleDto
                 {
                     ModuleName = executionModule.ModuleName,
@@ -103,18 +108,41 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     ServiceName = jobService.ServiceName
                 })
                 .GroupBy(arg => arg.ModuleUid)
-                .ToList()
+                //.ToList()
                 .ToDictionary(dtos => dtos.Key);
         }
 
         private void PopulateJobConditionsDictionary()
         {
-            foreach (var jobKeyValue in JobConversionHelper.ArchonJobDictionary)
-            {
-                JobFreqDto jobFreq = new JobFreqDto(jobKeyValue.Value);
+            // Get the partitioner.
+            OrderablePartitioner<KeyValuePair<Guid, Data.Job>> partitioner = Partitioner.Create(JobConversionHelper.ArchonJobDictionary);
 
-                _jobConditionsDictionary.Add(jobKeyValue.Value, jobFreq);
-            }
+            // creation strategies.
+            IList<IEnumerator<KeyValuePair<Guid, Data.Job>>> partitions = partitioner.GetPartitions(Environment.ProcessorCount / 2);
+
+            // Create a task for each partition.
+            Task[] tasks = partitions.Select(p => Task.Run(() =>
+            {
+                // Create the context.
+                using (var ctx = new ARCHONEntities())
+                // Remember, the IEnumerator<T> implementation
+                // might implement IDisposable.
+                using (p)
+                    // While there are items in p.
+                    while (p.MoveNext())
+                    {
+                        // Get the current item.
+                        var current = p.Current;
+                        JobFreqDto jobFreq = new JobFreqDto(current.Value, ctx);
+
+                        _concurrentDictionary.AddOrUpdate(current.Value, jobFreq, (job1, dto) => dto);
+                    }
+            })).
+                // ToArray is needed (or something to materialize the list) to
+                // avoid deferred execution.
+                ToArray();
+
+            Task.WaitAll(tasks);
         }
 
         private void ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob)
@@ -199,16 +227,16 @@ namespace WoodForestConversion.API.Conversion.Jobs
             HashSet<Guid> jobModules = new HashSet<Guid>(archonSteps.Select(step => step.ExecutionModule.ModuleUID));
             if (!jobModules.Any()) return;
 
-            List<string> mergedList = new List<string>();
             try
             {
+                IEnumerable<string> mergedList = null;
                 foreach (var jobModule in jobModules)
                 {
-                    List<string> serviceList;
+                    IEnumerable<string> serviceList;
 
                     if (ServiceModuleDictionary.ContainsKey(jobModule))
                     {
-                        serviceList = ServiceModuleDictionary[jobModule].Select(dto => dto.ServiceName).ToList();
+                        serviceList = ServiceModuleDictionary[jobModule].Select(dto => dto.ServiceName);
                     }
                     else
                     {
@@ -216,26 +244,26 @@ namespace WoodForestConversion.API.Conversion.Jobs
                         continue;
                     }
 
-                    if (!mergedList.Any())
+                    if (mergedList == null)
                     {
                         mergedList = serviceList;
                     }
                     else
                     {
                         mergedList = mergedList.Join(serviceList,
-                            s => s, s => s, (s, s1) => s).ToList();
+                            s => s, s => s, (s, s1) => s);
                     }
                 }
 
-                if (!mergedList.Any())
+                if (mergedList == null)
                 {
                     Console.WriteLine($"Job {targetJob.JobName} has no agent to run on. No agent will be assigned.");
                     return;
                 }
 
-                int r = Rnd.Next(mergedList.Count);
+                int r = Rnd.Next(mergedList.Count());
 
-                targetJob.AgentName = mergedList[r];
+                targetJob.AgentName = mergedList.ElementAt(r);
             }
             catch (Exception ex)
             {
