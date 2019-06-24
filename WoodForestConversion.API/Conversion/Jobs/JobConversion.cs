@@ -4,7 +4,6 @@ using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +42,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 try
                 {
                     Job jamsJob = new Job();
-                    Console.WriteLine($"Converting {jobConditions.Key.JobName}");
+                    _log.WriteLine($"Converting {jobConditions.Key.JobName}");
                     ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
                     ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
                     AddJobStepsAsync(jobConditions.Key, jamsJob);
@@ -200,8 +199,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     ArchonConfiguration = js.ConfigurationFile,
                     ParentTaskID = sequenceTask.ElementUid,
                     DisplayTitle = js.StepName,
-                    ExecutionModule =
-                        ArchonEntities.ExecutionModules.FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
+                    ExecutionModule = ArchonEntities.ExecutionModules
+                        .FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
                 });
 
             SelectAgent(archonSteps, targetJob);
@@ -216,6 +215,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 archonTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
                 archonTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
                 archonTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+
                 targetJob.SourceElements.Add(archonTask);
             }
         }
@@ -238,7 +238,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     }
                     else
                     {
-                        Console.WriteLine($"No service found to run module {jobModule} - Job: {targetJob.JobName}");
+                        _log.WriteLine($"   No service found to run module {jobModule} - {ArchonEntities.ExecutionModules.FirstOrDefault(module => module.ModuleUID == jobModule)?.ModuleName}");
                         continue;
                     }
 
@@ -255,7 +255,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
                 if (mergedList == null)
                 {
-                    Console.WriteLine($"Job {targetJob.JobName} has no agent to run on. No agent will be assigned.");
+                    _log.WriteLine("   Job has no service to run on. No agent will be assigned.");
                     return;
                 }
 

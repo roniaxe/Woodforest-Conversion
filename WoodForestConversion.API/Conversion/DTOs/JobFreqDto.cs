@@ -12,7 +12,6 @@ using Job = WoodForestConversion.Data.Job;
 
 namespace WoodForestConversion.API.Conversion.DTOs
 {
-    [Serializable]
     public class JobFreqDto
     {
         private readonly ARCHONEntities _ctx;
