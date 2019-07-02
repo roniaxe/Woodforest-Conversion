@@ -97,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WoodForestConversion.API\WoodForestConversion.API.csproj">
+      <Project>{57ea226d-2236-44b5-a3d9-815324ee6fbc}</Project>
+      <Name>WoodForestConversion.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WoodForestConversion.Data\WoodForestConversion.Data.csproj">
       <Project>{1B4069AF-2E77-4421-B608-B23D5885640C}</Project>
       <Name>WoodForestConversion.Data</Name>

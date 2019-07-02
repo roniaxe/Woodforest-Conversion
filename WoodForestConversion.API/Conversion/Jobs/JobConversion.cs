@@ -31,8 +31,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
         }
         public void Convert()
         {
-            ServiceModuleDictionary = CreateServiceModuleDtoAsync();
-            InitializeMembers();
+            ServiceModuleDictionary = CreateServiceModuleDto();
             PopulateJobConditionsDictionary();
 
             Dictionary<string, List<Job>> convertedJobs = new Dictionary<string, List<Job>>();
@@ -43,9 +42,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 {
                     Job jamsJob = new Job();
                     _log.WriteLine($"Converting {jobConditions.Key.JobName}");
-                    ConvertJobDetailsAsync(jobConditions.Key, jamsJob);
-                    ConvertJobConditionsAsync(jobConditions.Value, jamsJob);
-                    AddJobStepsAsync(jobConditions.Key, jamsJob);
+                    ConvertJobDetails(jobConditions.Key, jamsJob);
+                    ConvertJobConditions(jobConditions.Value, jamsJob);
+                    AddJobSteps(jobConditions.Key, jamsJob);
 
                     if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID)) continue;
 
@@ -74,23 +73,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             }
         }
 
-        private void InitializeMembers()
-        {
-            JobConversionHelper.JobFolderName =
-                (from job in ArchonEntities.Jobs
-                 join category in ArchonEntities.Categories
-                     on job.Category equals category.CategoryUID into ps
-                 from category in ps.DefaultIfEmpty()
-                 select new { job.JobUID, category.CategoryName })
-                .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
-
-            JobConversionHelper.ArchonJobDictionary = ArchonEntities.Jobs
-                .Where(j => j.IsLive && !j.IsDeleted)
-                .ToDictionary(j => j.JobUID);
-
-        }
-
-        private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> CreateServiceModuleDtoAsync()
+        private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> CreateServiceModuleDto()
         {
             return (
                 from serviceModule in ArchonEntities.ServiceModules
@@ -142,7 +125,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             Task.WaitAll(tasks);
         }
 
-        private void ConvertJobDetailsAsync(Data.Job sourceJob, Job targetJob)
+        private void ConvertJobDetails(Data.Job sourceJob, Job targetJob)
         {
             sourceJob.JobName = JobConversionHelper.FixJobName(sourceJob.JobName);
 
@@ -151,7 +134,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             targetJob.MethodName = "Sequence";
         }
 
-        private void ConvertJobConditionsAsync(JobFreqDto conditions, Job targetJob)
+        private void ConvertJobConditions(JobFreqDto conditions, Job targetJob)
         {
             conditions.PopulateScheduleTriggers(conditions.ConditionsTree);
             conditions.PopulateFileDependencies();
@@ -185,7 +168,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             }
         }
 
-        private void AddJobStepsAsync(Data.Job sourceJob, Job targetJob)
+        private void AddJobSteps(Data.Job sourceJob, Job targetJob)
         {
             SequenceTask sequenceTask = new SequenceTask();
             sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
@@ -207,16 +190,42 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
             foreach (var archonStep in archonSteps)
             {
-                var archonTask = Element.Create("ArchonStep");
-                archonTask.Properties.SetValue("ArchonStepName", archonStep.ArchonStepName);
-                archonTask.Properties.SetValue("ArchonModuleName", archonStep.ExecutionModule.ModuleName);
-                archonTask.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
-                archonTask.Properties.SetValue("ArchonModuleAssembly", ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
-                archonTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
-                archonTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
-                archonTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+                var seqTask = new Element();
+                if (!archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent") &&
+                    !archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.SqlProcessEvent"))
+                {
+                    seqTask.ElementTypeName = "ArchonStep";
+                    seqTask.Properties.SetValue("ArchonStepName", archonStep.ArchonStepName);
+                    seqTask.Properties.SetValue("ArchonModuleName", archonStep.ExecutionModule.ModuleName);
+                    seqTask.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
+                    seqTask.Properties.SetValue("ArchonModuleAssembly", ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
+                    seqTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
+                    seqTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
+                    seqTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+                }
+                else if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent"))
+                {
+                    seqTask.ElementTypeName = "PowerShellScriptTask";
+                    try
+                    {
+                        var content =
+                            File.ReadAllText(
+                                $@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\FLAT\{Path.GetFileName(archonStep.ArchonConfiguration)}");
+                        var fixedContent = JobConversionHelper.TranslateKeywords(content, sourceJob.Category.Value);
+                        string command = JobConversionHelper.ParseToCommand(fixedContent);
+                        seqTask.Properties.SetValue("PSScript", command);
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        Console.WriteLine("No Config File");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
 
-                targetJob.SourceElements.Add(archonTask);
+                targetJob.SourceElements.Add(seqTask);
             }
         }
 

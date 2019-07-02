@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using WoodForestConversion.API.Conversion.Jobs;
 using WoodForestConversion.Data;
 
 namespace DataVisualization
@@ -35,6 +36,7 @@ namespace DataVisualization
                             JobId = job.JobUID,
                             JobName = job.JobName,
                             StepId = jobStep.StepUID,
+                            Category = job.Category,
                             ModuleId = jobStep.ModuleUID,
                             ModuleName = executionModule.ModuleName,
                             ModuleAssembly = executionModule.ModuleAssembly,
@@ -52,12 +54,17 @@ namespace DataVisualization
             {
                 try
                 {
-                    var content = File.ReadAllText($@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\FLAT\{Path.GetFileName(execMethodDto.ConfigFile)}");
+                    string parsedPath = JobConversionHelper.ParsePath(execMethodDto.ConfigFile, execMethodDto.Category);
+                    var content = File.ReadAllText($@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\{parsedPath}");
                     execMethodDto.ConfigContent = Regex.Replace(content, @"\t|\n|\r", "");
                 }
                 catch (FileNotFoundException)
                 {
                     execMethodDto.ConfigContent = "Config File Is Missing!";
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    execMethodDto.ConfigContent = $"Config Folder Is Missing!";
                 }
 
                 ValidateData(execMethodDto);

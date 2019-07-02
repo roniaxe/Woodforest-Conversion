@@ -13,5 +13,6 @@ namespace DataVisualization.DTOs
         public string ModuleObject { get; set; }
         public string ConfigContent { get; set; }
         public Guid StepId { get; set; }
+        public Guid? Category { get; internal set; }
     }
 }
