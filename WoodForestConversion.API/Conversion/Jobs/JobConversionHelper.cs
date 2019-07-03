@@ -74,7 +74,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     using (var db = new ARCHONEntities())
                     {
                         _keywordsDictionary = db.Keywords
-                            .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1.ToUpperInvariant()}", keyword => keyword.KeyValue);
+                            .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1}", keyword => keyword.KeyValue);
                     }
                 }
 
@@ -208,18 +208,17 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public static string TranslateKeywords(string originalText, Guid categoryGuid)
         {
-            Regex yourRegex = new Regex(@"\#([^\#]+)\#");
-            return yourRegex.Replace(originalText, match =>
+            return Regex.Replace(originalText, @"\#([^\#]+)\#", match =>
             {
                 try
                 {
-                    return KeywordsDictionary[$"{categoryGuid}-{match.Groups[1].Value.ToUpperInvariant()}"];
+                    return KeywordsDictionary[$"{categoryGuid}-{match.Groups[1].Value}"];
                 }
                 catch (Exception)
                 {
-                    return KeywordsDictionary[$"{Guid.Empty}-{match.Groups[1].Value.ToUpperInvariant()}"];
+                    return KeywordsDictionary[$"{Guid.Empty}-{match.Groups[1].Value}"];
                 }
-            });
+            }, RegexOptions.IgnoreCase);
         }
 
         public static string ParseToCommand(string fixedContent)
@@ -247,7 +246,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public static string ParsePath(string path, Guid? category)
         {
-            path = path.ToUpperInvariant().Replace(@"\\woodforest.net\Jobs\Archon2\Configuration\".ToUpperInvariant(), "");
+            path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\Archon2\\Configuration\\", "", RegexOptions.IgnoreCase);
             var origPathArray = path.Split(Path.DirectorySeparatorChar);
             var fixedPath = TranslateKeywords(origPathArray.First(), category.Value);
             string fullPath = Path.GetFullPath(fixedPath).TrimEnd(Path.DirectorySeparatorChar);
