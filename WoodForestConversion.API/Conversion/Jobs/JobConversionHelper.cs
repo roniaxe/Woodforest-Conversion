@@ -210,13 +210,18 @@ namespace WoodForestConversion.API.Conversion.Jobs
         {
             return Regex.Replace(originalText, @"\#([^\#]+)\#", match =>
             {
+                var keyword = match.Groups[1].Value;
+                if (keyword.StartsWith("DATE(", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return "{JAMS.Now(\"yyyyMMdd\")}";
+                }
                 try
                 {
-                    return KeywordsDictionary[$"{categoryGuid}-{match.Groups[1].Value}"];
+                    return KeywordsDictionary[$"{categoryGuid}-{keyword}"];
                 }
                 catch (Exception)
                 {
-                    return KeywordsDictionary[$"{Guid.Empty}-{match.Groups[1].Value}"];
+                    return KeywordsDictionary[$"{Guid.Empty}-{keyword}"];
                 }
             }, RegexOptions.IgnoreCase);
         }
@@ -246,13 +251,20 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public static string ParsePath(string path, Guid? category)
         {
-            path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\\Archon2\\Configuration\\", "", RegexOptions.IgnoreCase);
-            path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\\Archon2\\Apps\\", "", RegexOptions.IgnoreCase);
+            int skip = 6;
+
+            if (path.StartsWith(@"\\woodforest.net"))
+            {
+                path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\\Archon2\\Configuration\\", "", RegexOptions.IgnoreCase);
+                path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\\Archon2\\Apps\\", "", RegexOptions.IgnoreCase);
+                return string.Join(@"\", path);
+            }
+
             var origPathArray = path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             var fixedPath = TranslateKeywords(origPathArray.First(), category.Value);
             string fullPath = Path.GetFullPath(fixedPath).TrimEnd(Path.DirectorySeparatorChar);
             var fullPathArray = fullPath.Split(Path.DirectorySeparatorChar);
-            string projectName = $@"{fullPathArray.Last()}\{string.Join(@"\", origPathArray.Skip(1))}";
+            string projectName = $@"{string.Join(@"\", fullPathArray.Skip(skip))}\{string.Join(@"\", origPathArray.Skip(1))}";
             return projectName;
         }
     }

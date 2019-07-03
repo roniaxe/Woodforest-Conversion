@@ -191,6 +191,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
             foreach (var archonStep in archonSteps)
             {
                 var seqTask = new Element();
+                seqTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
+
                 if (!archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent") &&
                     !archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.SqlProcessEvent"))
                 {
@@ -200,24 +202,27 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     seqTask.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
                     seqTask.Properties.SetValue("ArchonModuleAssembly", ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
                     seqTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
-                    seqTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
                     seqTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
                 }
                 else if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent"))
                 {
+                    string parsedPath = null;
                     seqTask.ElementTypeName = "PowerShellScriptTask";
                     try
                     {
-                        var content =
-                            File.ReadAllText(
-                                $@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\FLAT\{Path.GetFileName(archonStep.ArchonConfiguration)}");
-                        var fixedContent = JobConversionHelper.TranslateKeywords(content, sourceJob.Category.Value);
-                        string command = JobConversionHelper.ParseToCommand(fixedContent);
+                        parsedPath = JobConversionHelper.ParsePath(archonStep.ArchonConfiguration, sourceJob.Category);
+                        var content = File.ReadAllText($@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\{parsedPath}");
+                        string fixedContent = JobConversionHelper.ParseToCommand(content);
+                        var command = JobConversionHelper.TranslateKeywords(fixedContent, sourceJob.Category.Value);
                         seqTask.Properties.SetValue("PSScript", command);
                     }
                     catch (FileNotFoundException)
                     {
-                        Console.WriteLine("No Config File");
+                        Console.WriteLine($"Config File Is Missing! {parsedPath}");
+                    }
+                    catch (DirectoryNotFoundException)
+                    {
+                        Console.WriteLine($"Config Folder Is Missing! {parsedPath}");
                     }
                     catch (Exception ex)
                     {
