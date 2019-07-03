@@ -74,7 +74,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     using (var db = new ARCHONEntities())
                     {
                         _keywordsDictionary = db.Keywords
-                            .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1}", keyword => keyword.KeyValue);
+                            .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1}", keyword => keyword.KeyValue, StringComparer.InvariantCultureIgnoreCase);
                     }
                 }
 
@@ -246,8 +246,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
         public static string ParsePath(string path, Guid? category)
         {
-            path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\Archon2\\Configuration\\", "", RegexOptions.IgnoreCase);
-            var origPathArray = path.Split(Path.DirectorySeparatorChar);
+            path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\\Archon2\\Configuration\\", "", RegexOptions.IgnoreCase);
+            path = Regex.Replace(path, @"\\\\woodforest.net\\Jobs\\Archon2\\Apps\\", "", RegexOptions.IgnoreCase);
+            var origPathArray = path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             var fixedPath = TranslateKeywords(origPathArray.First(), category.Value);
             string fullPath = Path.GetFullPath(fixedPath).TrimEnd(Path.DirectorySeparatorChar);
             var fullPathArray = fullPath.Split(Path.DirectorySeparatorChar);

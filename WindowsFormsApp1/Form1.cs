@@ -52,19 +52,24 @@ namespace DataVisualization
         {
             foreach (var execMethodDto in _queryData)
             {
+                string parsedPath = null;
                 try
                 {
-                    string parsedPath = JobConversionHelper.ParsePath(execMethodDto.ConfigFile, execMethodDto.Category);
+                    parsedPath = JobConversionHelper.ParsePath(execMethodDto.ConfigFile, execMethodDto.Category);
                     var content = File.ReadAllText($@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\{parsedPath}");
                     execMethodDto.ConfigContent = Regex.Replace(content, @"\t|\n|\r", "");
                 }
                 catch (FileNotFoundException)
                 {
-                    execMethodDto.ConfigContent = "Config File Is Missing!";
+                    execMethodDto.ConfigContent = $"Config File Is Missing! {parsedPath}";
                 }
                 catch (DirectoryNotFoundException)
                 {
-                    execMethodDto.ConfigContent = $"Config Folder Is Missing!";
+                    execMethodDto.ConfigContent = $"Config Folder Is Missing! {parsedPath}";
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
 
                 ValidateData(execMethodDto);
