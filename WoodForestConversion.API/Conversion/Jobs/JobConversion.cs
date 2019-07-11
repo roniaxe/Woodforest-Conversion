@@ -178,8 +178,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
         {
             SequenceTask sequenceTask = new SequenceTask();
             sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
-            targetJob.SourceElements.Add(sequenceTask);
-
+            
             var archonSteps = ArchonEntities.JobSteps
                 .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
                 .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
@@ -191,6 +190,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     ExecutionModule = ArchonEntities.ExecutionModules
                         .FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
                 });
+            if (!archonSteps.Any()) return;
+
+            targetJob.SourceElements.Add(sequenceTask);
 
             SelectAgent(archonSteps, targetJob);
 
@@ -224,6 +226,16 @@ namespace WoodForestConversion.API.Conversion.Jobs
                             seqTask.ElementTypeName = "PowerShellScriptTask";
                             string command = JobConversionHelper.ParseToCommand(xmlDocument);
                             var fixedCommand = JobConversionHelper.TranslateKeywords(command, sourceJob.Category.Value);
+                            if (fixedCommand.Contains("YesterdayDate"))
+                            {
+                                var yesterdayParam = new Param("YesterdayDate")
+                                {
+                                    DataType = DataType.Date,
+                                    Length = 8,
+                                };
+                                yesterdayParam.Properties.SetValue("DefaultValue", "YESTERDAY");
+                                targetJob.Parameters.Add(yesterdayParam);
+                            }
                             seqTask.Properties.SetValue("PSScript", fixedCommand);
                         }
 

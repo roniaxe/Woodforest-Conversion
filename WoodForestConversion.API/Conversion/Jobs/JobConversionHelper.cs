@@ -215,6 +215,10 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 {
                     return "{JAMS.Now(\"yyyyMMdd\")}";
                 }
+                if (keyword.StartsWith("YESTERDAY(", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return "{YesterdayDate(\"yyyyMMdd\")}";
+                }
                 try
                 {
                     return KeywordsDictionary[$"{categoryGuid}-{keyword}"];
