@@ -226,12 +226,16 @@ namespace WoodForestConversion.API.Conversion.Jobs
             }, RegexOptions.IgnoreCase);
         }
 
-        public static string ParseToCommand(string fixedContent)
+        public static XmlDocument ToXml(string content)
+        {
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(content);
+            return xmlDoc;
+        }
+        public static string ParseToCommand(XmlDocument xmlDocument)
         {
             string finalCommand = null;
-            XmlDocument document = new XmlDocument();
-            document.LoadXml(fixedContent);
-            XmlNodeList elemList = document.GetElementsByTagName("command");
+            XmlNodeList elemList = xmlDocument.GetElementsByTagName("command");
             for (int i = 0; i < elemList.Count; i++)
             {
                 XmlAttribute exec = elemList[i].Attributes?["exec"];
@@ -266,6 +270,25 @@ namespace WoodForestConversion.API.Conversion.Jobs
             var fullPathArray = fullPath.Split(Path.DirectorySeparatorChar);
             string projectName = $@"{string.Join(@"\", fullPathArray.Skip(skip))}\{string.Join(@"\", origPathArray.Skip(1))}";
             return projectName;
+        }
+
+        public static Agent CreateConnectionStore(XmlDocument xmlDocument, Guid sourceJobCategory)
+        {
+            XmlNodeList elemList = xmlDocument.GetElementsByTagName("event");
+            var server = TranslateKeywords(elemList[0].Attributes?["server"].Value, sourceJobCategory);
+            var database = TranslateKeywords(elemList[0].Attributes?["database"].Value, sourceJobCategory);
+            var timeout = elemList[0].Attributes?["timeout"]?.Value ?? "600";
+            Agent connectionStore = new Agent
+            {
+                AgentName = $"{server}",//_{database}",//_{timeout}",
+                Description = $"{database}",// {database}",// Database with timeout {timeout}",
+                AgentTypeName = "SqlServer",
+                PlatformTypeName = "Neutral",
+                JobLimit = 999999
+            };
+            connectionStore.Properties.SetValue("SqlConnectionString",
+                $"Data Source={server};Integrated Security=True;Connect Timeout={timeout};Application Name=JAMS Job");
+            return connectionStore;
         }
     }
 }

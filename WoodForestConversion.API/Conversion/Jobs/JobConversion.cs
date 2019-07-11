@@ -6,7 +6,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using WoodForestConversion.API.Conversion.Base;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
@@ -20,6 +22,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
     {
         private readonly TextWriter _log;
         private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
+        private readonly Dictionary<string, Agent> _connectionStoreDictionary = new Dictionary<string, Agent>(StringComparer.InvariantCultureIgnoreCase);
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
         public ARCHONEntities ArchonEntities { get; set; }
         private static readonly Random Rnd = new Random();
@@ -64,6 +67,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     throw;
                 }
             }
+
+            Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\");
+            JAMSXmlSerializer.WriteXml(_connectionStoreDictionary.Values, $@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\ConnectionStores.xml");
 
             foreach (var convertedJob in convertedJobs)
             {
@@ -204,29 +210,65 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     seqTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
                     seqTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
                 }
-                else if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent"))
+                else
                 {
                     string parsedPath = null;
-                    seqTask.ElementTypeName = "PowerShellScriptTask";
                     try
                     {
                         parsedPath = JobConversionHelper.ParsePath(archonStep.ArchonConfiguration, sourceJob.Category);
                         var content = File.ReadAllText($@"C:\Users\RoniAxelrad\Desktop\Woodforest\XMLs\{parsedPath}");
-                        string fixedContent = JobConversionHelper.ParseToCommand(content);
-                        var command = JobConversionHelper.TranslateKeywords(fixedContent, sourceJob.Category.Value);
-                        seqTask.Properties.SetValue("PSScript", command);
+                        var xmlDocument = JobConversionHelper.ToXml(content);
+
+                        if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent"))
+                        {
+                            seqTask.ElementTypeName = "PowerShellScriptTask";
+                            string command = JobConversionHelper.ParseToCommand(xmlDocument);
+                            var fixedCommand = JobConversionHelper.TranslateKeywords(command, sourceJob.Category.Value);
+                            seqTask.Properties.SetValue("PSScript", fixedCommand);
+                        }
+
+                        if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.SqlProcessEvent"))
+                        {
+                            seqTask.ElementTypeName = "SqlQueryTask";
+                            XmlNodeList elemList = xmlDocument.GetElementsByTagName("event");
+                            var server = JobConversionHelper.TranslateKeywords(elemList[0].Attributes?["server"].Value, sourceJob.Category.Value);
+                            if (!_connectionStoreDictionary.TryGetValue(server, out var connectionStore))
+                            {
+                                 connectionStore = JobConversionHelper.CreateConnectionStore(xmlDocument, sourceJob.Category.Value);
+                                _connectionStoreDictionary.Add(connectionStore.AgentName, connectionStore);
+                            }
+
+                            string sqlCommand = GetInnerTexts(xmlDocument.GetElementsByTagName("executesql"));
+                            seqTask.Properties.SetValue("SqlQueryText", sqlCommand);
+                            seqTask.Properties.SetValue("DatabaseName", connectionStore.Description);
+                            seqTask.Properties.SetValue("SqlAgent", new AgentReference(connectionStore));
+                        }
+
+                        string GetInnerTexts(XmlNodeList nodeList)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            foreach (XmlNode node in nodeList)
+                            {
+                                sb.AppendLine($"{node.InnerText.Trim()};");
+                            }
+
+                            return sb.ToString();
+                        }
                     }
                     catch (FileNotFoundException)
                     {
-                        Console.WriteLine($"Config File Is Missing! {parsedPath}");
+                        _log.WriteLine($"Config File Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
+                        return;
                     }
                     catch (DirectoryNotFoundException)
                     {
-                        Console.WriteLine($"Config Folder Is Missing! {parsedPath}");
+                        _log.WriteLine($"Config Folder Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
+                        return;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
+                        return;
                     }
                 }
 
