@@ -52,13 +52,21 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     var jobRepo = new JobRepository(new ARCHONEntities());
                     var categoryRepo = new CategoryRepository(new ARCHONEntities());
 
-                    _jobFolderName =
-                                    (from job in jobRepo.GetAll()
-                                     join category in categoryRepo.GetAll()
-                                        on job.Category equals category.CategoryUID into ps
-                                     from category in ps.DefaultIfEmpty()
-                                     select new { job.JobUID, category.CategoryName })
-                                    .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
+                    try
+                    {
+                        _jobFolderName =
+                                                    (from job in jobRepo.GetAll()
+                                                     join category in categoryRepo.GetAll()
+                                                        on job.Category equals category.CategoryUID into ps
+                                                     from category in ps.DefaultIfEmpty()
+                                                     select new { job.JobUID, category?.CategoryName })
+                                                    .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        throw;
+                    }
 
                 }
 

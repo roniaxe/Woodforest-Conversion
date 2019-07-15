@@ -1,37 +1,39 @@
-﻿using MVPSI.JAMS;
+﻿using Migrator.Interfaces;
+using MVPSI.JAMS;
 using System.Collections.Generic;
 using System.IO;
-using Migrator.Interfaces;
 using WoodForestConversion.API.Conversion.ConversionBase;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Agents
 {
     public class AgentConversion : IConverter
     {
+        public IJobServiceRepository ServiceModuleRepository { get; }
         private readonly TextWriter _log;
-        public AgentConversion(TextWriter log)
+        public AgentConversion(TextWriter log,
+            IJobServiceRepository jobServiceRepository)
         {
+            ServiceModuleRepository = jobServiceRepository;
             _log = log;
         }
 
         public void Convert()
         {
-            using (var archonEntities = new ARCHONEntities())
+            var sourceAgents = ServiceModuleRepository.GetAll();
+            List<Agent> convertedAgents = new List<Agent>();
+
+            foreach (var jobService in sourceAgents)
             {
-                var sourceAgents = archonEntities.JobServices;
-                List<Agent> convertedAgents = new List<Agent>();
-
-                foreach (var jobService in sourceAgents)
-                {
-                    Agent convertedAgent = new Agent();
-                    ConvertAgentDetails(jobService, convertedAgent);
-                    convertedAgents.Add(convertedAgent);
-                }
-
-                Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Agents\");
-                JAMSXmlSerializer.WriteXml(convertedAgents, $@"{ConversionBaseHelper.XmlOutputLocation}\Agents\Agents.xml");
+                Agent convertedAgent = new Agent();
+                ConvertAgentDetails(jobService, convertedAgent);
+                convertedAgents.Add(convertedAgent);
             }
+
+            Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Agents\");
+            JAMSXmlSerializer.WriteXml(convertedAgents, $@"{ConversionBaseHelper.XmlOutputLocation}\Agents\Agents.xml");
+
         }
 
         public void ConvertAgentDetails(JobService sourceAgent, Agent targetAgent)
