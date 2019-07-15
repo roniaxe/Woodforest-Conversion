@@ -3,7 +3,6 @@ using System.IO;
 using WoodForestConversion.API.Conversion.Agents;
 using WoodForestConversion.API.Conversion.Folders;
 using WoodForestConversion.API.Conversion.Jobs;
-using WoodForestConversion.API.Conversion.Queues;
 
 namespace WoodForest.Conversion
 {

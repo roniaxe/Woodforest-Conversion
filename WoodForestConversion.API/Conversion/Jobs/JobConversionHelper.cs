@@ -9,6 +9,9 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Keyword;
 using WoodForestConversion.Data;
 using Formatting = Newtonsoft.Json.Formatting;
 using Job = MVPSI.JAMS.Job;
@@ -27,12 +30,11 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 if (_archonJobDictionary == null)
                 {
-                    using (var db = new ARCHONEntities())
-                    {
-                        _archonJobDictionary = db.Jobs
-                            .Where(j => j.IsLive && !j.IsDeleted)
-                            .ToDictionary(j => j.JobUID);
-                    }
+                    var jobRepo = new JobRepository(new ARCHONEntities());
+
+                    _archonJobDictionary = jobRepo
+                        .GetAllLive()
+                        .ToDictionary(j => j.JobUID);
                 }
 
                 return _archonJobDictionary;
@@ -47,16 +49,17 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 if (_jobFolderName == null)
                 {
-                    using (var db = new ARCHONEntities())
-                    {
-                        _jobFolderName =
-                                        (from job in db.Jobs
-                                         join category in db.Categories
-                                            on job.Category equals category.CategoryUID into ps
-                                         from category in ps.DefaultIfEmpty()
-                                         select new { job.JobUID, category.CategoryName })
-                                        .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
-                    }
+                    var jobRepo = new JobRepository(new ARCHONEntities());
+                    var categoryRepo = new CategoryRepository(new ARCHONEntities());
+
+                    _jobFolderName =
+                                    (from job in jobRepo.GetAll()
+                                     join category in categoryRepo.GetAll()
+                                        on job.Category equals category.CategoryUID into ps
+                                     from category in ps.DefaultIfEmpty()
+                                     select new { job.JobUID, category.CategoryName })
+                                    .ToDictionary(j => j.JobUID, j => new JobCategoryDto(j.JobUID, j.CategoryName));
+
                 }
 
                 return _jobFolderName;
@@ -71,11 +74,11 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 if (_keywordsDictionary == null)
                 {
-                    using (var db = new ARCHONEntities())
-                    {
-                        _keywordsDictionary = db.Keywords
-                            .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1}", keyword => keyword.KeyValue, StringComparer.InvariantCultureIgnoreCase);
-                    }
+                    var keywordRepo = new KeywordRepository(new ARCHONEntities());
+
+                    _keywordsDictionary = keywordRepo.GetAll()
+                        .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1}", keyword => keyword.KeyValue, StringComparer.InvariantCultureIgnoreCase);
+
                 }
 
                 return _keywordsDictionary;

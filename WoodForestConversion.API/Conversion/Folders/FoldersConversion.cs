@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Migrator.Interfaces;
 using MVPSI.JAMS;
-using WoodForestConversion.API.Conversion.Base;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Folders
 {
-    public class FoldersConversion : IEntityToConvert
+    public class FoldersConversion : IConverter
     {
         private readonly TextWriter _logger;
         public FoldersConversion(TextWriter logWriter)

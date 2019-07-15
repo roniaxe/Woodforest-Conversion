@@ -1,15 +1,13 @@
 ﻿using MVPSI.JAMS;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using WoodForestConversion.API.Conversion.Base;
+using Migrator.Interfaces;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Agents
 {
-    public class AgentConversion : IEntityToConvert
+    public class AgentConversion : IConverter
     {
         private readonly TextWriter _log;
         public AgentConversion(TextWriter log)

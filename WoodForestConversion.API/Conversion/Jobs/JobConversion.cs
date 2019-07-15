@@ -9,17 +9,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using WoodForestConversion.API.Conversion.Base;
+using Migrator.Interfaces;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
 using WoodForestConversion.Data;
 using Job = MVPSI.JAMS.Job;
 
 namespace WoodForestConversion.API.Conversion.Jobs
 {
-    public class JobConversion : IEntityToConvert
+    public class JobConversion : IConverter
     {
+        public IJobRepository JobRepository { get; }
+        public IServiceModuleRepository ServiceModuleRepository { get; }
+        public IExecutionModuleRepository ExecutionModuleRepository { get; }
+        public IJobServiceRepository JobServiceRepository { get; }
         private readonly TextWriter _log;
         private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
         private readonly Dictionary<string, Agent> _connectionStoreDictionary = new Dictionary<string, Agent>(StringComparer.InvariantCultureIgnoreCase);
@@ -27,8 +35,17 @@ namespace WoodForestConversion.API.Conversion.Jobs
         public ARCHONEntities ArchonEntities { get; set; }
         private static readonly Random Rnd = new Random();
 
-        public JobConversion(TextWriter log)
+        public JobConversion(
+            TextWriter log,
+            IJobRepository jobRepository,
+            IServiceModuleRepository serviceModuleRepository,
+            IExecutionModuleRepository executionModuleRepository,
+            IJobServiceRepository jobServiceRepository)
         {
+            JobRepository = jobRepository;
+            ServiceModuleRepository = serviceModuleRepository;
+            ExecutionModuleRepository = executionModuleRepository;
+            JobServiceRepository = jobServiceRepository;
             _log = log;
             ArchonEntities = new ARCHONEntities();
         }
@@ -82,9 +99,9 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> CreateServiceModuleDto()
         {
             return (
-                from serviceModule in ArchonEntities.ServiceModules
-                join executionModule in ArchonEntities.ExecutionModules on serviceModule.ModuleUID equals executionModule.ModuleUID
-                join jobService in ArchonEntities.JobServices on serviceModule.ServiceUID equals jobService.ServiceUID
+                from serviceModule in ServiceModuleRepository.GetAll()
+                join executionModule in ExecutionModuleRepository.GetAll() on serviceModule.ModuleUID equals executionModule.ModuleUID
+                join jobService in JobServiceRepository.GetAll() on serviceModule.ServiceUID equals jobService.ServiceUID
                 where jobService.Available && jobService.Capacity > 0
                 select new ServiceModuleDto
                 {
@@ -94,7 +111,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     ServiceName = jobService.ServiceName
                 })
                 .GroupBy(arg => arg.ModuleUid)
-                //.ToList()
                 .ToDictionary(dtos => dtos.Key);
         }
 
@@ -178,7 +194,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
         {
             SequenceTask sequenceTask = new SequenceTask();
             sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
-            
+
             var archonSteps = ArchonEntities.JobSteps
                 .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
                 .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
@@ -246,7 +262,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                             var server = JobConversionHelper.TranslateKeywords(elemList[0].Attributes?["server"].Value, sourceJob.Category.Value);
                             if (!_connectionStoreDictionary.TryGetValue(server, out var connectionStore))
                             {
-                                 connectionStore = JobConversionHelper.CreateConnectionStore(xmlDocument, sourceJob.Category.Value);
+                                connectionStore = JobConversionHelper.CreateConnectionStore(xmlDocument, sourceJob.Category.Value);
                                 _connectionStoreDictionary.Add(connectionStore.AgentName, connectionStore);
                             }
 

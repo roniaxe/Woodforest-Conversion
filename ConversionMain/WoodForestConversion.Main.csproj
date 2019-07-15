@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WoodForestConversion.API\bin\Debug\JAMSShr.dll</HintPath>
     </Reference>
+    <Reference Include="Migrator">
+      <HintPath>..\packages\Migrator\lib\Migrator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />

@@ -1,11 +1,9 @@
 ﻿using MVPSI.JAMS;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using WoodForestConversion.API.Conversion.ConversionBase;
-using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Queues
