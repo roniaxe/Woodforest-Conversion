@@ -93,13 +93,14 @@
     <Compile Include="Conversion\MigratorImpl\Repositories\EntityFrameworkGenericRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\JobService\IJobServiceRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\JobService\JobServiceRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\JobStep\IJobStepRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\JobStep\JobStepRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\Job\IJobRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\Job\JobRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\Keyword\IKeywordRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\Keyword\KeywordRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\ServiceModule\IServiceModuleRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\ServiceModule\ServiceModuleRepository.cs" />
-    <Compile Include="Conversion\Queues\QueueConversion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

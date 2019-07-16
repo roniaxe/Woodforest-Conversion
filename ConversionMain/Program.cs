@@ -7,6 +7,7 @@ using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
 using WoodForestConversion.Data;
 
@@ -27,12 +28,13 @@ namespace WoodForest.Conversion
                     var executionModuleRepo = new ExecutionModuleRepository(context);
                     var jobServiceRepo = new JobServiceRepository(context);
                     var categoryRepository = new CategoryRepository(context);
+                    var jobStepRepository = new JobStepRepository(context);
                     var jobConverter = new JobConversion(
-                        logWriter, 
-                        jobRepo, 
+                        logWriter,
                         serviceModuleRepo,
                         executionModuleRepo,
-                        jobServiceRepo);
+                        jobServiceRepo,
+                        jobStepRepository);
                     var agentConverter = new AgentConversion(logWriter, jobServiceRepo);
                     var folderConverter = new FoldersConversion(logWriter, categoryRepository);
                     //var queueConverter = new QueueConversion();
