@@ -232,6 +232,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 else
                 {
                     string parsedPath = null;
+                    seqTask.Properties.SetValue("DisplayTitle", archonStep.ArchonStepName);
                     try
                     {
                         parsedPath = JobConversionHelper.ParsePath(archonStep.ArchonConfiguration, sourceJob.Category);

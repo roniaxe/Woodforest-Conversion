@@ -298,6 +298,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 AgentName = $"{server}",//_{database}",//_{timeout}",
                 Description = $"{database}",// {database}",// Database with timeout {timeout}",
                 AgentTypeName = "SqlServer",
+                AgentType = AgentType.SqlServer,
                 PlatformTypeName = "Neutral",
                 JobLimit = 999999
             };
