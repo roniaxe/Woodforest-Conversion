@@ -1,6 +1,8 @@
-﻿using Migrator.Interfaces;
+﻿using LightInject;
+using Migrator.Interfaces;
 using MVPSI.JAMS;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
@@ -10,18 +12,24 @@ namespace WoodForestConversion.API.Conversion.Agents
 {
     public class AgentConversion : IConverter
     {
-        public IJobServiceRepository ServiceModuleRepository { get; }
         private readonly TextWriter _log;
-        public AgentConversion(TextWriter log,
-            IJobServiceRepository jobServiceRepository)
+        private ServiceContainer _container;
+        public AgentConversion(TextWriter log)
         {
-            ServiceModuleRepository = jobServiceRepository;
             _log = log;
+            CreateContainer();
+        }
+
+        private void CreateContainer()
+        {
+            _container = new ServiceContainer();
+            _container.Register<DbContext, ARCHONEntities>();
+            _container.Register<IJobServiceRepository, JobServiceRepository>();
         }
 
         public void Convert()
         {
-            var sourceAgents = ServiceModuleRepository.GetAll();
+            var sourceAgents = _container.GetInstance<IJobServiceRepository>().GetAll();
             List<Agent> convertedAgents = new List<Agent>();
 
             foreach (var jobService in sourceAgents)

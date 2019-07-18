@@ -1,25 +1,34 @@
-﻿using Migrator.Interfaces;
+﻿using LightInject;
+using Migrator.Interfaces;
 using MVPSI.JAMS;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
+using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.Folders
 {
     public class FoldersConversion : IConverter
     {
-        public ICategoryRepository CategoryRepository { get; }
         private readonly TextWriter _logger;
-        public FoldersConversion(TextWriter logWriter, ICategoryRepository categoryRepository)
+        private ServiceContainer _container;
+        public FoldersConversion(TextWriter logWriter)
         {
-            CategoryRepository = categoryRepository;
             _logger = logWriter;
+            CreateContainer();
         }
 
+        private void CreateContainer()
+        {
+            _container = new ServiceContainer();
+            _container.Register<DbContext, ARCHONEntities>();
+            _container.Register<ICategoryRepository, CategoryRepository>();
+        }
         public void Convert()
         {
-            var categories = CategoryRepository.GetAll();
+            var categories = _container.TryGetInstance<ICategoryRepository>().GetAll();
             var convertedFolders = new List<Folder>();
 
             foreach (var category in categories)

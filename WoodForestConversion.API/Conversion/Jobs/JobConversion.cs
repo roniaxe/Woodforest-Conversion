@@ -1,10 +1,12 @@
 ﻿using Archon.Tasks;
+using LightInject;
 using Migrator.Interfaces;
 using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,9 +15,14 @@ using System.Xml;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Condition;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ConditionSet;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Keyword;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
 using WoodForestConversion.Data;
 using Job = MVPSI.JAMS.Job;
@@ -24,32 +31,34 @@ namespace WoodForestConversion.API.Conversion.Jobs
 {
     public class JobConversion : IConverter
     {
-        private readonly IServiceModuleRepository _serviceModuleRepository;
-        private readonly IExecutionModuleRepository _executionModuleRepository;
-        private readonly IJobServiceRepository _jobServiceRepository;
-
+        private static readonly Random Rnd = new Random();
         private readonly TextWriter _log;
-        private readonly IJobStepRepository _jobStepRepository;
-
+        private ServiceContainer _container;
         private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
-
         private readonly Dictionary<string, Agent> _connectionStoreDictionary = new Dictionary<string, Agent>(StringComparer.InvariantCultureIgnoreCase);
 
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
-        private static readonly Random Rnd = new Random();
 
         public JobConversion(
-            TextWriter log,
-            IServiceModuleRepository serviceModuleRepository,
-            IExecutionModuleRepository executionModuleRepository,
-            IJobServiceRepository jobServiceRepository,
-            IJobStepRepository jobStepRepository)
+            TextWriter log)
         {
-            _serviceModuleRepository = serviceModuleRepository;
-            _executionModuleRepository = executionModuleRepository;
-            _jobServiceRepository = jobServiceRepository;
             _log = log;
-            _jobStepRepository = jobStepRepository;
+            CreateContainer();
+        }
+
+        private void CreateContainer()
+        {
+            _container = new ServiceContainer();
+            _container.Register<DbContext, ARCHONEntities>();
+            _container.Register<IJobRepository, JobRepository>();
+            _container.Register<ICategoryRepository, CategoryRepository>();
+            _container.Register<IConditionRepository, ConditionRepository>();
+            _container.Register<IConditionSetRepository, ConditionSetRepository>();
+            _container.Register<IExecutionModuleRepository, ExecutionModuleRepository>();
+            _container.Register<IJobServiceRepository, JobServiceRepository>();
+            _container.Register<IJobStepRepository, JobStepRepository>();
+            _container.Register<IKeywordRepository, KeywordRepository>();
+            _container.Register<IServiceModuleRepository, ServiceModuleRepository>();
         }
 
         public void Convert()
@@ -99,10 +108,10 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> CreateServiceModuleDto()
         {
             return (
-                    from serviceModule in _serviceModuleRepository.GetAll()
-                    join executionModule in _executionModuleRepository.GetAll() on serviceModule.ModuleUID equals
+                    from serviceModule in _container.GetInstance<IServiceModuleRepository>().GetAll()
+                    join executionModule in _container.GetInstance<IExecutionModuleRepository>().GetAll() on serviceModule.ModuleUID equals
                         executionModule.ModuleUID
-                    join jobService in _jobServiceRepository.GetAll() on serviceModule.ServiceUID equals jobService
+                    join jobService in _container.GetInstance<IJobServiceRepository>().GetAll() on serviceModule.ServiceUID equals jobService
                         .ServiceUID
                     where jobService.Available && jobService.Capacity > 0
                     select new ServiceModuleDto
@@ -193,7 +202,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             var sequenceTask = new SequenceTask();
             sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
 
-            var archonSteps = _jobStepRepository.GetAllLive()
+            var archonSteps = _container.GetInstance<IJobStepRepository>().GetAllLive()
                 .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
                 .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
                 {
@@ -201,7 +210,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     ArchonConfiguration = js.ConfigurationFile,
                     ParentTaskID = sequenceTask.ElementUid,
                     DisplayTitle = js.StepName,
-                    ExecutionModule = _executionModuleRepository.GetAll()
+                    ExecutionModule = _container.GetInstance<IExecutionModuleRepository>().GetAll()
                         .FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
                 }).ToList();
             if (!archonSteps.Any()) return;
