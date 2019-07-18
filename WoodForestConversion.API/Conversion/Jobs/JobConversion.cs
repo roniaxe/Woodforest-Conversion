@@ -1,4 +1,5 @@
 ﻿using Archon.Tasks;
+using Migrator.Interfaces;
 using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
@@ -9,12 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Migrator.Interfaces;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
-using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
@@ -76,7 +75,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     if (convertedJobs.TryGetValue(jobCategoryName ?? "", out var jobForFolder))
                         jobForFolder.Add(jamsJob);
                     else
-                        convertedJobs.Add(jobCategoryName ?? "", new List<Job> {jamsJob});
+                        convertedJobs.Add(jobCategoryName ?? "", new List<Job> { jamsJob });
                 }
                 catch (Exception ex)
                 {
@@ -130,10 +129,10 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 {
                     // Create the context.
                     using (var ctx = new ARCHONEntities())
-                        // Remember, the IEnumerator<T> implementation
-                        // might implement IDisposable.
+                    // Remember, the IEnumerator<T> implementation
+                    // might implement IDisposable.
                     using (p)
-                        // While there are items in p.
+                    // While there are items in p.
                     {
                         while (p.MoveNext())
                         {

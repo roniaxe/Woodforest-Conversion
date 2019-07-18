@@ -5,7 +5,6 @@ using WoodForestConversion.API.Conversion.Folders;
 using WoodForestConversion.API.Conversion.Jobs;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
-using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
@@ -23,7 +22,6 @@ namespace WoodForest.Conversion
                 logWriter = File.CreateText("log.txt");
                 using (var context = new ARCHONEntities())
                 {
-                    var jobRepo = new JobRepository(context);
                     var serviceModuleRepo = new ServiceModuleRepository(context);
                     var executionModuleRepo = new ExecutionModuleRepository(context);
                     var jobServiceRepo = new JobServiceRepository(context);
