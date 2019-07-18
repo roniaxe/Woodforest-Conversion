@@ -24,7 +24,7 @@ namespace WoodForestConversion.API.Conversion.Folders
         {
             _container = new ServiceContainer();
             _container.Register<DbContext, ARCHONEntities>();
-            _container.Register<ICategoryRepository, CategoryRepository>();
+            _container.Register<ICategoryRepository, CategoryRepository>(new PerContainerLifetime());
         }
         public void Convert()
         {
@@ -40,6 +40,7 @@ namespace WoodForestConversion.API.Conversion.Folders
                 convertedFolders.Add(folder);
             }
 
+            _container.Dispose();
             Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Folders\");
             JAMSXmlSerializer.WriteXml(convertedFolders, $@"{ConversionBaseHelper.XmlOutputLocation}\Folders\Folders.xml");
         }

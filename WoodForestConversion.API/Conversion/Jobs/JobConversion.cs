@@ -49,16 +49,16 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private void CreateContainer()
         {
             _container = new ServiceContainer();
-            _container.Register<DbContext, ARCHONEntities>();
-            _container.Register<IJobRepository, JobRepository>();
-            _container.Register<ICategoryRepository, CategoryRepository>();
-            _container.Register<IConditionRepository, ConditionRepository>();
-            _container.Register<IConditionSetRepository, ConditionSetRepository>();
-            _container.Register<IExecutionModuleRepository, ExecutionModuleRepository>();
-            _container.Register<IJobServiceRepository, JobServiceRepository>();
-            _container.Register<IJobStepRepository, JobStepRepository>();
-            _container.Register<IKeywordRepository, KeywordRepository>();
-            _container.Register<IServiceModuleRepository, ServiceModuleRepository>();
+            _container.Register<DbContext, ARCHONEntities>(new PerContainerLifetime());
+            _container.Register<IJobRepository, JobRepository>(new PerContainerLifetime());
+            _container.Register<ICategoryRepository, CategoryRepository>(new PerContainerLifetime());
+            _container.Register<IConditionRepository, ConditionRepository>(new PerContainerLifetime());
+            _container.Register<IConditionSetRepository, ConditionSetRepository>(new PerContainerLifetime());
+            _container.Register<IExecutionModuleRepository, ExecutionModuleRepository>(new PerContainerLifetime());
+            _container.Register<IJobServiceRepository, JobServiceRepository>(new PerContainerLifetime());
+            _container.Register<IJobStepRepository, JobStepRepository>(new PerContainerLifetime());
+            _container.Register<IKeywordRepository, KeywordRepository>(new PerContainerLifetime());
+            _container.Register<IServiceModuleRepository, ServiceModuleRepository>(new PerContainerLifetime());
         }
 
         public void Convert()
@@ -91,7 +91,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     Console.WriteLine(ex.Message);
                     throw;
                 }
-
+            
+            _container.Dispose();
             Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\");
             JAMSXmlSerializer.WriteXml(_connectionStoreDictionary.Values,
                 $@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\ConnectionStores.xml");

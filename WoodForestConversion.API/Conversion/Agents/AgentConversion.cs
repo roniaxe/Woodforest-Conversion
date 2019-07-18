@@ -24,7 +24,7 @@ namespace WoodForestConversion.API.Conversion.Agents
         {
             _container = new ServiceContainer();
             _container.Register<DbContext, ARCHONEntities>();
-            _container.Register<IJobServiceRepository, JobServiceRepository>();
+            _container.Register<IJobServiceRepository, JobServiceRepository>(new PerContainerLifetime());
         }
 
         public void Convert()
@@ -38,7 +38,7 @@ namespace WoodForestConversion.API.Conversion.Agents
                 ConvertAgentDetails(jobService, convertedAgent);
                 convertedAgents.Add(convertedAgent);
             }
-
+            _container.Dispose();
             Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Agents\");
             JAMSXmlSerializer.WriteXml(convertedAgents, $@"{ConversionBaseHelper.XmlOutputLocation}\Agents\Agents.xml");
 
