@@ -34,8 +34,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private static readonly Random Rnd = new Random();
         private readonly TextWriter _log;
         private ServiceContainer _container;
-        private readonly ConcurrentDictionary<Data.Job, JobFreqDto> _concurrentDictionary = new ConcurrentDictionary<Data.Job, JobFreqDto>();
         private readonly Dictionary<string, Agent> _connectionStoreDictionary = new Dictionary<string, Agent>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly ConcurrentDictionary<Guid, JobFreqDto> _jobConditions = new ConcurrentDictionary<Guid, JobFreqDto>();
 
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
 
@@ -68,19 +68,22 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
             var convertedJobs = new Dictionary<string, List<Job>>();
 
-            foreach (var jobConditions in _concurrentDictionary)
+            foreach (var job in _container.GetInstance<IJobRepository>().GetAllLive())
                 try
                 {
-                    var jamsJob = new Job();
-                    _log.WriteLine($"Converting {jobConditions.Key.JobName}");
-                    ConvertJobDetails(jobConditions.Key, jamsJob);
-                    ConvertJobConditions(jobConditions.Value, jamsJob);
-                    AddJobSteps(jobConditions.Key, jamsJob);
+                    _log.WriteLine($"Converting {job.JobName}");
 
-                    if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, jobConditions.Key.JobUID))
+                    var jamsJob = new Job();
+
+                    ConvertJobDetails(job, jamsJob);
+                    ConvertJobConditions(_jobConditions[job.JobUID], jamsJob);
+                    AddJobSteps(job, jamsJob);
+
+                    if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, job.JobUID))
                         continue;
 
-                    var jobCategoryName = JobConversionHelper.JobFolderName[jobConditions.Key.JobUID]?.CategoryName;
+                    var jobCategoryName = JobConversionHelper.JobFolderName[job.JobUID]?.CategoryName;
+
                     if (convertedJobs.TryGetValue(jobCategoryName ?? "", out var jobForFolder))
                         jobForFolder.Add(jamsJob);
                     else
@@ -132,7 +135,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             var partitioner = Partitioner.Create(JobConversionHelper.ArchonJobDictionary);
 
             // creation strategies.
-            var partitions = partitioner.GetPartitions(Environment.ProcessorCount / 2);
+            var partitions = partitioner.GetPartitions(Environment.ProcessorCount);
 
             // Create a task for each partition.
             var tasks = partitions.Select(p => Task.Run(() =>
@@ -141,16 +144,16 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     using (var ctx = new ARCHONEntities())
                     // Remember, the IEnumerator<T> implementation
                     // might implement IDisposable.
-                    using (p)
                     // While there are items in p.
                     {
                         while (p.MoveNext())
                         {
                             // Get the current item.
                             var current = p.Current;
+
                             var jobFreq = new JobFreqDto(current.Value, ctx);
 
-                            _concurrentDictionary.AddOrUpdate(current.Value, jobFreq, (job1, dto) => dto);
+                            _jobConditions.TryAdd(current.Key, jobFreq);
                         }
                     }
                 })).

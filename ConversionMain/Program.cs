@@ -12,7 +12,6 @@ namespace WoodForest.Conversion
         public static void Main(string[] args)
         {
             TextWriter logWriter = null;
-            var timer = Stopwatch.StartNew();
             try
             {
                 logWriter = File.CreateText("log.txt");
@@ -24,8 +23,6 @@ namespace WoodForest.Conversion
                 agentConverter.Convert();
                 folderConverter.Convert();
                 jobConverter.Convert();
-                Console.WriteLine(timer.ElapsedMilliseconds);
-                Console.ReadKey();
             }
             catch (Exception ex)
             {
