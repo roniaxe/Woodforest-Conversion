@@ -225,26 +225,26 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
             foreach (var archonStep in archonSteps)
             {
-                var seqTask = new Element();
-                seqTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
-
                 if (!archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent") &&
                     !archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.SqlProcessEvent"))
                 {
-                    seqTask.ElementTypeName = "ArchonStep";
-                    seqTask.Properties.SetValue("ArchonStepName", archonStep.ArchonStepName);
-                    seqTask.Properties.SetValue("ArchonModuleName", archonStep.ExecutionModule.ModuleName);
-                    seqTask.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
-                    seqTask.Properties.SetValue("ArchonModuleAssembly",
-                        ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
-                    seqTask.Properties.SetValue("ArchonModuleObject",
-                        ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
-                    seqTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+                    var task = new Element
+                    {
+                        ElementTypeName = "ArchonStep"
+                    };
+                    task.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
+                    task.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+                    task.Properties.SetValue("ArchonStepName", archonStep.ArchonStepName);
+                    task.Properties.SetValue("ArchonModuleName", archonStep.ExecutionModule.ModuleName);
+                    task.Properties.SetValue("ArchonConfiguration", archonStep.ArchonConfiguration);
+                    task.Properties.SetValue("ArchonModuleAssembly", ModuleAssemblyConverter.FromString(archonStep.ExecutionModule.ModuleAssembly));
+                    task.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
+                    targetJob.SourceElements.Add(task);
                 }
                 else
                 {
                     string parsedPath = null;
-                    seqTask.Properties.SetValue("DisplayTitle", archonStep.ArchonStepName);
+                    
                     try
                     {
                         parsedPath = JobConversionHelper.ParsePath(archonStep.ArchonConfiguration, sourceJob.Category);
@@ -253,7 +253,13 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
                         if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.CommandEvent"))
                         {
-                            seqTask.ElementTypeName = "PowerShellScriptTask";
+                            var task = new Element
+                            {
+                                ElementTypeName = "PowerShellScriptTask"
+                            };
+                            task.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
+                            task.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+
                             var command = JobConversionHelper.ParseToCommand(xmlDocument);
                             var fixedCommand = JobConversionHelper.TranslateKeywords(command, sourceJob.Category.Value);
                             if (fixedCommand.Contains("YesterdayDate"))
@@ -267,26 +273,42 @@ namespace WoodForestConversion.API.Conversion.Jobs
                                 targetJob.Parameters.Add(yesterdayParam);
                             }
 
-                            seqTask.Properties.SetValue("PSScript", fixedCommand);
+                            task.Properties.SetValue("PSScript", fixedCommand);
+                            targetJob.SourceElements.Add(task);
                         }
 
                         if (archonStep.ExecutionModule.ModuleObject.Equals("Archon.Modules.SqlProcessEvent"))
                         {
-                            seqTask.ElementTypeName = "SqlQueryTask";
                             var elemList = xmlDocument.GetElementsByTagName("event");
-                            var server = JobConversionHelper.TranslateKeywords(elemList[0].Attributes?["server"].Value,
-                                sourceJob.Category.Value);
-                            if (!_connectionStoreDictionary.TryGetValue(server, out var connectionStore))
-                            {
-                                connectionStore =
-                                    JobConversionHelper.CreateConnectionStore(xmlDocument, sourceJob.Category.Value);
-                                _connectionStoreDictionary.Add(connectionStore.AgentName, connectionStore);
-                            }
 
-                            var sqlCommand = GetInnerTexts(xmlDocument.GetElementsByTagName("executesql"));
-                            seqTask.Properties.SetValue("SqlQueryText", sqlCommand);
-                            seqTask.Properties.SetValue("DatabaseName", connectionStore.Description);
-                            seqTask.Properties.SetValue("SqlAgent", new AgentReference(connectionStore));
+                            foreach (XmlElement sqlActivity in elemList)
+                            {
+                                var task = new Element
+                                {
+                                    ElementTypeName = "SqlQueryTask"
+                                };
+                                task.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
+                                task.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
+
+                                var server = JobConversionHelper.TranslateKeywords(sqlActivity.Attributes["server"].Value, sourceJob.Category.Value);
+                                var database = JobConversionHelper.TranslateKeywords(sqlActivity.Attributes["database"].Value, sourceJob.Category.Value);
+
+                                if (!_connectionStoreDictionary.TryGetValue(server, out var connectionStore))
+                                {
+                                    connectionStore = JobConversionHelper.CreateConnectionStore(sqlActivity, sourceJob.Category.Value);
+                                    _connectionStoreDictionary.Add(connectionStore.AgentName, connectionStore);
+                                }
+
+                                var sqlCommand = JobConversionHelper.TranslateKeywords(
+                                    GetInnerTexts(sqlActivity.GetElementsByTagName("executesql")),
+                                    sourceJob.Category.Value
+                                    );
+                                task.Properties.SetValue("SqlQueryText", sqlCommand);
+                                task.Properties.SetValue("DatabaseName", database);
+                                task.Properties.SetValue("SqlAgent", new AgentReference(connectionStore));
+
+                                targetJob.SourceElements.Add(task);
+                            }
                         }
 
                         string GetInnerTexts(XmlNodeList nodeList)
@@ -315,8 +337,6 @@ namespace WoodForestConversion.API.Conversion.Jobs
                         return;
                     }
                 }
-
-                targetJob.SourceElements.Add(seqTask);
             }
         }
 

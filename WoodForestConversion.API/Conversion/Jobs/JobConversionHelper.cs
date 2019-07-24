@@ -222,6 +222,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             return Regex.Replace(originalText, @"\#([^\#]+)\#", match =>
             {
                 var keyword = match.Groups[1].Value;
+                if (keyword.Length > 50) return match.Value;
                 if (keyword.StartsWith("DATE(", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return "{JAMS.Now(\"yyyyMMdd\")}";
@@ -249,7 +250,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
         }
         public static string ParseToCommand(XmlDocument xmlDocument)
         {
-            string finalCommand = null;
+            StringBuilder finalCommand = new StringBuilder();
             XmlNodeList elemList = xmlDocument.GetElementsByTagName("command");
             for (int i = 0; i < elemList.Count; i++)
             {
@@ -257,7 +258,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 XmlAttribute args = elemList[i].Attributes?["args"];
                 if (exec != null)
                 {
-                    finalCommand = $"{exec.Value} {(args != null ? args.Value : "")}";
+                    finalCommand.AppendLine($"{exec.Value} {(args != null ? args.Value : "")}");
                 }
                 else
                 {
@@ -265,7 +266,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 }
             }
 
-            return finalCommand;
+            return finalCommand.ToString();
         }
 
         public static string ParsePath(string path, Guid? category)
@@ -287,16 +288,14 @@ namespace WoodForestConversion.API.Conversion.Jobs
             return projectName;
         }
 
-        public static Agent CreateConnectionStore(XmlDocument xmlDocument, Guid sourceJobCategory)
+        public static Agent CreateConnectionStore(XmlElement xmlElement, Guid sourceJobCategory)
         {
-            XmlNodeList elemList = xmlDocument.GetElementsByTagName("event");
-            var server = TranslateKeywords(elemList[0].Attributes?["server"].Value, sourceJobCategory);
-            var database = TranslateKeywords(elemList[0].Attributes?["database"].Value, sourceJobCategory);
-            var timeout = elemList[0].Attributes?["timeout"]?.Value ?? "600";
+            var server = TranslateKeywords(xmlElement.Attributes?["server"].Value, sourceJobCategory);
+            var timeout = xmlElement.Attributes?["timeout"]?.Value ?? "600";
             Agent connectionStore = new Agent
             {
-                AgentName = $"{server}",//_{database}",//_{timeout}",
-                Description = $"{database}",// {database}",// Database with timeout {timeout}",
+                AgentName = $"{server}",
+                Description = $"This is a server name {server}",
                 AgentTypeName = "SqlServer",
                 AgentType = AgentType.SqlServer,
                 PlatformTypeName = "Neutral",
