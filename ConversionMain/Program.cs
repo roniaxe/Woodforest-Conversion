@@ -1,7 +1,6 @@
-﻿using System;
-using System.Data.Entity;
+﻿using LightInject;
+using System;
 using System.IO;
-using LightInject;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job;
@@ -14,7 +13,6 @@ using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Keyword;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
-using WoodForestConversion.Data;
 
 namespace WoodForest.Conversion
 {
