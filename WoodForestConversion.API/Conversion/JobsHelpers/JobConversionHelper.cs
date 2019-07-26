@@ -1,18 +1,17 @@
-﻿using System;
+﻿using MVPSI.JAMS;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using MVPSI.JAMS;
-using Newtonsoft.Json;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Keyword;
-using WoodForestConversion.Data;
 using Formatting = Newtonsoft.Json.Formatting;
 using Job = MVPSI.JAMS.Job;
 
@@ -296,8 +295,8 @@ namespace WoodForestConversion.API.Conversion.JobsHelpers
 
         public static Agent CreateConnectionStore(XmlElement xmlElement, Guid sourceJobCategory)
         {
-            var server = TranslateKeywords(xmlElement.Attributes?["server"].Value, sourceJobCategory);
-            var timeout = xmlElement.Attributes?["timeout"]?.Value ?? "600";
+            var server = TranslateKeywords(xmlElement.Attributes["server"].Value, sourceJobCategory);
+            var timeout = xmlElement.Attributes["timeout"]?.Value ?? "600";
             Agent connectionStore = new Agent
             {
                 AgentName = $"{server}",

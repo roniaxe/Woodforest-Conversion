@@ -1,6 +1,7 @@
 ﻿using LightInject;
 using System;
 using System.IO;
+using Serilog;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job;
@@ -20,15 +21,18 @@ namespace WoodForest.Conversion
     {
         public static void Main(string[] args)
         {
-            TextWriter logWriter = null;
             try
             {
-                logWriter = File.CreateText("log.txt");
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.Console()
+                    .WriteTo.File($"WNBLog_{DateTime.Now}.log", rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
                 var container = CreateAndRegisterContainer();
 
-                var jobConverter = new JobConversion(logWriter, container);
-                var agentConverter = new AgentConversion(logWriter, container);
-                var folderConverter = new FoldersConversion(logWriter, container);
+                var jobConverter = new JobConversion(Log.Logger, container);
+                var agentConverter = new AgentConversion(Log.Logger, container);
+                var folderConverter = new FoldersConversion(Log.Logger, container);
 
                 agentConverter.Convert();
                 folderConverter.Convert();
@@ -41,7 +45,7 @@ namespace WoodForest.Conversion
             }
             finally
             {
-                logWriter?.Dispose();
+                Log.CloseAndFlush();
             }
         }
 

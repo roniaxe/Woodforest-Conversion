@@ -3,6 +3,7 @@ using MVPSI.JAMS;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
+using Serilog;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
@@ -12,7 +13,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder
 {
     public class FoldersConversion : AbstractConverter
     {
-        public FoldersConversion(TextWriter log, ServiceContainer container) : base(log, container)
+        public FoldersConversion(ILogger log, ServiceContainer container) : base(log, container)
         {
             Container.Register<DbContext, ARCHONEntities>((factory, context) => new ARCHONEntities());
         }

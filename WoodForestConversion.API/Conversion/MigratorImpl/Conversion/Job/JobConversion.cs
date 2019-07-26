@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Serilog;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
@@ -32,7 +33,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
 
-        public JobConversion(TextWriter log, ServiceContainer container) : base(log, container)
+        public JobConversion(ILogger log, ServiceContainer container) : base(log, container)
         {
         }
 
@@ -46,7 +47,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             foreach (var job in Container.GetInstance<IJobRepository>().GetAllLive())
                 try
                 {
-                    Log.WriteLine($"Converting {job.JobName}");
+                    Log.Information($"Converting {job.JobName}");
 
                     var jamsJob = new MVPSI.JAMS.Job();
 
@@ -296,13 +297,13 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     }
                     catch (FileNotFoundException)
                     {
-                        Log.WriteLine(
+                        Log.Error(
                             $"Config File Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
                         return;
                     }
                     catch (DirectoryNotFoundException)
                     {
-                        Log.WriteLine(
+                        Log.Error(
                             $"Config Folder Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
                         return;
                     }
@@ -333,7 +334,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     }
                     else
                     {
-                        Log.WriteLine(
+                        Log.Warning(
                             $"   No service found to run module {jobModule}");
                         continue;
                     }
@@ -347,7 +348,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 
                 if (mergedList == null)
                 {
-                    Log.WriteLine("   Job has no service to run on. No agent will be assigned.");
+                    Log.Warning("   Job has no service to run on. No agent will be assigned.");
                     return;
                 }
 

@@ -2,16 +2,17 @@
 using LightInject;
 using Migrator.Interfaces;
 using System.IO;
+using Serilog;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract
 {
     public abstract class AbstractConverter : IConverter
     {
-        protected readonly TextWriter Log;
+        protected readonly ILogger Log;
         protected ServiceContainer Container;
 
-        protected AbstractConverter(TextWriter log, ServiceContainer container)
+        protected AbstractConverter(ILogger log, ServiceContainer container)
         {
             Container = container;
             Log = log;
