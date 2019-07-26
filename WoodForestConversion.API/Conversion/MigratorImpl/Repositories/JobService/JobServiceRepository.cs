@@ -5,8 +5,5 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobServi
 {
     public class JobServiceRepository : EntityFrameworkGenericRepository<Data.JobService, Guid>, IJobServiceRepository
     {
-        public JobServiceRepository(DbContext context) : base(context)
-        {
-        }
     }
 }

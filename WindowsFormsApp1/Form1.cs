@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using WoodForestConversion.API.Conversion.Jobs;
+using WoodForestConversion.API.Conversion.JobsHelpers;
 using WoodForestConversion.Data;
 
 namespace DataVisualization

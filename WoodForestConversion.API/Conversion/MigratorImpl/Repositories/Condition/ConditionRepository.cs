@@ -7,10 +7,6 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Conditio
 {
     public class ConditionRepository : EntityFrameworkGenericRepository<Data.Condition, Guid>, IConditionRepository
     {
-        public ConditionRepository(DbContext context) : base(context)
-        {
-        }
-
         public IEnumerable<Data.Condition> GetAllLive()
         {
             return GetAll().Where(condition => condition.IsLive);

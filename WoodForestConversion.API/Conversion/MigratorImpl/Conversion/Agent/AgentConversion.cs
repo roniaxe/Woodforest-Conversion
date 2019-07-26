@@ -1,50 +1,40 @@
 ﻿using LightInject;
-using Migrator.Interfaces;
 using MVPSI.JAMS;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using WoodForestConversion.API.Conversion.ConversionBase;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.Data;
 
-namespace WoodForestConversion.API.Conversion.Agents
+namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent
 {
-    public class AgentConversion : IConverter
+    public class AgentConversion : AbstractConverter
     {
-        private readonly TextWriter _log;
-        private ServiceContainer _container;
-        public AgentConversion(TextWriter log)
+        public AgentConversion(TextWriter log, ServiceContainer container) : base(log, container)
         {
-            _log = log;
-            CreateContainer();
+            Container.Register<DbContext, ARCHONEntities>((factory, context) => new ARCHONEntities());
         }
 
-        private void CreateContainer()
+        public override void Convert()
         {
-            _container = new ServiceContainer();
-            _container.Register<DbContext, ARCHONEntities>();
-            _container.Register<IJobServiceRepository, JobServiceRepository>(new PerContainerLifetime());
-        }
-
-        public void Convert()
-        {
-            var sourceAgents = _container.GetInstance<IJobServiceRepository>().GetAll();
-            List<Agent> convertedAgents = new List<Agent>();
+            var sourceAgents = Container.GetInstance<IJobServiceRepository>().GetAll();
+            List<MVPSI.JAMS.Agent> convertedAgents = new List<MVPSI.JAMS.Agent>();
 
             foreach (var jobService in sourceAgents)
             {
-                Agent convertedAgent = new Agent();
+                MVPSI.JAMS.Agent convertedAgent = new MVPSI.JAMS.Agent();
                 ConvertAgentDetails(jobService, convertedAgent);
                 convertedAgents.Add(convertedAgent);
             }
-            _container.Dispose();
+            Container.Dispose();
             Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Agents\");
             JAMSXmlSerializer.WriteXml(convertedAgents, $@"{ConversionBaseHelper.XmlOutputLocation}\Agents\Agents.xml");
 
         }
 
-        public void ConvertAgentDetails(JobService sourceAgent, Agent targetAgent)
+        public void ConvertAgentDetails(JobService sourceAgent, MVPSI.JAMS.Agent targetAgent)
         {
             targetAgent.AgentName = sourceAgent.ServiceName;
             targetAgent.Online = sourceAgent.Available;

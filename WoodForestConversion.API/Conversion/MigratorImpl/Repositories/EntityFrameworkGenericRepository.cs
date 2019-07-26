@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories
 {
     public class EntityFrameworkGenericRepository<TSource, TPrimaryKeyTpe> : IRepository<TSource, TPrimaryKeyTpe> where TSource : class
     {
         public DbContext DbContext { get; }
-        public EntityFrameworkGenericRepository(DbContext context)
+        public EntityFrameworkGenericRepository()
         {
-            DbContext = context;
+            DbContext = new ARCHONEntities();
         }
 
         public IEnumerable<TSource> GetAll()

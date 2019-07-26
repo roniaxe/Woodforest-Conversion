@@ -5,8 +5,5 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Executio
 {
     public class ExecutionModuleRepository : EntityFrameworkGenericRepository<Data.ExecutionModule, Guid>, IExecutionModuleRepository
     {
-        public ExecutionModuleRepository(DbContext context) : base(context)
-        {
-        }
     }
 }

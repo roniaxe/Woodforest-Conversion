@@ -1,12 +1,12 @@
-﻿using MVPSI.JAMS;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using MVPSI.JAMS;
+using Newtonsoft.Json;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
@@ -16,7 +16,7 @@ using WoodForestConversion.Data;
 using Formatting = Newtonsoft.Json.Formatting;
 using Job = MVPSI.JAMS.Job;
 
-namespace WoodForestConversion.API.Conversion.Jobs
+namespace WoodForestConversion.API.Conversion.JobsHelpers
 {
     public static class JobConversionHelper
     {
@@ -30,7 +30,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 if (_archonJobDictionary == null)
                 {
-                    var jobRepo = new JobRepository(new ARCHONEntities());
+                    var jobRepo = new JobRepository();
 
                     _archonJobDictionary = jobRepo
                         .GetAllLive()
@@ -49,8 +49,8 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 if (_jobFolderName == null)
                 {
-                    var jobRepo = new JobRepository(new ARCHONEntities());
-                    var categoryRepo = new CategoryRepository(new ARCHONEntities());
+                    var jobRepo = new JobRepository();
+                    var categoryRepo = new CategoryRepository();
 
                     try
                     {
@@ -82,7 +82,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             {
                 if (_keywordsDictionary == null)
                 {
-                    var keywordRepo = new KeywordRepository(new ARCHONEntities());
+                    var keywordRepo = new KeywordRepository();
 
                     _keywordsDictionary = keywordRepo.GetAll()
                         .ToDictionary(keyword => $"{keyword.CategoryUID}-{keyword.Keyword1}", keyword => keyword.KeyValue, StringComparer.InvariantCultureIgnoreCase);
@@ -231,13 +231,19 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 {
                     return "{YesterdayDate(\"yyyyMMdd\")}";
                 }
+
                 try
                 {
                     return KeywordsDictionary[$"{categoryGuid}-{keyword}"];
                 }
-                catch (Exception)
+                catch (KeyNotFoundException)
                 {
                     return KeywordsDictionary[$"{Guid.Empty}-{keyword}"];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
                 }
             }, RegexOptions.IgnoreCase);
         }

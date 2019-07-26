@@ -1,12 +1,10 @@
 ﻿using Archon.Tasks;
 using LightInject;
-using Migrator.Interfaces;
 using MVPSI.JAMS;
 using MVPSI.JAMSSequence;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,65 +13,42 @@ using System.Xml;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
-using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
-using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Condition;
-using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ConditionSet;
+using WoodForestConversion.API.Conversion.JobsHelpers;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
-using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Keyword;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
 using WoodForestConversion.Data;
-using Job = MVPSI.JAMS.Job;
 
-namespace WoodForestConversion.API.Conversion.Jobs
+namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 {
-    public class JobConversion : IConverter
+    public class JobConversion : AbstractConverter
     {
         private static readonly Random Rnd = new Random();
-        private readonly TextWriter _log;
-        private ServiceContainer _container;
-        private readonly Dictionary<string, Agent> _connectionStoreDictionary = new Dictionary<string, Agent>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly Dictionary<string, MVPSI.JAMS.Agent> _connectionStoreDictionary = new Dictionary<string, MVPSI.JAMS.Agent>(StringComparer.InvariantCultureIgnoreCase);
         private readonly ConcurrentDictionary<Guid, JobFreqDto> _jobConditions = new ConcurrentDictionary<Guid, JobFreqDto>();
 
         public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
 
-        public JobConversion(
-            TextWriter log)
+        public JobConversion(TextWriter log, ServiceContainer container) : base(log, container)
         {
-            _log = log;
-            CreateContainer();
         }
 
-        private void CreateContainer()
-        {
-            _container = new ServiceContainer();
-            _container.Register<DbContext, ARCHONEntities>(new PerContainerLifetime());
-            _container.Register<IJobRepository, JobRepository>(new PerContainerLifetime());
-            _container.Register<ICategoryRepository, CategoryRepository>(new PerContainerLifetime());
-            _container.Register<IConditionRepository, ConditionRepository>(new PerContainerLifetime());
-            _container.Register<IConditionSetRepository, ConditionSetRepository>(new PerContainerLifetime());
-            _container.Register<IExecutionModuleRepository, ExecutionModuleRepository>(new PerContainerLifetime());
-            _container.Register<IJobServiceRepository, JobServiceRepository>(new PerContainerLifetime());
-            _container.Register<IJobStepRepository, JobStepRepository>(new PerContainerLifetime());
-            _container.Register<IKeywordRepository, KeywordRepository>(new PerContainerLifetime());
-            _container.Register<IServiceModuleRepository, ServiceModuleRepository>(new PerContainerLifetime());
-        }
-
-        public void Convert()
+        public override void Convert()
         {
             ServiceModuleDictionary = CreateServiceModuleDto();
             PopulateJobConditionsDictionary();
 
-            var convertedJobs = new Dictionary<string, List<Job>>();
+            var convertedJobs = new Dictionary<string, List<MVPSI.JAMS.Job>>();
 
-            foreach (var job in _container.GetInstance<IJobRepository>().GetAllLive())
+            foreach (var job in Container.GetInstance<IJobRepository>().GetAllLive())
                 try
                 {
-                    _log.WriteLine($"Converting {job.JobName}");
+                    Log.WriteLine($"Converting {job.JobName}");
 
-                    var jamsJob = new Job();
+                    var jamsJob = new MVPSI.JAMS.Job();
 
                     ConvertJobDetails(job, jamsJob);
                     ConvertJobConditions(_jobConditions[job.JobUID], jamsJob);
@@ -87,15 +62,15 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     if (convertedJobs.TryGetValue(jobCategoryName ?? "", out var jobForFolder))
                         jobForFolder.Add(jamsJob);
                     else
-                        convertedJobs.Add(jobCategoryName ?? "", new List<Job> { jamsJob });
+                        convertedJobs.Add(jobCategoryName ?? "", new List<MVPSI.JAMS.Job> { jamsJob });
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     throw;
                 }
-            
-            _container.Dispose();
+
+            Container.Dispose();
             Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\");
             JAMSXmlSerializer.WriteXml(_connectionStoreDictionary.Values,
                 $@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\ConnectionStores.xml");
@@ -112,10 +87,10 @@ namespace WoodForestConversion.API.Conversion.Jobs
         private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> CreateServiceModuleDto()
         {
             return (
-                    from serviceModule in _container.GetInstance<IServiceModuleRepository>().GetAll()
-                    join executionModule in _container.GetInstance<IExecutionModuleRepository>().GetAll() on serviceModule.ModuleUID equals
+                    from serviceModule in Container.GetInstance<IServiceModuleRepository>().GetAll()
+                    join executionModule in Container.GetInstance<IExecutionModuleRepository>().GetAll() on serviceModule.ModuleUID equals
                         executionModule.ModuleUID
-                    join jobService in _container.GetInstance<IJobServiceRepository>().GetAll() on serviceModule.ServiceUID equals jobService
+                    join jobService in Container.GetInstance<IJobServiceRepository>().GetAll() on serviceModule.ServiceUID equals jobService
                         .ServiceUID
                     where jobService.Available && jobService.Capacity > 0
                     select new ServiceModuleDto
@@ -164,7 +139,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             Task.WaitAll(tasks);
         }
 
-        private void ConvertJobDetails(Data.Job sourceJob, Job targetJob)
+        private void ConvertJobDetails(Data.Job sourceJob, MVPSI.JAMS.Job targetJob)
         {
             sourceJob.JobName = JobConversionHelper.FixJobName(sourceJob.JobName);
 
@@ -173,7 +148,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             targetJob.MethodName = "Sequence";
         }
 
-        private void ConvertJobConditions(JobFreqDto conditions, Job targetJob)
+        private void ConvertJobConditions(JobFreqDto conditions, MVPSI.JAMS.Job targetJob)
         {
             conditions.PopulateScheduleTriggers(conditions.ConditionsTree);
             conditions.PopulateFileDependencies();
@@ -201,12 +176,12 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     targetJob.Elements.Add(jobConditionsElement);
         }
 
-        private void AddJobSteps(Data.Job sourceJob, Job targetJob)
+        private void AddJobSteps(Data.Job sourceJob, MVPSI.JAMS.Job targetJob)
         {
             var sequenceTask = new SequenceTask();
             sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
 
-            var archonSteps = _container.GetInstance<IJobStepRepository>().GetAllLive()
+            var archonSteps = Container.GetInstance<IJobStepRepository>().GetAllLive()
                 .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
                 .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
                 {
@@ -214,7 +189,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     ArchonConfiguration = js.ConfigurationFile,
                     ParentTaskID = sequenceTask.ElementUid,
                     DisplayTitle = js.StepName,
-                    ExecutionModule = _container.GetInstance<IExecutionModuleRepository>().GetAll()
+                    ExecutionModule = Container.GetInstance<IExecutionModuleRepository>().GetAll()
                         .FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
                 }).ToList();
             if (!archonSteps.Any()) return;
@@ -244,7 +219,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 else
                 {
                     string parsedPath = null;
-                    
+
                     try
                     {
                         parsedPath = JobConversionHelper.ParsePath(archonStep.ArchonConfiguration, sourceJob.Category);
@@ -321,13 +296,13 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     }
                     catch (FileNotFoundException)
                     {
-                        _log.WriteLine(
+                        Log.WriteLine(
                             $"Config File Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
                         return;
                     }
                     catch (DirectoryNotFoundException)
                     {
-                        _log.WriteLine(
+                        Log.WriteLine(
                             $"Config Folder Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
                         return;
                     }
@@ -340,7 +315,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
             }
         }
 
-        private void SelectAgent(IEnumerable<ArchonStepDto> archonSteps, Job targetJob)
+        private void SelectAgent(IEnumerable<ArchonStepDto> archonSteps, MVPSI.JAMS.Job targetJob)
         {
             var jobModules = new HashSet<Guid>(archonSteps.Select(step => step.ExecutionModule.ModuleUID));
             if (!jobModules.Any()) return;
@@ -358,7 +333,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                     }
                     else
                     {
-                        _log.WriteLine(
+                        Log.WriteLine(
                             $"   No service found to run module {jobModule}");
                         continue;
                     }
@@ -372,7 +347,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
 
                 if (mergedList == null)
                 {
-                    _log.WriteLine("   Job has no service to run on. No agent will be assigned.");
+                    Log.WriteLine("   Job has no service to run on. No agent will be assigned.");
                     return;
                 }
 

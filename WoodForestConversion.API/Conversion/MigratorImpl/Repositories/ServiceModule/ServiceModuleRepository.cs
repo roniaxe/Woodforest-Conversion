@@ -5,8 +5,5 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceM
 {
     public class ServiceModuleRepository : EntityFrameworkGenericRepository<Data.ServiceModule, Guid>, IServiceModuleRepository
     {
-        public ServiceModuleRepository(DbContext context) : base(context)
-        {
-        }
     }
 }

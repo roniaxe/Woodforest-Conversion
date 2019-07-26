@@ -86,7 +86,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conversion\Agents\AgentConversion.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Abstract\AbstractConverter.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Agent\AgentConversion.cs" />
     <Compile Include="Conversion\ConditionsTree\TreeNode.cs" />
     <Compile Include="Conversion\ConversionBase\ConversionBaseHelper.cs" />
     <Compile Include="Conversion\DTOs\ArchonStepDto.cs" />
@@ -95,9 +96,9 @@
     <Compile Include="Conversion\DTOs\SetFreqDto.cs" />
     <Compile Include="Conversion\Enums\ConditionType.cs" />
     <Compile Include="Conversion\DTOs\JobFreqDto.cs" />
-    <Compile Include="Conversion\Folders\FoldersConversion.cs" />
-    <Compile Include="Conversion\Jobs\JobConversion.cs" />
-    <Compile Include="Conversion\Jobs\JobConversionHelper.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Folder\FoldersConversion.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Job\JobConversion.cs" />
+    <Compile Include="Conversion\JobsHelpers\JobConversionHelper.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\Category\CategoryRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\Category\ICategoryRepository.cs" />
     <Compile Include="Conversion\MigratorImpl\Repositories\ConditionSet\ConditionSetRepository.cs" />

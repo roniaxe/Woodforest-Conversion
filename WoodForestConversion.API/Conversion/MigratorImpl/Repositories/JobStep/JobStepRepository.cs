@@ -9,10 +9,6 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep
 {
     public class JobStepRepository : EntityFrameworkGenericRepository<Data.JobStep, Guid>, IJobStepRepository
     {
-        public JobStepRepository(DbContext context) : base(context)
-        {
-        }
-
         public IEnumerable<Data.JobStep> GetAllLive()
         {
             return GetAll().Where(step => step.IsLive && !step.IsDeleted);
