@@ -36,7 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArchonTasksShr">
+    <Reference Include="ArchonTasksShr, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Archon\lib\ArchonTasksShr.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
@@ -86,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conversion\Enums\CategoryConverter.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Abstract\AbstractConverter.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Agent\AgentConversion.cs" />
     <Compile Include="Conversion\ConditionsTree\TreeNode.cs" />
