@@ -9,7 +9,7 @@ namespace WoodForestConversion.API.Conversion.Enums
 {
     internal static class CategoryConverter
     {
-        internal static CategoryName? FromGUID(Guid? categoryGuid)
+        internal static CategoryName FromGUID(Guid? categoryGuid)
         {
             switch (categoryGuid)
             {
@@ -34,7 +34,7 @@ namespace WoodForestConversion.API.Conversion.Enums
                 case var cGuid when cGuid == new Guid("66AC054C-67A9-413B-A0EB-EB9418554E06"):
                     return CategoryName.Misc_Tasks;
                 default:
-                    return null;
+                    return CategoryName.Unknown;
             }
         }
     }

@@ -216,7 +216,7 @@ namespace WoodForestConversion.API.Conversion.Jobs
                 archonTask.Properties.SetValue("ArchonModuleObject", ModuleObjectConverter.FromString(archonStep.ExecutionModule.ModuleObject));
                 archonTask.Properties.SetValue("ParentTaskID", archonStep.ParentTaskID);
                 archonTask.Properties.SetValue("DisplayTitle", archonStep.DisplayTitle);
-                archonTask.Properties.SetValue("ArchonCategoryName", sourceJob.Category);
+                archonTask.Properties.SetValue("ArchonCategoryName", CategoryConverter.FromGUID(sourceJob.Category));
                 targetJob.SourceElements.Add(archonTask);
             }
         }
