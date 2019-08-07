@@ -9,7 +9,7 @@ namespace WoodForestConversion.API.Conversion.Enums
 {
     internal static class CategoryConverter
     {
-        internal static CategoryName? FromGUID(Guid categoryGuid)
+        internal static CategoryName? FromGUID(Guid? categoryGuid)
         {
             switch (categoryGuid)
             {
