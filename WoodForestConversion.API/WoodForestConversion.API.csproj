@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArchonTasksShr">
-      <HintPath>..\packages\Archon\ArchonTasksShr.dll</HintPath>
+      <HintPath>..\packages\Archon\lib\ArchonTasksShr.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
