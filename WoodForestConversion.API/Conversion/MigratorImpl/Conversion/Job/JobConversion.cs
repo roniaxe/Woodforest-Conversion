@@ -67,7 +67,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Log.Error(ex, ex.Message);
                     throw;
                 }
 
@@ -197,7 +197,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 
             targetJob.SourceElements.Add(sequenceTask);
 
-            SelectAgent(archonSteps, targetJob);
+            //SelectAgent(archonSteps, targetJob);
 
             foreach (var archonStep in archonSteps)
             {
@@ -309,7 +309,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Log.Error(ex, ex.Message);
                         return;
                     }
                 }
@@ -326,24 +326,23 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                 IEnumerable<string> mergedList = null;
                 foreach (var jobModule in jobModules)
                 {
-                    IEnumerable<string> serviceList;
-
-                    if (ServiceModuleDictionary.ContainsKey(jobModule))
+                    if (ServiceModuleDictionary.TryGetValue(jobModule, out var serviceDto))
                     {
-                        serviceList = ServiceModuleDictionary[jobModule].Select(dto => dto.ServiceName);
+                        var serviceNames = serviceDto.Select(dto => dto.ServiceName);
+
+                        if (mergedList == null)
+                        {
+                            mergedList = serviceNames;
+                        }
+                        else
+                        {
+                            mergedList = mergedList.Intersect(serviceNames);
+                        }
                     }
                     else
                     {
-                        Log.Warning(
-                            $"   No service found to run module {jobModule}");
-                        continue;
+                        Log.Warning($"   No service found to run module {jobModule}");
                     }
-
-                    if (mergedList == null)
-                        mergedList = serviceList;
-                    else
-                        mergedList = mergedList.Join(serviceList,
-                            s => s, s => s, (s, s1) => s);
                 }
 
                 if (mergedList == null)
@@ -358,7 +357,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Error(ex, ex.Message);
                 throw;
             }
         }

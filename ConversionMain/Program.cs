@@ -28,19 +28,21 @@ namespace WoodForest.Conversion
                     .WriteTo.Console()
                     .WriteTo.File($"WNBLog_{DateTime.Now}.log", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
-                var container = CreateAndRegisterContainer();
 
-                var jobConverter = new JobConversion(Log.Logger, container);
-                var agentConverter = new AgentConversion(Log.Logger, container);
-                var folderConverter = new FoldersConversion(Log.Logger, container);
+                using (var container = CreateAndRegisterContainer())
+                {
+                    var jobConverter = new JobConversion(Log.Logger, container);
+                    var agentConverter = new AgentConversion(Log.Logger, container);
+                    var folderConverter = new FoldersConversion(Log.Logger, container);
 
-                agentConverter.Convert();
-                folderConverter.Convert();
-                jobConverter.Convert();
+                    agentConverter.Convert();
+                    folderConverter.Convert();
+                    jobConverter.Convert();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Error(ex, ex.Message);
                 Console.ReadKey();
             }
             finally
