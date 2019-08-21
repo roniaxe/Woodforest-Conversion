@@ -31,9 +31,9 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
         private readonly Dictionary<string, MVPSI.JAMS.Agent> _connectionStoreDictionary = new Dictionary<string, MVPSI.JAMS.Agent>(StringComparer.InvariantCultureIgnoreCase);
         private readonly ConcurrentDictionary<Guid, JobFreqDto> _jobConditions = new ConcurrentDictionary<Guid, JobFreqDto>();
 
-        public Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
+        private Dictionary<Guid, IGrouping<Guid, ServiceModuleDto>> ServiceModuleDictionary { get; set; }
 
-        public JobConversion(ILogger log, ServiceContainer container) : base(log, container)
+        public JobConversion(ServiceContainer container) : base(container)
         {
         }
 
@@ -47,7 +47,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             foreach (var job in Container.GetInstance<IJobRepository>().GetAllLive())
                 try
                 {
-                    Log.Information($"Converting {job.JobName}");
+                    Log.Logger.Information($"Converting {job.JobName}");
 
                     var jamsJob = new MVPSI.JAMS.Job();
 
@@ -67,7 +67,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, ex.Message);
+                    Log.Logger.Error(ex, ex.Message);
                     throw;
                 }
 
@@ -147,6 +147,9 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             targetJob.JobName = sourceJob.JobName;
             targetJob.Description = sourceJob.Note;
             targetJob.MethodName = "Sequence";
+
+            // Set the job to be Disabled
+            targetJob.Properties.SetValue("Enabled", false);
         }
 
         private void ConvertJobConditions(JobFreqDto conditions, MVPSI.JAMS.Job targetJob)
@@ -298,19 +301,19 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     }
                     catch (FileNotFoundException)
                     {
-                        Log.Error(
+                        Log.Logger.Error(
                             $"Config File Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
                         return;
                     }
                     catch (DirectoryNotFoundException)
                     {
-                        Log.Error(
+                        Log.Logger.Error(
                             $"Config Folder Is Missing! {parsedPath} --> StepName: {archonStep.ArchonStepName}, Module: {archonStep.ExecutionModule.ModuleObject}");
                         return;
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, ex.Message);
+                        Log.Logger.Error(ex, ex.Message);
                         return;
                     }
                 }
@@ -342,13 +345,13 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     }
                     else
                     {
-                        Log.Warning($"   No service found to run module {jobModule}");
+                        Log.Logger.Warning($"   No service found to run module {jobModule}");
                     }
                 }
 
                 if (mergedList == null)
                 {
-                    Log.Warning("   Job has no service to run on. No agent will be assigned.");
+                    Log.Logger.Warning("   Job has no service to run on. No agent will be assigned.");
                     return;
                 }
 
@@ -358,7 +361,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                Log.Logger.Error(ex, ex.Message);
                 throw;
             }
         }

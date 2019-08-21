@@ -1,6 +1,5 @@
 ﻿using LightInject;
 using System;
-using System.IO;
 using Serilog;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder;
@@ -31,9 +30,9 @@ namespace WoodForest.Conversion
 
                 using (var container = CreateAndRegisterContainer())
                 {
-                    var jobConverter = new JobConversion(Log.Logger, container);
-                    var agentConverter = new AgentConversion(Log.Logger, container);
-                    var folderConverter = new FoldersConversion(Log.Logger, container);
+                    var jobConverter = new JobConversion(container);
+                    var agentConverter = new AgentConversion(container);
+                    var folderConverter = new FoldersConversion(container);
 
                     agentConverter.Convert();
                     folderConverter.Convert();
@@ -42,7 +41,7 @@ namespace WoodForest.Conversion
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                Log.Logger.Error(ex, ex.Message);
                 Console.ReadKey();
             }
             finally
@@ -51,7 +50,7 @@ namespace WoodForest.Conversion
             }
         }
 
-        public static ServiceContainer CreateAndRegisterContainer()
+        private static ServiceContainer CreateAndRegisterContainer()
         {
             var container = new ServiceContainer();
             container.SetDefaultLifetime<PerContainerLifetime>();

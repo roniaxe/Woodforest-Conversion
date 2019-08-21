@@ -10,8 +10,9 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Repositories
 {
     public class EntityFrameworkGenericRepository<TSource, TPrimaryKeyTpe> : IRepository<TSource, TPrimaryKeyTpe> where TSource : class
     {
-        public DbContext DbContext { get; }
-        public EntityFrameworkGenericRepository()
+        private DbContext DbContext { get; }
+
+        protected EntityFrameworkGenericRepository()
         {
             DbContext = new ARCHONEntities();
         }

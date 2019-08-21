@@ -3,7 +3,6 @@ using MVPSI.JAMS;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
-using Serilog;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
@@ -13,9 +12,8 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent
 {
     public class AgentConversion : AbstractConverter
     {
-        public AgentConversion(ILogger log, ServiceContainer container) : base(log, container)
+        public AgentConversion(ServiceContainer container) : base(container)
         {
-            Container.Register<DbContext, ARCHONEntities>((factory, context) => new ARCHONEntities());
         }
 
         public override void Convert()
