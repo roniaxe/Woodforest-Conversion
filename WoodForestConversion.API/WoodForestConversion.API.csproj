@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversion\Enums\CategoryConverter.cs" />
+    <Compile Include="Conversion\Enums\JobStyle.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Abstract\AbstractConverter.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Agent\AgentConversion.cs" />
     <Compile Include="Conversion\ConditionsTree\TreeNode.cs" />

@@ -14,18 +14,13 @@ namespace WoodForestConversion.API.Conversion.DTOs
 {
     public class JobFreqDto
     {
+        #region Properties
         private readonly ARCHONEntities _ctx;
         private TimeSpan? _stopsAtUtc;
-
-        #region Properties
-        public TreeNode ConditionsTree { get; set; }
-        public ElementCollection Elements { get; set; } = new ElementCollection();
-        public ExecutionFrequency ExecutionFrequency { get; }
-        public int Interval { get; }
-        public TimeSpan? StopsAtUTC
+        private TimeSpan? StopsAtUTC
         {
             get => _stopsAtUtc;
-            private set
+            set
             {
                 if (value.HasValue)
                 {
@@ -40,8 +35,12 @@ namespace WoodForestConversion.API.Conversion.DTOs
                 }
             }
         }
-        public HashSet<Guid?> JobDependencies { get; set; } = new HashSet<Guid?>();
-        public HashSet<string> FileDependencies { get; set; } = new HashSet<string>();
+        private HashSet<Guid?> JobDependencies { get; } = new HashSet<Guid?>();
+        private HashSet<string> FileDependencies { get; } = new HashSet<string>();
+        public TreeNode ConditionsTree { get; private set; }
+        public ElementCollection Elements { get; } = new ElementCollection();
+        public ExecutionFrequency ExecutionFrequency { get; }
+        public int Interval { get; }
         #endregion
 
         public JobFreqDto(Job job, ARCHONEntities ctx)
@@ -57,12 +56,10 @@ namespace WoodForestConversion.API.Conversion.DTOs
 
         private void BuildConditionTree(Job job)
         {
-
             var conditionSets = _ctx.ConditionSets.Where(cs => cs.EntityUID == job.JobUID);
             var root = conditionSets.FirstOrDefault(cs => cs.ParentSet == Guid.Empty);
             if (root == null) throw new Exception($"Job {job.JobName} is missing condition hierarchy");
-            var conditions = _ctx.Conditions
-                .Where(c => c.EntityUID == job.JobUID && c.IsLive);
+            var conditions = _ctx.Conditions.Where(c => c.EntityUID == job.JobUID && c.IsLive);
             ConditionsTree = TreeNode.BuildTree(root, conditionSets, conditions);
         }
 
@@ -133,7 +130,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
             }
         }
 
-        public void PopulateScheduleTriggers(TreeNode node)
+        public void PopulateScheduleTriggers(TreeNode node, byte style)
         {
             TimeOfDay? CalculateEndTime(SetFreqDto nodeScheduleTrigger)
             {
@@ -179,6 +176,8 @@ namespace WoodForestConversion.API.Conversion.DTOs
 
                 Elements.Add(scheduleTrigger);
 
+                if (style == (int) JobStyle.ManualTask) scheduleTrigger.Properties.SetValue("TriggerSubmitOnHold", true);
+
                 if (ExecutionFrequency == ExecutionFrequency.Once)
                 {
                     #region Runaway
@@ -211,12 +210,12 @@ namespace WoodForestConversion.API.Conversion.DTOs
             {
                 foreach (var conditionsTreeChild in node.Children)
                 {
-                    PopulateScheduleTriggers(conditionsTreeChild);
+                    PopulateScheduleTriggers(conditionsTreeChild, style);
                 }
             }
         }
 
-        public void PopulateJobDependencies(string targetJobName)
+        public void PopulateJobDependencies(string targetJobName, byte style)
         {
             if (JobConversionHelper.HandleATMCreateJob(targetJobName, Elements)) return;
             foreach (var jobDependencyId in JobDependencies)
@@ -229,7 +228,19 @@ namespace WoodForestConversion.API.Conversion.DTOs
                         ? $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{job.JobName}"
                         : $@"\{ConversionBaseHelper.JamsArchonRootFolder}\{folder}\{job.JobName}";
 
-                    Elements.Add(new JobDependency(destination));
+                    Element trigger;
+
+                    if (style == (int) JobStyle.ManualTask)
+                    {
+                        trigger = new JobCompletionTrigger(destination);
+                        trigger.Properties.SetValue("TriggerSubmitOnHold", true);
+                    }
+                    else
+                    {
+                        trigger = new JobDependency(destination);
+                    }
+
+                    Elements.Add(trigger);
                 }
                 else
                 {

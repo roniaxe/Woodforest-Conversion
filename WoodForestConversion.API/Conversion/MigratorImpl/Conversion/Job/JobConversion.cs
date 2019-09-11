@@ -39,7 +39,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 
         public override void Convert()
         {
-            ServiceModuleDictionary = CreateServiceModuleDto();
+            // ServiceModuleDictionary = CreateServiceModuleDto();
             PopulateJobConditionsDictionary();
 
             var convertedJobs = new Dictionary<string, List<MVPSI.JAMS.Job>>();
@@ -52,7 +52,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     var jamsJob = new MVPSI.JAMS.Job();
 
                     ConvertJobDetails(job, jamsJob);
-                    ConvertJobConditions(_jobConditions[job.JobUID], jamsJob);
+                    ConvertJobConditions(job, jamsJob);
                     AddJobSteps(job, jamsJob);
 
                     if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, job.JobUID))
@@ -89,10 +89,13 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
         {
             return (
                     from serviceModule in Container.GetInstance<IServiceModuleRepository>().GetAll()
-                    join executionModule in Container.GetInstance<IExecutionModuleRepository>().GetAll() on serviceModule.ModuleUID equals
-                        executionModule.ModuleUID
-                    join jobService in Container.GetInstance<IJobServiceRepository>().GetAll() on serviceModule.ServiceUID equals jobService
-                        .ServiceUID
+
+                    join executionModule in Container.GetInstance<IExecutionModuleRepository>().GetAll()
+                        on serviceModule.ModuleUID equals executionModule.ModuleUID
+
+                    join jobService in Container.GetInstance<IJobServiceRepository>().GetAll()
+                        on serviceModule.ServiceUID equals jobService.ServiceUID
+
                     where jobService.Available && jobService.Capacity > 0
                     select new ServiceModuleDto
                     {
@@ -111,7 +114,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             var partitioner = Partitioner.Create(JobConversionHelper.ArchonJobDictionary);
 
             // creation strategies.
-            var partitions = partitioner.GetPartitions(Environment.ProcessorCount);
+            var partitions = partitioner.GetPartitions(Environment.ProcessorCount * 3);
 
             // Create a task for each partition.
             var tasks = partitions.Select(p => Task.Run(() =>
@@ -152,11 +155,13 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             targetJob.Properties.SetValue("Enabled", false);
         }
 
-        private void ConvertJobConditions(JobFreqDto conditions, MVPSI.JAMS.Job targetJob)
+        private void ConvertJobConditions(Data.Job job, MVPSI.JAMS.Job targetJob)
         {
-            conditions.PopulateScheduleTriggers(conditions.ConditionsTree);
+            var conditions = _jobConditions[job.JobUID];
+
+            conditions.PopulateScheduleTriggers(conditions.ConditionsTree, job.Style);
             conditions.PopulateFileDependencies();
-            conditions.PopulateJobDependencies(targetJob.JobName);
+            conditions.PopulateJobDependencies(targetJob.JobName, job.Style);
 
             if (!conditions.Elements.Any())
                 switch (conditions.ExecutionFrequency)
@@ -186,8 +191,9 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
             sequenceTask.Properties.SetValue("ParentTaskID", Guid.Empty);
 
             var archonSteps = Container.GetInstance<IJobStepRepository>().GetAllLive()
-                .Where(js => js.JobUID == sourceJob.JobUID && !js.IsDeleted && js.IsLive)
-                .OrderBy(js => js.DisplayID).Select(js => new ArchonStepDto
+                .Where(js => js.JobUID == sourceJob.JobUID)
+                .OrderBy(js => js.DisplayID)
+                .Select(js => new ArchonStepDto
                 {
                     ArchonStepName = js.StepName,
                     ArchonConfiguration = js.ConfigurationFile,
@@ -196,6 +202,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     ExecutionModule = Container.GetInstance<IExecutionModuleRepository>().GetAll()
                         .FirstOrDefault(em => em.ModuleUID == js.ModuleUID)
                 }).ToList();
+
             if (!archonSteps.Any()) return;
 
             targetJob.SourceElements.Add(sequenceTask);
@@ -334,14 +341,9 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     {
                         var serviceNames = serviceDto.Select(dto => dto.ServiceName);
 
-                        if (mergedList == null)
-                        {
-                            mergedList = serviceNames;
-                        }
-                        else
-                        {
-                            mergedList = mergedList.Intersect(serviceNames);
-                        }
+                        mergedList = mergedList == null ?
+                            serviceNames :
+                            mergedList.Intersect(serviceNames);
                     }
                     else
                     {
