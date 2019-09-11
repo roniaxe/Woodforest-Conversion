@@ -1,9 +1,18 @@
-﻿using System;
-using System.IO;
-using WoodForestConversion.API.Conversion.Agents;
-using WoodForestConversion.API.Conversion.Folders;
-using WoodForestConversion.API.Conversion.Jobs;
-using WoodForestConversion.API.Conversion.Queues;
+﻿using LightInject;
+using System;
+using Serilog;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Condition;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ConditionSet;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobStep;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Keyword;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ServiceModule;
 
 namespace WoodForest.Conversion
 {
@@ -11,32 +20,50 @@ namespace WoodForest.Conversion
     {
         public static void Main(string[] args)
         {
-            TextWriter logWriter = null;
             try
             {
-                logWriter = File.CreateText("log.txt");
-                var jobConverter = new JobConversion(logWriter);
-                var agentConverter = new AgentConversion(logWriter);
-                var folderConverter = new FoldersConversion(logWriter);
-                //var queueConverter = new QueueConversion();
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.Console()
+                    .WriteTo.File($"WNBLog_{DateTime.Now}.log", rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
 
-                //var queues = queueConverter.Convert();
-                //jobConverter.BatchQueues = queues;
-                agentConverter.Convert();
-                folderConverter.Convert();
-                jobConverter.Convert();
-                
+                using (var container = CreateAndRegisterContainer())
+                {
+                    var jobConverter = new JobConversion(container);
+                    var agentConverter = new AgentConversion(container);
+                    var folderConverter = new FoldersConversion(container);
 
+                    agentConverter.Convert();
+                    folderConverter.Convert();
+                    jobConverter.Convert();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Logger.Error(ex, ex.Message);
                 Console.ReadKey();
             }
             finally
             {
-                logWriter?.Dispose();
+                Log.CloseAndFlush();
             }
+        }
+
+        private static ServiceContainer CreateAndRegisterContainer()
+        {
+            var container = new ServiceContainer();
+            container.SetDefaultLifetime<PerContainerLifetime>();
+            container.Register<IJobRepository, JobRepository>();
+            container.Register<ICategoryRepository, CategoryRepository>();
+            container.Register<IConditionRepository, ConditionRepository>();
+            container.Register<IConditionSetRepository, ConditionSetRepository>();
+            container.Register<IExecutionModuleRepository, ExecutionModuleRepository>();
+            container.Register<IJobServiceRepository, JobServiceRepository>();
+            container.Register<IJobStepRepository, JobStepRepository>();
+            container.Register<IKeywordRepository, KeywordRepository>();
+            container.Register<IServiceModuleRepository, ServiceModuleRepository>();
+            return container;
         }
     }
 }

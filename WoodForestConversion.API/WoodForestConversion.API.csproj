@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArchonTasksShr">
-      <HintPath>..\packages\Archon\lib\ArchonTasksShr.dll</HintPath>
+      <HintPath>..\packages\Archon\ArchonTasksShr.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -50,15 +50,34 @@
     </Reference>
     <Reference Include="JAMSShr, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7da961def3057cf2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\JAMSShr\JAMSShr.dll</HintPath>
+      <HintPath>..\packages\JAMSShr\lib\JAMSShr.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.5.5.0\lib\net46\LightInject.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Migrator">
+      <HintPath>..\packages\Migrator\lib\Migrator.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Linq.Expressions, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,21 +86,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conversion\Agents\AgentConversion.cs" />
-    <Compile Include="Conversion\Base\IConverter.cs" />
+    <Compile Include="Conversion\Enums\CategoryConverter.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Abstract\AbstractConverter.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Agent\AgentConversion.cs" />
     <Compile Include="Conversion\ConditionsTree\TreeNode.cs" />
     <Compile Include="Conversion\ConversionBase\ConversionBaseHelper.cs" />
     <Compile Include="Conversion\DTOs\ArchonStepDto.cs" />
     <Compile Include="Conversion\DTOs\JobCategoryDto.cs" />
     <Compile Include="Conversion\DTOs\ServiceModuleDto.cs" />
     <Compile Include="Conversion\DTOs\SetFreqDto.cs" />
-    <Compile Include="Conversion\Enums\CategoryConverter.cs" />
     <Compile Include="Conversion\Enums\ConditionType.cs" />
     <Compile Include="Conversion\DTOs\JobFreqDto.cs" />
-    <Compile Include="Conversion\Folders\FoldersConversion.cs" />
-    <Compile Include="Conversion\Jobs\JobConversion.cs" />
-    <Compile Include="Conversion\Jobs\JobConversionHelper.cs" />
-    <Compile Include="Conversion\Queues\QueueConversion.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Folder\FoldersConversion.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Job\JobConversion.cs" />
+    <Compile Include="Conversion\JobsHelpers\JobConversionHelper.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Category\CategoryRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Category\ICategoryRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\ConditionSet\ConditionSetRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\ConditionSet\IConditionSetRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Condition\ConditionRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Condition\IConditionRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\ExecutionModule\ExecutionModuleRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\ExecutionModule\IExecutionModuleRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\EntityFrameworkGenericRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\JobService\IJobServiceRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\JobService\JobServiceRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\JobStep\IJobStepRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\JobStep\JobStepRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Job\IJobRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Job\JobRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Keyword\IKeywordRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\Keyword\KeywordRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\ServiceModule\IServiceModuleRepository.cs" />
+    <Compile Include="Conversion\MigratorImpl\Repositories\ServiceModule\ServiceModuleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +128,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

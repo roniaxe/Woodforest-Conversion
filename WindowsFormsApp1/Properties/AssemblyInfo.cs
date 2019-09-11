@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WoodForestConversion.Data")]
+[assembly: AssemblyTitle("DataVisualization")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WoodForestConversion.Data")]
+[assembly: AssemblyProduct("DataVisualization")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1b4069af-2e77-4421-b608-b23d5885640c")]
+[assembly: Guid("787f9689-dedd-4e7f-b597-f82ef240bb88")]
 
 // Version information for an assembly consists of the following four values:
 //

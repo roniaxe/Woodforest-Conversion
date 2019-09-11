@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodForestConversion.Data",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodForestConversion.API", "WoodForestConversion.API\WoodForestConversion.API.csproj", "{57EA226D-2236-44B5-A3D9-815324EE6FBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodForestConversion.DataVisualization", "WindowsFormsApp1\WoodForestConversion.DataVisualization.csproj", "{787F9689-DEDD-4E7F-B597-F82EF240BB88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,26 +29,15 @@ Global
 		{57EA226D-2236-44B5-A3D9-815324EE6FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EA226D-2236-44B5-A3D9-815324EE6FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EA226D-2236-44B5-A3D9-815324EE6FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{787F9689-DEDD-4E7F-B597-F82EF240BB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{787F9689-DEDD-4E7F-B597-F82EF240BB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{787F9689-DEDD-4E7F-B597-F82EF240BB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{787F9689-DEDD-4E7F-B597-F82EF240BB88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22B9A183-9D03-49C7-9867-C7C06879E038}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://mvpsi.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ConversionMain\\WoodForestConversion.Main.csproj
-		SccProjectName1 = ConversionMain
-		SccLocalPath1 = ConversionMain
-		SccProjectUniqueName2 = WoodForestConversion.Data\\WoodForestConversion.Data.csproj
-		SccProjectName2 = WoodForestConversion.Data
-		SccLocalPath2 = WoodForestConversion.Data
-		SccProjectUniqueName3 = WoodForestConversion.API\\WoodForestConversion.API.csproj
-		SccProjectName3 = WoodForestConversion.API
-		SccLocalPath3 = WoodForestConversion.API
 	EndGlobalSection
 EndGlobal

@@ -5,14 +5,13 @@ using System.Linq;
 using WoodForestConversion.API.Conversion.ConditionsTree;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.Enums;
-using WoodForestConversion.API.Conversion.Jobs;
+using WoodForestConversion.API.Conversion.JobsHelpers;
 using WoodForestConversion.Data;
 using Condition = WoodForestConversion.Data.Condition;
 using Job = WoodForestConversion.Data.Job;
 
 namespace WoodForestConversion.API.Conversion.DTOs
 {
-    [Serializable]
     public class JobFreqDto
     {
         private readonly ARCHONEntities _ctx;
