@@ -60,7 +60,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
             var root = conditionSets.FirstOrDefault(cs => cs.ParentSet == Guid.Empty);
             if (root == null) throw new Exception($"Job {job.JobName} is missing condition hierarchy");
             var conditions = _ctx.Conditions.Where(c => c.EntityUID == job.JobUID && c.IsLive);
-            ConditionsTree = TreeNode.BuildTree(root, conditionSets, conditions);
+            ConditionsTree = TreeNode.GetConditionTree(root, conditionSets, conditions);
         }
 
         private void BuildElements(TreeNode node)

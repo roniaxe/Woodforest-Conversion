@@ -99,6 +99,7 @@
     <Compile Include="Conversion\DTOs\SetFreqDto.cs" />
     <Compile Include="Conversion\Enums\ConditionType.cs" />
     <Compile Include="Conversion\DTOs\JobFreqDto.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Core\SerializerHelper.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Folder\FoldersConversion.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Job\JobConversion.cs" />
     <Compile Include="Conversion\JobsHelpers\JobConversionHelper.cs" />

@@ -1,38 +1,46 @@
-﻿using LightInject;
+﻿using System;
+using LightInject;
 using MVPSI.JAMS;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
+using Serilog;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Core;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Category;
+using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder
 {
-    public class FoldersConversion : AbstractConverter
+    public class FoldersConversion : AbstractConverter<Data.Category, MVPSI.JAMS.Folder>
     {
         public FoldersConversion(ServiceContainer container) : base(container)
         {
+            Source = Container.GetInstance<ICategoryRepository>().GetAll();
         }
         public override void Convert()
         {
-            var categories = Container.TryGetInstance<ICategoryRepository>().GetAll();
-            var convertedFolders = new List<MVPSI.JAMS.Folder>();
-
-            foreach (var category in categories)
+            try
             {
-                MVPSI.JAMS.Folder folder = new MVPSI.JAMS.Folder
+                foreach (var category in Source)
                 {
-                    FolderName = category.CategoryName
-                };
-                folder.Properties.SetValue("Enabled", true);
+                    var newFolder = GetInstance();
 
-                convertedFolders.Add(folder);
+                    newFolder.FolderName = category.CategoryName;
+                    newFolder.Properties.SetValue("Enabled", true);
+
+                    Target.Add(newFolder);
+                }
+
+                SerializerHelper.Serialize(Target);
             }
-
-            Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Folders\");
-            JAMSXmlSerializer.WriteXml(convertedFolders, $@"{ConversionBaseHelper.XmlOutputLocation}\Folders\Folders.xml");
+            catch (Exception exception)
+            {
+                Log.Logger.Error(exception, exception.Message);
+                throw;
+            }
         }
     }
 }

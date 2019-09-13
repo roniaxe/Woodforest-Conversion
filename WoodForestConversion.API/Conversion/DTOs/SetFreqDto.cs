@@ -20,7 +20,7 @@ namespace WoodForestConversion.API.Conversion.DTOs
         private string _runOnSpecific;
         #endregion
 
-        public void ProcessCondition(Condition condition)
+        private void ProcessCondition(Condition condition)
         {
             switch ((ConditionType)condition.ConditionType)
             {

@@ -16,6 +16,7 @@ using WoodForestConversion.API.Conversion.DTOs;
 using WoodForestConversion.API.Conversion.Enums;
 using WoodForestConversion.API.Conversion.JobsHelpers;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Core;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.ExecutionModule;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.Job;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
@@ -25,7 +26,7 @@ using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 {
-    public class JobConversion : AbstractConverter
+    public class JobConversion : AbstractConverter<Data.Job, MVPSI.JAMS.Job>
     {
         private static readonly Random Rnd = new Random();
         private readonly Dictionary<string, MVPSI.JAMS.Agent> _connectionStoreDictionary = new Dictionary<string, MVPSI.JAMS.Agent>(StringComparer.InvariantCultureIgnoreCase);
@@ -35,6 +36,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 
         public JobConversion(ServiceContainer container) : base(container)
         {
+            Source = Container.GetInstance<IJobRepository>().GetAllLive();
         }
 
         public override void Convert()
@@ -44,26 +46,26 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
 
             var convertedJobs = new Dictionary<string, List<MVPSI.JAMS.Job>>();
 
-            foreach (var job in Container.GetInstance<IJobRepository>().GetAllLive())
+            foreach (var job in Source)
                 try
                 {
                     Log.Logger.Information($"Converting {job.JobName}");
 
-                    var jamsJob = new MVPSI.JAMS.Job();
+                    var newJob = GetInstance();
 
-                    ConvertJobDetails(job, jamsJob);
-                    ConvertJobConditions(job, jamsJob);
-                    AddJobSteps(job, jamsJob);
+                    ConvertJobDetails(job, newJob);
+                    ConvertJobConditions(job, newJob);
+                    AddJobSteps(job, newJob);
 
-                    if (JobConversionHelper.GenerateExceptions(jamsJob, convertedJobs, job.JobUID))
+                    if (JobConversionHelper.GenerateExceptions(newJob, convertedJobs, job.JobUID))
                         continue;
 
                     var jobCategoryName = JobConversionHelper.JobFolderName[job.JobUID]?.CategoryName;
 
                     if (convertedJobs.TryGetValue(jobCategoryName ?? "", out var jobForFolder))
-                        jobForFolder.Add(jamsJob);
+                        jobForFolder.Add(newJob);
                     else
-                        convertedJobs.Add(jobCategoryName ?? "", new List<MVPSI.JAMS.Job> { jamsJob });
+                        convertedJobs.Add(jobCategoryName ?? "", new List<MVPSI.JAMS.Job> { newJob });
                 }
                 catch (Exception ex)
                 {
@@ -71,10 +73,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Job
                     throw;
                 }
 
-            Container.Dispose();
-            Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\");
-            JAMSXmlSerializer.WriteXml(_connectionStoreDictionary.Values,
-                $@"{ConversionBaseHelper.XmlOutputLocation}\ConnectionStores\ConnectionStores.xml");
+            SerializerHelper.Serialize(_connectionStoreDictionary.Values, "ConnectionStores");
 
             foreach (var convertedJob in convertedJobs)
             {
