@@ -32,7 +32,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent
                     Target.Add(newAgent);
                 }
 
-                SerializerHelper.Serialize(Target);
+                SerializerHelper.Serialize(Target, "Agents");
             }
             catch (Exception exception)
             {

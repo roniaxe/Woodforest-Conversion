@@ -34,7 +34,7 @@ namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Folder
                     Target.Add(newFolder);
                 }
 
-                SerializerHelper.Serialize(Target);
+                SerializerHelper.Serialize(Target, "Folders");
             }
             catch (Exception exception)
             {
