@@ -1,39 +1,47 @@
-﻿using LightInject;
+﻿using System;
+using LightInject;
 using MVPSI.JAMS;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
+using Serilog;
 using WoodForestConversion.API.Conversion.ConversionBase;
 using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Abstract;
+using WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Core;
 using WoodForestConversion.API.Conversion.MigratorImpl.Repositories.JobService;
 using WoodForestConversion.Data;
 
 namespace WoodForestConversion.API.Conversion.MigratorImpl.Conversion.Agent
 {
-    public class AgentConversion : AbstractConverter
+    public class AgentConversion : AbstractConverter<Data.JobService, MVPSI.JAMS.Agent>
     {
         public AgentConversion(ServiceContainer container) : base(container)
         {
+            Source = Container.GetInstance<IJobServiceRepository>().GetAll();
         }
 
         public override void Convert()
         {
-            var sourceAgents = Container.GetInstance<IJobServiceRepository>().GetAll();
-            List<MVPSI.JAMS.Agent> convertedAgents = new List<MVPSI.JAMS.Agent>();
-
-            foreach (var jobService in sourceAgents)
+            try
             {
-                MVPSI.JAMS.Agent convertedAgent = new MVPSI.JAMS.Agent();
-                ConvertAgentDetails(jobService, convertedAgent);
-                convertedAgents.Add(convertedAgent);
-            }
-            Container.Dispose();
-            Directory.CreateDirectory($@"{ConversionBaseHelper.XmlOutputLocation}\Agents\");
-            JAMSXmlSerializer.WriteXml(convertedAgents, $@"{ConversionBaseHelper.XmlOutputLocation}\Agents\Agents.xml");
+                foreach (var jobService in Source)
+                {
+                    var newAgent = GetInstance();
 
+                    ConvertAgentDetails(jobService, newAgent);
+
+                    Target.Add(newAgent);
+                }
+
+                SerializerHelper.Serialize(Target, "Agents");
+            }
+            catch (Exception exception)
+            {
+                Log.Logger.Error(exception, exception.Message);
+                throw;
+            }
         }
 
-        public void ConvertAgentDetails(JobService sourceAgent, MVPSI.JAMS.Agent targetAgent)
+        private void ConvertAgentDetails(JobService sourceAgent, MVPSI.JAMS.Agent targetAgent)
         {
             targetAgent.AgentName = sourceAgent.ServiceName;
             targetAgent.Online = sourceAgent.Available;

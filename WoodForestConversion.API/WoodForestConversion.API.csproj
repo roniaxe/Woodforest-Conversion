@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversion\Enums\CategoryConverter.cs" />
+    <Compile Include="Conversion\Enums\JobStyle.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Abstract\AbstractConverter.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Agent\AgentConversion.cs" />
     <Compile Include="Conversion\ConditionsTree\TreeNode.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Conversion\DTOs\SetFreqDto.cs" />
     <Compile Include="Conversion\Enums\ConditionType.cs" />
     <Compile Include="Conversion\DTOs\JobFreqDto.cs" />
+    <Compile Include="Conversion\MigratorImpl\Conversion\Core\SerializerHelper.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Folder\FoldersConversion.cs" />
     <Compile Include="Conversion\MigratorImpl\Conversion\Job\JobConversion.cs" />
     <Compile Include="Conversion\JobsHelpers\JobConversionHelper.cs" />
